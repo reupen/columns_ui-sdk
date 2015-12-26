@@ -244,8 +244,8 @@ void uie::menu_hook_impl::add_node (const uie::menu_node_ptr & p_node)
 {
 	m_nodes.add_item(p_node);
 }
-unsigned uie::menu_hook_impl::get_children_count() const {return m_nodes.get_count();}
-void uie::menu_hook_impl::get_child(unsigned p_index, menu_node_ptr & p_out) const {p_out = m_nodes[p_index];}
+t_size uie::menu_hook_impl::get_children_count() const {return m_nodes.get_count();}
+void uie::menu_hook_impl::get_child(t_size p_index, menu_node_ptr & p_out) const {p_out = m_nodes[p_index];}
 uie::menu_node_t::type_t uie::menu_hook_impl::get_type() const {return type_popup;};
 
 bool uie::menu_hook_impl::get_display_data(pfc::string_base & p_out,unsigned & p_displayflags) const {return false;};
