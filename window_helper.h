@@ -24,11 +24,11 @@
 	return my_class_data
 
 #define __implement_get_class_data_ex(class_name,window_title,want_transparent_background,extra_wnd_bytes,styles,stylesex,classstyles) \
-	static ui_helpers::container_window::class_data my_class_data= {class_name, window_title, 0, false, want_transparent_background,extra_wnd_bytes,styles,stylesex, classstyles, true, true, true, IDC_ARROW};	\
+	static ui_helpers::container_window::class_data my_class_data= {class_name, window_title, 0, false, want_transparent_background, extra_wnd_bytes, styles, stylesex, classstyles, true, true, true, IDC_ARROW};	\
 	return my_class_data
 
 #define __implement_get_class_data_ex2(class_name,window_title,want_transparent_background, forward_system_setting_change,extra_wnd_bytes,styles,stylesex,classstyles,cursor) \
-	static ui_helpers::container_window::class_data my_class_data= {class_name, window_title, 0, false, want_transparent_background,extra_wnd_bytes,styles,stylesex, classstyles, forward_system_setting_change, forward_system_setting_change, forward_system_setting_change, cursor};	\
+	static ui_helpers::container_window::class_data my_class_data= {class_name, window_title, 0, false, want_transparent_background, extra_wnd_bytes, styles, stylesex, classstyles, forward_system_setting_change, forward_system_setting_change, forward_system_setting_change, cursor};	\
 	return my_class_data
 namespace ui_helpers {
 
@@ -48,9 +48,9 @@ namespace ui_helpers {
 			bool class_registered;
 			bool want_transparent_background;
 			int extra_wnd_bytes;
-			long styles;
-			long ex_styles;
-			long class_styles;
+			DWORD styles;
+			DWORD ex_styles;
+			UINT class_styles;
 			bool forward_system_settings_change;
 			bool forward_system_colours_change;
 			bool forward_system_time_change;
