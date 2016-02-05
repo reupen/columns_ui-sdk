@@ -209,7 +209,8 @@ namespace ui_extension
 
 		bool get_config_item(t_size index, const GUID & p_type, stream_writer * p_out) const
 		{
-			return get_config_item(index, p_type, p_out, abort_callback_impl());
+			abort_callback_dummy abort_callback;
+			return get_config_item(index, p_type, p_out, abort_callback);
 		}
 		virtual bool set_config_item(t_size index, const GUID & p_type, stream_reader * p_source, abort_callback & p_abort)
 		{
@@ -218,18 +219,21 @@ namespace ui_extension
 		template <typename class_t>
 		bool set_config_item_t(t_size index, const GUID & p_type, const class_t & p_val, abort_callback & p_abort)
 		{
-			return set_config_item(index, p_type, &stream_reader_memblock_ref(&p_val, sizeof(class_t)), p_abort);
+			stream_reader_memblock_ref reader(&p_val, sizeof(class_t));
+			return set_config_item(index, p_type, &reader, p_abort);
 		};
 
 		template <class T> bool get_config_item(t_size p_index, const GUID & p_type, T & p_out, abort_callback & p_abort) const
 		{
 			t_size written;
-			return get_config_item(p_index, p_type, &stream_writer_fixedbuffer(&p_out, sizeof(T), written), p_abort);
+			stream_writer_fixedbuffer writer(&p_out, sizeof(T), written);
+			return get_config_item(p_index, p_type, &writer, p_abort);
 		}
 
 		template <class T> bool get_config_item(t_size p_index, const GUID & p_type, T & p_out) const
 		{
-			return get_config_item(p_index, p_type, p_out, abort_callback_impl());
+			abort_callback_dummy abort_callback;
+			return get_config_item(p_index, p_type, p_out, abort_callback);
 		}
 		/** This method may be called on both active and inactive (i.e. no window) instances */
 		virtual void insert_panel(t_size index, const splitter_item_t * p_item)=0;

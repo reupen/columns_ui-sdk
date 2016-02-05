@@ -356,7 +356,8 @@ void uie::splitter_item_t::set(const splitter_item_t & p_source)
 		set_panel_guid(p_source.get_panel_guid());
 
 		p_source.get_panel_config(&temp);
-		set_panel_config(&stream_reader_memblock_ref(temp.m_data.get_ptr(), temp.m_data.get_size()), temp.m_data.get_size());
+		stream_reader_memblock_ref reader(temp.m_data.get_ptr(), temp.m_data.get_size());
+		set_panel_config(&reader, temp.m_data.get_size());
 	}
 }
 

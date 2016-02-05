@@ -298,7 +298,7 @@ namespace columns_ui
 			FB2K_MAKE_SERVICE_INTERFACE_ENTRYPOINT(client);
 
 		public:
-			static bool create_by_guid (const GUID & p_guid, class ptr & p_out);
+			static bool create_by_guid (const GUID & p_guid, ptr & p_out);
 		};
 	};
 };
