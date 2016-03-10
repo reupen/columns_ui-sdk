@@ -99,6 +99,8 @@ public:
 
 	}
 
+	using extension_base::set_config;
+
 	FB2K_MAKE_SERVICE_INTERFACE_ENTRYPOINT(visualisation);
 };
 

@@ -126,6 +126,7 @@ namespace ui_extension
 		*/
 		virtual void get_menu_items (menu_hook_t & p_hook) {};
 
+		void set_config(const void * p_data, t_size p_size, abort_callback & p_abort);
 	};
 };
 

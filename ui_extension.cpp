@@ -103,6 +103,12 @@ HWND uie::window::g_on_tab(HWND wnd_focus)
 	return rv;
 };
 
+void uie::extension_base::set_config(const void * p_data, t_size p_size, abort_callback & p_abort)
+{
+	stream_reader_memblock_ref reader(p_data, p_size);
+	return set_config(&reader, p_size, p_abort);
+}
+
 void uie::window_info_list_simple::get_name_by_guid (const GUID & in, pfc::string_base & out)
 {
 	unsigned n, count = get_count();

@@ -49,6 +49,12 @@ namespace ui_extension
 			return false;
 		}
 
+		void set_panel_config(const void * p_data, t_size p_size)
+		{
+			stream_reader_memblock_ref reader(p_data, p_size);
+			return set_panel_config(&reader, p_size);
+		}
+
 		virtual bool query(const GUID & p_guid) const {return false;}
 		virtual ~splitter_item_t() {};
 
@@ -98,6 +104,8 @@ namespace ui_extension
 		inline splitter_item_simple() : m_guid(pfc::guid_null)
 		{
 		}
+
+		using t_base::set_panel_config;
 	protected:
 		GUID m_guid;
 		pfc::array_t<t_uint8> m_data;
@@ -320,6 +328,11 @@ namespace ui_extension
 					return;
 				}
 			}
+		}
+		bool set_config_item(t_size index, const GUID & p_type, const void * p_data, t_size p_size, abort_callback & p_abort)
+		{
+			stream_reader_memblock_ref reader(p_data, p_size);
+			return set_config_item(index, p_type, &reader, p_abort);
 		}
 
 		FB2K_MAKE_SERVICE_INTERFACE(splitter_window, window);
