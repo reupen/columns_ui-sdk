@@ -188,6 +188,11 @@ namespace ui_extension{
 typedef container_ui_extension_t<ui_helpers::container_window, ui_extension::window> container_ui_extension;
 typedef container_ui_extension_t<ui_helpers::container_window,ui_extension::menu_window> container_menu_ui_extension;
 
+#if _MSC_VER >= 1800
+template <class base_window_class = uie::window>
+using containter_uie_window_t = container_ui_extension_t<ui_helpers::container_window, base_window_class>;
+#endif
+
 };
 
 
