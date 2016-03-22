@@ -107,7 +107,7 @@ HWND uie::window::g_on_tab(HWND wnd_focus)
 	return rv;
 };
 
-void uie::extension_base::set_config(const void * p_data, t_size p_size, abort_callback & p_abort)
+void uie::extension_base::set_config_from_ptr(const void * p_data, t_size p_size, abort_callback & p_abort)
 {
 	stream_reader_memblock_ref reader(p_data, p_size);
 	return set_config(&reader, p_size, p_abort);

@@ -126,7 +126,19 @@ namespace ui_extension
 		*/
 		virtual void get_menu_items (menu_hook_t & p_hook) {};
 
-		void set_config(const void * p_data, t_size p_size, abort_callback & p_abort);
+		/**
+		* \brief Helper function, set instance configuration data from raw pointer.
+		*
+		* \remarks
+		* - As set_config
+		*
+		* \throw Throws pfc::exception on failure
+		*
+		* \param [in]	p_data			Pointer to configuration data
+		* \param [in]	p_size			Size of data 
+		* \param [in]	p_abort			Signals abort of operation
+		*/
+		void set_config_from_ptr(const void * p_data, t_size p_size, abort_callback & p_abort);
 	};
 };
 
