@@ -49,7 +49,7 @@ namespace ui_extension
 			return false;
 		}
 
-		void set_panel_config(const void * p_data, t_size p_size)
+		void set_panel_config_from_ptr(const void * p_data, t_size p_size)
 		{
 			stream_reader_memblock_ref reader(p_data, p_size);
 			return set_panel_config(&reader, p_size);
@@ -104,8 +104,6 @@ namespace ui_extension
 		inline splitter_item_simple() : m_guid(pfc::guid_null)
 		{
 		}
-
-		using t_base::set_panel_config;
 	protected:
 		GUID m_guid;
 		pfc::array_t<t_uint8> m_data;
