@@ -20,6 +20,10 @@ const GUID uie::window_host_ex::class_guid =
 const GUID uie::menu_window::class_guid = 
 { 0xa2a21b5f, 0x6280, 0x47bf, { 0x85, 0x6f, 0xc5, 0xf2, 0xc1, 0x29, 0xc3, 0xea } };
 
+// {BD12FBA8-0F6E-45C8-9B38-D7421513A1EA}
+const GUID uie::menu_window_v2::class_guid =
+{ 0xbd12fba8, 0xf6e, 0x45c8,{ 0x9b, 0x38, 0xd7, 0x42, 0x15, 0x13, 0xa1, 0xea } };
+
 // {F84C1030-4407-496c-B09A-14E5EC5CA1C3}
 const GUID uie::window::class_guid =
 { 0xf84c1030, 0x4407, 0x496c, { 0xb0, 0x9a, 0x14, 0xe5, 0xec, 0x5c, 0xa1, 0xc3 } };
@@ -362,8 +366,8 @@ void uie::splitter_item_t::set(const splitter_item_t & p_source)
 		set_panel_guid(p_source.get_panel_guid());
 
 		p_source.get_panel_config(&temp);
-		stream_reader_memblock_ref reader(temp.m_data.get_ptr(), temp.m_data.get_size());
-		set_panel_config(&reader, temp.m_data.get_size());
+		stream_reader_memblock_ref p_reader(temp.m_data.get_ptr(), temp.m_data.get_size());
+		set_panel_config(&p_reader, temp.m_data.get_size());
 	}
 }
 

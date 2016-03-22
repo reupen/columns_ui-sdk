@@ -271,7 +271,7 @@ namespace ui_extension
 	};
 
 	/**
-	* \brief Subclass of ui_extension::window, specifically for menubars.
+	* \brief Subclass of ui_extension::window, specifically for menu bars.
 	*/
 	class NOVTABLE menu_window : public window
 	{
@@ -340,6 +340,28 @@ namespace ui_extension
 		virtual void hide_accelerators()=0;
 
 		FB2K_MAKE_SERVICE_INTERFACE(menu_window, window);
+	};
+
+	/**
+	* \brief Subclass of ui_extension::menu_window, with additional functions.
+	*/
+	class NOVTABLE menu_window_v2 : public menu_window
+	{
+	public:
+		/**
+		* \brief Retrieve handle of the window that was focused before the menu was.
+		*
+		* Implementations should track the previously focused window using the WM_SETFOCUS 
+		* and WM_KILLFOCUS window messages.
+		*
+		* \pre May only be called on hosted extensions.
+		* 
+		* \return HWND of the previously focused window, or nullptr if
+		*		  no such window or the menu bar is not currently focused.
+		*/
+		virtual HWND get_previous_focus_window() const = 0;
+
+		FB2K_MAKE_SERVICE_INTERFACE(menu_window_v2, menu_window);
 	};
 
 	/**

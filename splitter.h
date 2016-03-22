@@ -217,8 +217,8 @@ namespace ui_extension
 
 		bool get_config_item(t_size index, const GUID & p_type, stream_writer * p_out) const
 		{
-			abort_callback_dummy abort_callback;
-			return get_config_item(index, p_type, p_out, abort_callback);
+			abort_callback_dummy p_abort;
+			return get_config_item(index, p_type, p_out, p_abort);
 		}
 		virtual bool set_config_item(t_size index, const GUID & p_type, stream_reader * p_source, abort_callback & p_abort)
 		{
