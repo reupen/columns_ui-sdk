@@ -116,12 +116,12 @@ namespace ui_extension
 	class splitter_item_full_t : public splitter_item_t
 	{
 	public:
-		unsigned m_caption_orientation;
+		uint32_t m_caption_orientation;
 		bool m_locked;
 		bool m_hidden;
 		bool m_autohide;
 		bool m_show_caption;
-		unsigned m_size;
+		uint32_t m_size;
 		bool m_show_toggle_area;
 		bool m_custom_title;
 
@@ -139,6 +139,22 @@ namespace ui_extension
 		virtual bool query(const GUID & p_guid) const {return (p_guid == get_class_guid()) != 0;}
 	};
 
+	class splitter_item_full_v2_t : public splitter_item_full_t {
+	public:
+		uint32_t m_size_v2;
+		uint32_t m_size_v2_dpi;
+
+		static const GUID & get_class_guid()
+		{
+			// {4C0BAD6E-A0BE-4F57-981B-F94EBBEE57EF}
+			static const GUID rv =
+			{ 0x4c0bad6e, 0xa0be, 0x4f57,{ 0x98, 0x1b, 0xf9, 0x4e, 0xbb, 0xee, 0x57, 0xef } };
+			return rv;
+		}
+
+		virtual bool query(const GUID & p_guid) const { return p_guid == get_class_guid() || splitter_item_full_t::query(p_guid); }
+	};
+
 	class splitter_item_full_impl_t : public splitter_item_simple<splitter_item_full_t>
 	{
 		pfc::string8 m_title;
@@ -152,6 +168,7 @@ namespace ui_extension
 			m_title.set_string(p_title, length);
 		}
 	};
+
 	class stream_writer_fixedbuffer : public stream_writer {
 	public:
 		void write(const void * p_buffer,t_size p_bytes,abort_callback & p_abort) {
@@ -188,6 +205,8 @@ namespace ui_extension
 		static const GUID uint32_size;
 		static const GUID bool_use_custom_title;
 		static const GUID string_custom_title;
+		static const GUID uint32_size_v2;
+		static const GUID uint32_size_v2_dpi;
 
 		/**
 		* \brief Get config item supported
