@@ -155,7 +155,8 @@ namespace ui_extension
 		virtual bool query(const GUID & p_guid) const { return p_guid == get_class_guid() || splitter_item_full_t::query(p_guid); }
 	};
 
-	class splitter_item_full_impl_t : public splitter_item_simple<splitter_item_full_t>
+	template<class TBase>
+	class splitter_item_full_impl_base_t : public splitter_item_simple<TBase>
 	{
 		pfc::string8 m_title;
 	public:
@@ -168,6 +169,9 @@ namespace ui_extension
 			m_title.set_string(p_title, length);
 		}
 	};
+
+	typedef splitter_item_full_impl_base_t<splitter_item_full_t> splitter_item_full_impl_t;
+	typedef splitter_item_full_impl_base_t<splitter_item_full_v2_t> splitter_item_full_v2_impl_t;
 
 	class stream_writer_fixedbuffer : public stream_writer {
 	public:
@@ -185,7 +189,13 @@ namespace ui_extension
 		t_size & m_bytes_read;
 	};
 
-	class splitter_callback;
+	struct size_and_dpi {
+		uint32_t size;
+		uint32_t dpi;
+
+		size_and_dpi() : size(0), dpi(USER_DEFAULT_SCREEN_DPI) {}
+		size_and_dpi(uint32_t size_, uint32_t dpi_ = USER_DEFAULT_SCREEN_DPI) : size(size_), dpi(dpi_) {}
+	};
 
 	/**
 	* \brief Subclass of ui_extension::window, specifically for splitters.
@@ -205,8 +215,7 @@ namespace ui_extension
 		static const GUID uint32_size;
 		static const GUID bool_use_custom_title;
 		static const GUID string_custom_title;
-		static const GUID uint32_size_v2;
-		static const GUID uint32_size_v2_dpi;
+		static const GUID size_and_dpi;
 
 		/**
 		* \brief Get config item supported
@@ -270,9 +279,9 @@ namespace ui_extension
 		virtual t_size get_maximum_panel_count()const{return pfc_infinite;};
 
 		/** Reserved for future use */
-		virtual void register_callback(splitter_callback * p_callback){};
+		virtual void register_callback(class splitter_callback * p_callback){};
 		/** Reserved for future use */
-		virtual void deregister_callback(splitter_callback * p_callback){};
+		virtual void deregister_callback(class splitter_callback * p_callback){};
 	protected:
 		/**
 		* Return value needs deleting!! Use pfc::ptrholder_t
