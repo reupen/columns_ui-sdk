@@ -113,6 +113,24 @@ void uie::extension_base::set_config_from_ptr(const void * p_data, t_size p_size
 	return set_config(&reader, p_size, p_abort);
 }
 
+void uie::extension_base::import_config_from_ptr(const void * p_data, t_size p_size, abort_callback & p_abort)
+{
+	stream_reader_memblock_ref reader(p_data, p_size);
+	return import_config(&reader, p_size, p_abort);
+}
+
+void uie::extension_base::get_config_to_array(pfc::array_t<uint8_t> & p_data, abort_callback & p_abort, bool b_reset) const
+{
+	stream_writer_memblock_ref writer(p_data, b_reset);
+	get_config(&writer, p_abort);
+}
+
+void uie::extension_base::export_config_to_array(pfc::array_t<uint8_t> & p_data, abort_callback & p_abort, bool b_reset) const
+{
+	stream_writer_memblock_ref writer(p_data, b_reset);
+	export_config(&writer, p_abort);
+}
+
 void uie::window_info_list_simple::get_name_by_guid (const GUID & in, pfc::string_base & out)
 {
 	unsigned n, count = get_count();
