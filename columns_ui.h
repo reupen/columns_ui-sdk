@@ -284,6 +284,24 @@ namespace columns_ui
 			*/
 			virtual void set_data (stream_reader * p_reader, t_size size, t_uint32 type, t_import_feedback & feedback, abort_callback & p_abort)=0;
 
+			/**
+			* Helper function. Retrieves your data for an export.
+			*
+			* \see get_data
+			*
+			* \param [in]	type	Specifies export mode. See t_fcl_type.
+			*/
+			void get_data_to_array(pfc::array_t<uint8_t> & p_data, t_uint32 type, t_export_feedback & feedback, abort_callback & p_abort, bool b_reset = false) const;
+
+			/**
+			* Helper function. Sets your data for an import.
+			*
+			* \see set_data
+			*
+			* \param [in]	type	Specifies export mode. See t_fcl_type.
+			*/
+			void set_data_from_ptr(const void * p_data, t_size size, t_uint32 type, t_import_feedback & feedback, abort_callback & p_abort);
+
 			FB2K_MAKE_SERVICE_INTERFACE_ENTRYPOINT(dataset);
 		};
 

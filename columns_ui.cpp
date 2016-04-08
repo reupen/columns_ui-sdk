@@ -119,6 +119,18 @@ namespace columns_ui
 	const GUID fonts::client::class_guid =
 	{ 0x3fbcc2b0, 0x978e, 0x406f, { 0xa4, 0x46, 0x46, 0x77, 0xe0, 0xd4, 0xc5, 0x8e } };
 
+	void cui::fcl::dataset::get_data_to_array(pfc::array_t<uint8_t> & p_data, t_uint32 type, t_export_feedback & feedback, abort_callback & p_abort, bool b_reset) const
+	{
+		stream_writer_memblock_ref writer(p_data, b_reset);
+		get_data(&writer, type, feedback, p_abort);
+	}
+
+	void cui::fcl::dataset::set_data_from_ptr(const void * p_data, t_size size, t_uint32 type, t_import_feedback & feedback, abort_callback & p_abort)
+	{
+		stream_reader_memblock_ref reader(p_data, size);
+		return set_data(&reader, size, type, feedback, p_abort);
+	}
+
 	bool fonts::client::create_by_guid (const GUID & p_guid, client::ptr & p_out)
 	{
 		service_enum_t<client> p_enum;
