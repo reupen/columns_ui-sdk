@@ -27,11 +27,13 @@ namespace ui_extension
 
 		virtual const window_ptr & get_window_ptr()const=0;
 
+		virtual bool query(const GUID & p_guid) const {return false;}
+		virtual ~splitter_item_t() {};
+
 		template <typename t_class>
 		bool query(const t_class * & p_out) const
 		{
-			if (query(t_class::get_class_guid()))
-			{
+			if (query(t_class::get_class_guid())) {
 				p_out = static_cast<const t_class*>(this);
 				return true;
 			}
@@ -41,22 +43,23 @@ namespace ui_extension
 		template <typename t_class>
 		bool query(t_class * & p_out)
 		{
-			if (query(t_class::get_class_guid()))
-			{
+			if (query(t_class::get_class_guid())) {
 				p_out = static_cast<t_class*>(this);
 				return true;
 			}
 			return false;
 		}
 
+		void get_panel_config_to_array(pfc::array_t<uint8_t> & p_data, bool reset = false) const
+		{
+			stream_writer_memblock_ref writer(p_data, reset);
+			get_panel_config(&writer);
+		}
 		void set_panel_config_from_ptr(const void * p_data, t_size p_size)
 		{
 			stream_reader_memblock_ref reader(p_data, p_size);
 			return set_panel_config(&reader, p_size);
 		}
-
-		virtual bool query(const GUID & p_guid) const {return false;}
-		virtual ~splitter_item_t() {};
 
 		void set(const splitter_item_t & p_source);
 		splitter_item_t & operator = (const splitter_item_t & p_source)
