@@ -541,10 +541,11 @@ namespace ui_extension{
 		* \pre You must populate the list first
 		*/
 		void get_name_by_guid (const GUID & in, pfc::string_base & out);
+		
 		/**
 		* \brief Helper function to sort the extensions, first by category, then by name.
 		*/
-		inline void sort()
+		void sort()
 		{
 			pfc::list_t<window_info_simple>::sort_t(compare);
 		}

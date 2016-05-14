@@ -322,7 +322,7 @@ namespace ui_extension
 		inline bool move_down(t_size p_index)
 		{
 			t_size count = get_panel_count();
-			if (p_index >= 0 && p_index < (count-1))
+			if (p_index < (count-1))
 			{
 				swap_items(p_index, p_index+1);
 				return true;

@@ -165,19 +165,21 @@ namespace ui_extension{
 			else
 			{
 				p_host = host; //store interface to host
-				create(parent, get_create_param(), p_position);
+				this->create(parent, get_create_param(), p_position);
 			}
 
 			return W::get_wnd();
 		}
-		virtual void destroy_window() {destroy();p_host.release();}
+		virtual void destroy_window()
+		{
+			this->destroy();
+			p_host.release();
+		}
 
 		virtual bool is_available(const window_host_ptr & p)const {return true;}
 		const window_host_ptr & get_host() const {return p_host;}
-		virtual HWND get_wnd()const{return container_window::get_wnd();}
+		virtual HWND get_wnd()const{return W::get_wnd();}
 
-		//override me
-		virtual void set_config(stream_reader * p_reader){};
 		virtual LPVOID get_create_param() {return this;} //lpCreateParams in CREATESTRUCT struct in WM_NCCREATE/WM_CREATE is a pointer to an array of LPVOIDs. This is the second LPVOID in the array.
 	};
 
