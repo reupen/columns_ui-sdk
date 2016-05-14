@@ -545,9 +545,10 @@ namespace ui_extension{
 		/**
 		* \brief Helper function to sort the extensions, first by category, then by name.
 		*/
-		void sort()
+
+		void sort_by_category_and_name()
 		{
-			pfc::list_t<window_info_simple>::sort_t(compare);
+			sort_t(compare);
 		}
 	};
 
