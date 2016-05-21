@@ -322,12 +322,12 @@ namespace ui_extension{
 			else
 			{
 				m_host = host; //store interface to host
-				create(parent, get_create_param(), p_position);
+				this->create(parent, get_create_param(), p_position);
 			}
 
 			return W::get_wnd();
 		}
-		virtual void destroy_window() {destroy();m_host.release();}
+		virtual void destroy_window() {this->destroy();m_host.release();}
 
 		virtual bool is_available(const window_host_ptr & p)const {return true;}
 		const window_host_ptr & get_host() const {return m_host;}
