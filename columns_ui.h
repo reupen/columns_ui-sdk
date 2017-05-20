@@ -51,6 +51,30 @@ namespace columns_ui
 	}
 
 	/**
+	 * \brief Namespace containing Columns UI config_object GUIDs and 
+	 * related helper functions
+	 *
+	 * \see See config_object, config_object_notify and config_object_notify_impl_simple
+	 */
+	namespace config_objects
+	{
+		extern const GUID guid_bool_locked_panel_resizing_allowed;
+
+		/**
+		 * \brief Gets whether resizing of locked panels should be allowed.
+		 * 
+		 * \remarks
+		 * - In Columns UI 0.5.1 and older, this always returns true.
+		 * 
+		 * \return Current value of 'Allow locked panel resizing' setting.
+		 */
+		inline bool get_locked_panel_resizing_allowed()
+		{
+			return config_object::g_get_data_bool_simple(guid_bool_locked_panel_resizing_allowed, true);
+		}
+	}
+
+	/**
 	* \brief Service exposing Columns UI control methods
 	* \remarks
 	* - One implementation in Columns UI, do not reimplement.
