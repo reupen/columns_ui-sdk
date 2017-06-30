@@ -176,9 +176,9 @@ namespace ui_extension{
 			p_host.release();
 		}
 
-		virtual bool is_available(const window_host_ptr & p)const {return true;}
-		const window_host_ptr & get_host() const {return p_host;}
-		virtual HWND get_wnd()const{return W::get_wnd();}
+		virtual bool is_available(const window_host_ptr& p) const {return true;}
+		const window_host_ptr& get_host() const {return p_host;}
+		virtual HWND get_wnd() const {return W::get_wnd();}
 
 		virtual LPVOID get_create_param() {return this;} //lpCreateParams in CREATESTRUCT struct in WM_NCCREATE/WM_CREATE is a pointer to an array of LPVOIDs. This is the second LPVOID in the array.
 	};
