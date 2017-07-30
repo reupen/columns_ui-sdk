@@ -17,7 +17,7 @@ namespace ui_extension
 	{
 	public:
 		/** State of the menu item */
-		enum state_t
+		enum state_t : unsigned
 		{
 			state_checked = (1<<0),
 			state_disabled = (1<<1),
