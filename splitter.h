@@ -192,12 +192,18 @@ namespace ui_extension
 		t_size & m_bytes_read;
 	};
 
+#ifndef USER_DEFAULT_SCREEN_DPI
+#define CUI_SDK_DEFAULT_DPI 96
+#else
+#define CUI_SDK_DEFAULT_DPI USER_DEFAULT_SCREEN_DPI
+#endif
+
 	struct size_and_dpi {
 		uint32_t size;
 		uint32_t dpi;
 
-		size_and_dpi() : size(0), dpi(USER_DEFAULT_SCREEN_DPI) {}
-		size_and_dpi(uint32_t size_, uint32_t dpi_ = USER_DEFAULT_SCREEN_DPI) : size(size_), dpi(dpi_) {}
+		size_and_dpi() : size(0), dpi(CUI_SDK_DEFAULT_DPI) {}
+		size_and_dpi(uint32_t size_, uint32_t dpi_ = CUI_SDK_DEFAULT_DPI) : size(size_), dpi(dpi_) {}
 	};
 
 	/**
