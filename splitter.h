@@ -60,13 +60,6 @@ namespace ui_extension
 			stream_reader_memblock_ref reader(p_data, p_size);
 			return set_panel_config(&reader, p_size);
 		}
-
-		void set(const splitter_item_t & p_source);
-		splitter_item_t & operator = (const splitter_item_t & p_source)
-		{
-			set(p_source);
-			return *this;
-		}
 	};
 
 	typedef pfc::ptrholder_t<splitter_item_t> splitter_item_ptr;
@@ -77,19 +70,16 @@ namespace ui_extension
 	{
 	public:
 		virtual const GUID & get_panel_guid()const {return m_guid;}
-		virtual void get_panel_config (stream_writer * p_out)const 
+		virtual void get_panel_config (stream_writer * p_out) const 
 		{
 			abort_callback_impl p_abort;
 			p_out->write(m_data.get_ptr(), m_data.get_size(), p_abort);
 		}
 		virtual void set_panel_guid(const GUID & p_guid) 
 		{
-			//if (m_guid != p_guid)
-			{
-				m_guid = p_guid;
-				m_data.set_size(0);
-				m_ptr.release();
-			}
+			m_guid = p_guid;
+			m_data.set_size(0);
+			m_ptr.release();
 		}
 		virtual void set_panel_config (stream_reader * p_reader, t_size p_size) 
 		{
@@ -99,16 +89,8 @@ namespace ui_extension
 		}
 		virtual const window_ptr & get_window_ptr()const{return m_ptr;}
 		void set_window_ptr(const window_ptr & p_source){m_ptr = p_source;}
-
-		inline splitter_item_simple(const splitter_item_t & p_source) 
-		{
-			set(p_source);
-		}
-		inline splitter_item_simple() : m_guid(pfc::guid_null)
-		{
-		}
 	protected:
-		GUID m_guid;
+		GUID m_guid{};
 		pfc::array_t<t_uint8> m_data;
 		window_ptr m_ptr;
 	};
@@ -119,19 +101,19 @@ namespace ui_extension
 	class splitter_item_full_t : public splitter_item_t
 	{
 	public:
-		uint32_t m_caption_orientation;
-		bool m_locked;
-		bool m_hidden;
-		bool m_autohide;
-		bool m_show_caption;
-		uint32_t m_size;
-		bool m_show_toggle_area;
-		bool m_custom_title;
+		uint32_t m_caption_orientation{};
+		bool m_locked{};
+		bool m_hidden{};
+		bool m_autohide{};
+		bool m_show_caption{};
+		uint32_t m_size{};
+		bool m_show_toggle_area{};
+		bool m_custom_title{};
 
 		virtual void get_title(pfc::string_base & p_out)const=0;
 		virtual void set_title(const char * p_title, t_size length)=0;
 
-		static const GUID & get_class_guid()
+		static const GUID& get_class_guid()
 		{
 			// {57C8EEAE-0D4F-486a-8769-FFFCB4B4349B}
 			static const GUID rv = 
@@ -139,15 +121,15 @@ namespace ui_extension
 			return rv;
 		}
 
-		virtual bool query(const GUID & p_guid) const {return (p_guid == get_class_guid()) != 0;}
+		bool query(const GUID & p_guid) const override {return p_guid == get_class_guid();}
 	};
 
 	class splitter_item_full_v2_t : public splitter_item_full_t {
 	public:
-		uint32_t m_size_v2;
-		uint32_t m_size_v2_dpi;
+		uint32_t m_size_v2{};
+		uint32_t m_size_v2_dpi{};
 
-		static const GUID & get_class_guid()
+		static const GUID& get_class_guid()
 		{
 			// {4C0BAD6E-A0BE-4F57-981B-F94EBBEE57EF}
 			static const GUID rv =
@@ -155,7 +137,55 @@ namespace ui_extension
 			return rv;
 		}
 
-		virtual bool query(const GUID & p_guid) const { return p_guid == get_class_guid() || splitter_item_full_t::query(p_guid); }
+		bool query(const GUID & p_guid) const override { return p_guid == get_class_guid() || splitter_item_full_t::query(p_guid); }
+	};
+
+	/**
+	 * \brief Splitter item implementing support for additional data
+	 * 
+	 * Use this when your splitter window needs to store additional data
+	 * for each child panel that's not covered by the standard variables.
+	 * 
+	 * \note You can use splitter_item_full_v3_impl_t rather than implementing
+	 *       this class. Alternatively, you can derive from 
+	 *       splitter_item_full_v3_base_t.
+	 */
+	class splitter_item_full_v3_t : public splitter_item_full_v2_t {
+	public:
+		/**
+		 * \brief Gets the additional data associated with this splitter item
+		 * 
+		 * \note
+		 * Check that get_extra_data_format_id() matches your format ID before
+		 * calling this, as splitter items from other splitter windows may be
+		 * inserted into your window.
+		 *
+		 * \note
+		 * The data returned by this function may be serialised and passed 
+		 * between foobar2000 instances via the clipboard. And, at some point, you
+		 * may find that you need to change the structure of the data. Make sure 
+		 * that your code handles such changes gracefully.
+		 * 
+		 * \param writer Stream that receives the additional data.
+		 */
+		virtual void get_extra_data(stream_writer* writer) const = 0;
+
+		/**
+		 * \brief Gets a GUID to identify the format of the data returned by 
+		 *        get_extra_data()
+		 * \return The format identifier
+		 */
+		virtual GUID get_extra_data_format_id() const = 0;
+
+		static const GUID& get_class_guid()
+		{
+			// {9B0FB084-0580-4BA7-B7D9-AA2255EEDEA8}
+			static const GUID rv =
+			{0x9b0fb084, 0x580, 0x4ba7,{0xb7, 0xd9, 0xaa, 0x22, 0x55, 0xee, 0xde, 0xa8}};
+			return rv;
+		}
+
+		bool query(const GUID & p_guid) const override { return p_guid == get_class_guid() || splitter_item_full_t::query(p_guid); }
 	};
 
 	template<class TBase>
@@ -173,8 +203,26 @@ namespace ui_extension
 		}
 	};
 
-	typedef splitter_item_full_impl_base_t<splitter_item_full_t> splitter_item_full_impl_t;
-	typedef splitter_item_full_impl_base_t<splitter_item_full_v2_t> splitter_item_full_v2_impl_t;
+	using splitter_item_full_impl_t = splitter_item_full_impl_base_t<splitter_item_full_t>;
+	using splitter_item_full_v2_impl_t = splitter_item_full_impl_base_t<splitter_item_full_v2_t>;
+	using splitter_item_full_v3_base_t = splitter_item_full_impl_base_t<splitter_item_full_v3_t>;
+
+	/**
+	 * \brief Implements splitter_item_full_v3_t
+	 */
+	class splitter_item_full_v3_impl_t : public uie::splitter_item_full_v3_base_t {
+	public:
+		pfc::array_t<t_uint8> m_extra_data;
+		GUID m_extra_data_format_id{};
+
+		void get_extra_data(stream_writer* writer) const override
+		{
+			abort_callback_dummy aborter;
+			writer->write(m_extra_data.get_ptr(), m_extra_data.get_size(), aborter);
+		}
+
+		GUID get_extra_data_format_id() const override { return m_extra_data_format_id; }
+	};
 
 	class stream_writer_fixedbuffer : public stream_writer {
 	public:

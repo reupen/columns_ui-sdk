@@ -380,18 +380,6 @@ void stream_to_mem_block(stream_reader * p_source, pfc::array_t<t_uint8> & p_out
 	}
 }
 
-void uie::splitter_item_t::set(const splitter_item_t & p_source)
-{
-	stream_writer_memblock temp;
-	{
-		set_panel_guid(p_source.get_panel_guid());
-
-		p_source.get_panel_config(&temp);
-		stream_reader_memblock_ref p_reader(temp.m_data.get_ptr(), temp.m_data.get_size());
-		set_panel_config(&p_reader, temp.m_data.get_size());
-	}
-}
-
 /**
 * \mainpage					Columns UI SDK
 *
