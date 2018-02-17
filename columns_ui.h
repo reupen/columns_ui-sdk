@@ -7,7 +7,7 @@
 */
 
 /** \brief Namespace containing all Columns UI definitions */
-namespace columns_ui 
+namespace cui
 {
 	/** \brief Namespace containting standard Columns UI toolbar GUIDs */
 	namespace toolbars
@@ -408,7 +408,5 @@ namespace columns_ui
 		};
 	}
 }
-
-#define cui columns_ui
 
 #endif //_COLUMNS_API_COLUMNS_H_

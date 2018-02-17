@@ -145,4 +145,7 @@ namespace ui_extension
 #include "columns_ui.h"
 #include "columns_ui_appearance.h"
 
+namespace ui_extension = uie;
+namespace columns_ui = cui;
+
 #endif
