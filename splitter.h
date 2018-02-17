@@ -6,7 +6,7 @@
 * \brief Splitter Window API
 */
 
-namespace ui_extension
+namespace uie
 {
 
 	/**
@@ -255,7 +255,7 @@ namespace ui_extension
 	};
 
 	/**
-	* \brief Subclass of ui_extension::window, specifically for splitters.
+	* \brief Subclass of uie::window, specifically for splitters.
 	*
 	* Splitter classes must support multiple instances
 	*/
@@ -422,7 +422,7 @@ namespace ui_extension
 	};
 
 	/**
-	* \brief	Extends ui_extension::splitter_window, providing additional methods used for live editing.
+	* \brief	Extends uie::splitter_window, providing additional methods used for live editing.
 	* 
 	* New in SDK version 6.5.
 	*/
@@ -446,7 +446,7 @@ namespace ui_extension
 		/**
 		* \brief Checks if windows can be inserted into this splitter. Used for live editing.
 		* 
-		* Implement this by calling ui_extension::window::is_available on each window.
+		* Implement this by calling uie::window::is_available on each window.
 		*
 		* \param  [in]	p_windows				List of windows to check.
 		* \param  [out]	p_mask_unsupported		A bit array the same size as the number of windows in p_windows. 

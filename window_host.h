@@ -6,7 +6,7 @@
 * \brief Window Host API
 */
 
-namespace ui_extension{
+namespace uie{
 
 /**
 * \brief Interface for window_host service.
@@ -40,7 +40,7 @@ public:
 	 * \param[in] wnd window handle of the extension's window
 	 * \param[in] flags a combination of SLC_* flags indicating which size limits changed
 	 *
-	 * \see ui_extension::size_limit_flag_t
+	 * \see uie::size_limit_flag_t
 	 */
 	virtual void on_size_limit_change(HWND wnd, unsigned flags)=0;
 
@@ -53,7 +53,7 @@ public:
 	*
 	* \pre May only be called by a hosted UI extension.
 	*
-	* \see ui_extension::resize_flag_t
+	* \see uie::resize_flag_t
 	*/
 	virtual unsigned is_resize_supported(HWND wnd)const=0;
 
@@ -68,7 +68,7 @@ public:
 	* \return   combination of uie::size_height and uie::size_width to indicate whether
 	*           the width or height is being modified
 	*
-	* \see ui_extension::resize_flag_t
+	* \see uie::resize_flag_t
 	*/
 	virtual bool request_resize(HWND wnd, unsigned flags, unsigned width, unsigned height)=0;
 

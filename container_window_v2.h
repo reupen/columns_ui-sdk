@@ -296,7 +296,7 @@ namespace ui_helpers
 	typedef container_window_v2_t<pfc::refcounted_object_root> popup_container_window;
 }
 
-namespace ui_extension{
+namespace uie{
 
 	/** \brief
 	* Wraps ui_helpers::container_window_v2_t into a panel 

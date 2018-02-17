@@ -1,7 +1,7 @@
 #ifndef _COLUMNS_UI_APPEARANCE_
 #define _COLUMNS_UI_APPEARANCE_
 
-namespace columns_ui
+namespace cui
 {
 	namespace colours
 	{

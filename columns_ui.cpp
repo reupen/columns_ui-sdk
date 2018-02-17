@@ -1,6 +1,6 @@
 #include "ui_extension.h"
 
-namespace columns_ui
+namespace cui
 {
 	namespace fcl
 	{
