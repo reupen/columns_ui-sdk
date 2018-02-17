@@ -1,9 +1,9 @@
 #ifndef _COLUMNS_SDK_BASE_H_
 #define _COLUMNS_SDK_BASE_H_
 
-namespace ui_extension
+namespace uie
 {
-	/** \brief Base class for ui_extension::window and ui_extension::visualisation classes */
+	/** \brief Base class for uie::window and uie::visualisation classes */
 	class NOVTABLE extension_base : public service_base
 	{
 	public:

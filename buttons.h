@@ -7,7 +7,7 @@
 */
 
 
-namespace ui_extension
+namespace uie
 {
 
 enum t_mask {
@@ -256,7 +256,7 @@ public:
 	FB2K_MAKE_SERVICE_INTERFACE(button_v2, button);
 };
 
-/** \brief Sub-class of ui_extension::button, for buttons based upon a context menu item */
+/** \brief Sub-class of uie::button, for buttons based upon a context menu item */
 class NOVTABLE menu_button : public button
 {
 public:
@@ -272,7 +272,7 @@ public:
 	FB2K_MAKE_SERVICE_INTERFACE(menu_button, button);
 };
 
-/** \brief Sub-class of ui_extension::button, for buttons that implement their own command */
+/** \brief Sub-class of uie::button, for buttons that implement their own command */
 class NOVTABLE custom_button : public button
 {
 public:
@@ -308,8 +308,8 @@ public:
 
 	static bool g_button_get_name(const GUID & p_guid, pfc::string_base & p_out)
 	{
-		service_enum_t<ui_extension::button> e;
-		service_ptr_t<ui_extension::button> ptr;
+		service_enum_t<uie::button> e;
+		service_ptr_t<uie::button> ptr;
 		service_ptr_t<uie::custom_button> p_button;
 		while(e.next(ptr))
 		{

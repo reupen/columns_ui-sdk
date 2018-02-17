@@ -6,7 +6,7 @@
 * \brief Visualisation Renderer API
 */
 
-namespace ui_extension
+namespace uie
 {
 
 /**
@@ -84,7 +84,7 @@ public:
 	 */
 	static inline void create_by_guid(const GUID & guid, visualisation_ptr & p_out)
 	{
-		service_enum_t<ui_extension::visualisation> e;
+		service_enum_t<uie::visualisation> e;
 		visualisation_ptr ptr;
 
 		

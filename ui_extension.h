@@ -3,8 +3,6 @@
 
 #define UI_EXTENSION_VERSION "6.5"
 
-#define uie ui_extension
-
 #include "../foobar2000/SDK/foobar2000.h"
 
 /**
@@ -44,7 +42,7 @@ public:
  /**
  * \brief Namespace for UI Extension services
  */
-namespace ui_extension
+namespace uie
 {
 
 	 /**
@@ -97,7 +95,7 @@ namespace ui_extension
 	 *
 	 * Combine multiple flags using bitwise or.
 	 *
-	 * \see ui_extension::window_host::on_size_limit_change
+	 * \see uie::window_host::on_size_limit_change
 	 */
 	enum resize_flag_t
 	{
@@ -130,6 +128,8 @@ namespace ui_extension
 
 	static const window_ptr window_ptr_null = window_ptr();
 }
+
+namespace ui_extension = uie;
 
 #include "menu.h"
 #include "window_host.h"

@@ -144,9 +144,6 @@ void uie::window_info_list_simple::get_name_by_guid (const GUID & in, pfc::strin
 	}
 }
 
-//template <class T>
-//int ui_extension_info_list_simple::sort_base<T>::ui_extension_list_sort_callback::compare(const T &n1,const T &n2)
-
 void uie::menu_hook_impl::fix_ampersand(const char * src,pfc::string_base & out)
 {
 	unsigned ptr = 0;
@@ -316,7 +313,7 @@ bool uie::window::g_process_keydown_keyboard_shortcuts(WPARAM wp)
 	return static_api_ptr_t<keyboard_shortcut_manager_v2>()->process_keydown_simple(get_key_code(wp));
 }
 
-namespace ui_extension
+namespace uie
 {
 
 // {4673437D-1685-433f-A2CC-3864D609F4E2}
@@ -389,8 +386,6 @@ void stream_to_mem_block(stream_reader * p_source, pfc::array_t<t_uint8> & p_out
 * - Create windows controlled by a host and embedded in the host's window
 * - Provide information about commands to be used as a toolbar button
 *
-* The uie namespace is synonymous with the ui_extension namespace.
-*
 * \section		install_sec	Installation
 *
 * You'll need:
@@ -407,33 +402,33 @@ void stream_to_mem_block(stream_reader * p_source, pfc::array_t<t_uint8> & p_out
 * \section		panel_sec	Panel APIs
 * \subsection	step1		APIs
 *
-* Clients should implement ui_extension::window.
+* Clients should implement uie::window.
 * Specific sub-classes exist for
-* - Menus: ui_extension::menu_window
-* - Playlists: ui_extension::playlist_window
-* - Splitter panels: ui_extension::splitter_window
+* - Menus: uie::menu_window
+* - Playlists: uie::playlist_window
+* - Splitter panels: uie::splitter_window
 * 
-* Hosts should implement ui_extension::window_host.
-* Hosts wishing to expose extnernal control methods can implement ui_extension::window_host_with_control instead.
+* Hosts should implement uie::window_host.
+* Hosts wishing to expose external control methods can implement uie::window_host_with_control instead.
 * 
 * \subsection	step2		Helpers
 *
 * The prefered method of implementing the window class is to derive from
-* ui_extension::container_ui_extension.
+* uie::container_ui_extension.
 * Single instance panels or dialog-based panels may wish to derive from
-* ui_extension::window_base_t instead.
+* uie::window_base_t instead.
 *
-* Deriving directly from ui_extension::window is generally not needed.
+* Deriving directly from uie::window is generally not needed.
 *  
 * \section		button_sec	Button APIs
 * \subsection	ss_buttons	APIs
 *
-* The base class for buttons is ui_extension::button.
+* The base class for buttons is uie::button.
 *
 * If you wish to provide default bitmaps and additional information
-* for your menu items, derive from ui_extension::menu_button.
+* for your menu items, derive from uie::menu_button.
 * If you wish to implement a custom button not not based upon a menu item,
-* derive from ui_extension::custom_button.
+* derive from uie::custom_button.
 *
 * \section		columns_sec	Standard windows
 *

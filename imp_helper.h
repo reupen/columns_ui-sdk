@@ -7,7 +7,7 @@
  * \author Holger Stenger, musicmusic
  */
 
-namespace ui_extension{
+namespace uie{
 
 	template< window_type_t t_window_type, typename t_base = window >
 	class NOVTABLE window_base_t : public t_base

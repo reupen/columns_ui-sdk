@@ -51,7 +51,7 @@ namespace ui_helpers
 	extern const window_position_t window_position_null;
 };
 
-namespace ui_extension
+namespace uie
 {
 
 	/** \brief Class describing the size limits of a window */
@@ -120,9 +120,9 @@ namespace ui_extension
 		/**
 		* \brief Gets the type of the extension.
 		*
-		* \return				a combination of ui_extension::type_* flags
+		* \return				a combination of uie::type_* flags
 		*
-		* \see ui_extension::window_type_t
+		* \see uie::window_type_t
 		*/
 		virtual unsigned get_type() const =0;
 
@@ -271,7 +271,7 @@ namespace ui_extension
 	};
 
 	/**
-	* \brief Subclass of ui_extension::window, specifically for menu bars.
+	* \brief Subclass of uie::window, specifically for menu bars.
 	*/
 	class NOVTABLE menu_window : public window
 	{
@@ -343,7 +343,7 @@ namespace ui_extension
 	};
 
 	/**
-	* \brief Subclass of ui_extension::menu_window, with additional functions.
+	* \brief Subclass of uie::menu_window, with additional functions.
 	*/
 	class NOVTABLE menu_window_v2 : public menu_window
 	{
@@ -365,7 +365,7 @@ namespace ui_extension
 	};
 
 	/**
-	* \brief Subclass of ui_extension::window for playlist views
+	* \brief Subclass of uie::window for playlist views
 	*/
 	class NOVTABLE playlist_window : public window
 	{
@@ -381,8 +381,8 @@ namespace ui_extension
 		FB2K_MAKE_SERVICE_INTERFACE(playlist_window, window);
 	};
 
-	/** \brief Standard implementation of ui_extension::menu_node_command_t, for an "Options" menu item */
-	class menu_node_configure : public ui_extension::menu_node_command_t
+	/** \brief Standard implementation of uie::menu_node_command_t, for an "Options" menu item */
+	class menu_node_configure : public uie::menu_node_command_t
 	{
 		window_ptr p_this;
 		pfc::string8 m_title;
@@ -422,18 +422,18 @@ class window_implementation : public T
 protected:
 	window_implementation() {};
 
-	friend ui_extension::window_factory<T>;
-	friend ui_extension::window_factory_single<T>;
-	friend ui_extension::window_factory_transparent_single<T>;
+	friend uie::window_factory<T>;
+	friend uie::window_factory_single<T>;
+	friend uie::window_factory_transparent_single<T>;
 };
 
-namespace ui_extension{
+namespace uie{
 
 	/**
 	* \brief Service factory for multiple instance windows.
 	* \par Usage example
 	* \code
-	* static window_factory< my_ui_extension > foo_extension;
+	* static window_factory< my_uie > foo_extension;
 	* \endcode
 	*/
 	template<class T>

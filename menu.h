@@ -2,7 +2,7 @@
 #define _COLUMNS_UI_SDK_MENU_H_
 
 
-namespace ui_extension
+namespace uie
 {
 	/**
 	* \brief Menu item interface class.
