@@ -3,6 +3,11 @@
 
 #define UI_EXTENSION_VERSION "6.5"
 
+// Included first, because pfc.h includes winsock2.h
+#include "../pfc/pfc.h"
+
+#include <shlwapi.h>
+
 #include "../foobar2000/SDK/foobar2000.h"
 
 /**

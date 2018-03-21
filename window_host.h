@@ -308,7 +308,7 @@ template<class T>
 class window_host_factory_single : public service_factory_single_t<T> 
 {
 public:
-	inline operator uie::window_host_ptr () {return uie::window_host_ptr(&get_my_instance());}
+	inline operator uie::window_host_ptr () {return uie::window_host_ptr(&this->get_my_instance());}
 };
 
 /**
