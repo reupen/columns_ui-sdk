@@ -25,7 +25,7 @@ namespace uie{
 
 		virtual bool is_available(window_host * p_host) const
 		{
-			if (get_is_single_instance()) {
+			if (this->get_is_single_instance()) {
 				return !p_host.is_valid() || p_host->get_host_guid() != m_host->get_host_guid();
 			} else {
 				return true;
