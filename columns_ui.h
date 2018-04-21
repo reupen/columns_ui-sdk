@@ -10,23 +10,51 @@
 namespace cui {
 /** \brief Namespace containting standard Columns UI toolbar GUIDs */
 namespace toolbars {
-extern const GUID guid_menu, guid_buttons, guid_playback_order, guid_spectrum_analyser, guid_seek_bar,
-    guid_volume_control, guid_filter_search_bar;
-}
+constexpr GUID guid_buttons{0xd8e65660, 0x64ed, 0x42e7, {0x85, 0xb, 0x31, 0xd8, 0x28, 0xc2, 0x52, 0x94}};
+
+constexpr GUID guid_menu{0x76e6db50, 0xde3, 0x4f30, {0xa7, 0xe4, 0x93, 0xfd, 0x62, 0x8b, 0x14, 0x1}};
+
+constexpr GUID guid_playback_order{0xaba09e7e, 0x9c95, 0x443e, {0xbd, 0xfc, 0x4, 0x9d, 0x66, 0xb3, 0x24, 0xa0}};
+
+constexpr GUID guid_spectrum_analyser{0xd947777c, 0x94c7, 0x409a, {0xb0, 0x2c, 0x9b, 0xe, 0xb9, 0xe3, 0x74, 0xfa}};
+
+constexpr GUID guid_seek_bar{0x678fe380, 0xabbb, 0x4c72, {0xa0, 0xb3, 0x72, 0xe7, 0x69, 0x67, 0x11, 0x25}};
+
+constexpr GUID guid_volume_control{0xb3259290, 0xcb68, 0x4d37, {0xb0, 0xf1, 0x80, 0x94, 0x86, 0x2a, 0x95, 0x24}};
+
+constexpr GUID guid_filter_search_bar{0x6e3b8b17, 0xaebd, 0x40d2, {0xa1, 0xf, 0x9d, 0x3a, 0xcf, 0x74, 0xf0, 0x91}};
+} // namespace toolbars
 /** \brief Namespace containting standard Columns UI panel GUIDs */
 namespace panels {
-extern const GUID guid_playlist_view, guid_playlist_switcher, guid_playlist_tabs, guid_horizontal_splitter,
-    guid_vertical_splitter, guid_playlist_view_v2, guid_filter, guid_artwork_view, guid_item_properties,
-    guid_item_details;
-}
+constexpr GUID guid_playlist_switcher{0xc2cf9425, 0x540, 0x4579, {0xab, 0x3f, 0x13, 0xe2, 0x17, 0x66, 0x3d, 0x9b}};
+
+constexpr GUID guid_playlist_tabs{0xabb72d0d, 0xdbf0, 0x4bba, {0x8c, 0x68, 0x33, 0x57, 0xeb, 0xe0, 0x7a, 0x4d}};
+
+[[deprecated]] constexpr GUID guid_playlist_view{
+    0xf20bed8f, 0x225b, 0x46c3, {0x9f, 0xc7, 0x45, 0x4c, 0xed, 0xb6, 0xcd, 0xad}};
+
+constexpr GUID guid_vertical_splitter{0x77653a44, 0x66d1, 0x49e0, {0x9a, 0x7a, 0x1c, 0x71, 0x89, 0x8c, 0x4, 0x41}};
+
+constexpr GUID guid_horizontal_splitter{0x8fa0bc24, 0x882a, 0x4fff, {0x8a, 0x3b, 0x21, 0x5e, 0xa7, 0xfb, 0xd0, 0x7f}};
+
+constexpr GUID guid_filter{0xfb059406, 0xdddd, 0x4bd0, {0x8a, 0x11, 0x42, 0x42, 0x85, 0x4c, 0xbb, 0xa5}};
+
+constexpr GUID guid_artwork_view{0xdeead6ec, 0xf0b9, 0x4919, {0xb1, 0x6d, 0x28, 0xa, 0xed, 0xde, 0x73, 0x43}};
+
+constexpr GUID guid_playlist_view_v2{0xfb059406, 0x5f14, 0x4bd0, {0x8a, 0x11, 0x42, 0x42, 0x85, 0x4c, 0xbb, 0xa5}};
+
+constexpr GUID guid_item_details{0x59b4f428, 0x26a5, 0x4a51, {0x89, 0xe5, 0x39, 0x45, 0xd3, 0x27, 0xb4, 0xcb}};
+
+constexpr GUID guid_item_properties{0x8f6069cd, 0x2e36, 0x4ead, {0xb1, 0x71, 0x93, 0xf3, 0xdf, 0xf0, 0x7, 0x3a}};
+} // namespace panels
 /** \brief Namespace containting standard Columns UI visualisation GUIDs */
 namespace visualisations {
-extern const GUID guid_spectrum_analyser;
+constexpr GUID guid_spectrum_analyser{0xd947777c, 0x94c7, 0x409a, {0xb0, 0x2c, 0x9b, 0xe, 0xb9, 0xe3, 0x74, 0xfa}};
 }
 
 /** \brief Namespace containting Columns UI string GUIDs */
 namespace strings {
-extern const GUID guid_global_variables;
+constexpr GUID guid_global_variables{0x493d419a, 0xcbb3, 0x4b8a, {0x8f, 0xb8, 0x28, 0xde, 0x2a, 0xe2, 0xf3, 0x6f}};
 }
 
 /**
@@ -36,7 +64,8 @@ extern const GUID guid_global_variables;
  * \see See config_object, config_object_notify and config_object_notify_impl_simple
  */
 namespace config_objects {
-extern const GUID guid_bool_locked_panel_resizing_allowed;
+constexpr GUID guid_bool_locked_panel_resizing_allowed{
+    0x3a0ef00a, 0xd538, 0x4470, {0x9a, 0x18, 0xdc, 0xf8, 0x22, 0xcc, 0x96, 0x73}};
 
 /**
  * \brief Gets whether resizing of locked panels should be allowed.
@@ -176,8 +205,14 @@ namespace fcl {
 PFC_DECLARE_EXCEPTION(exception_missing_panel, pfc::exception, "Missing panel.");
 /** Namespace containing standard FCL group identifiers. */
 namespace groups {
-extern const GUID toolbars, layout, colours_and_fonts, title_scripts;
-}
+constexpr GUID layout{0x1979b677, 0x17ef, 0x4423, {0x94, 0x69, 0x11, 0x39, 0xa1, 0x1b, 0xd6, 0x87}};
+
+constexpr GUID toolbars{0xf1181b34, 0x8848, 0x43d0, {0x92, 0x96, 0x24, 0x48, 0x4c, 0x1f, 0x5b, 0xf1}};
+
+constexpr GUID colours_and_fonts{0xdd5158ae, 0xc8ed, 0x42d0, {0x89, 0xe3, 0xef, 0x1b, 0x19, 0x7f, 0xfc, 0xaf}};
+
+constexpr GUID title_scripts{0x2a8e63a4, 0xf8e, 0x459d, {0xb7, 0x52, 0x87, 0x4e, 0x38, 0x65, 0x8a, 0x6c}};
+} // namespace groups
 enum t_fcl_type {
     type_public = 0, // use export_config/import_config on panels
     type_private = 1, // use set_config/get_config on panels
@@ -188,8 +223,8 @@ public:
     /**
      * Specifies any panels that you are dependent on that are not installed. You must specify only missing panels.
      *
-     * \param [in]    name    Unused. Pass a null-terminiated empty string.
-     * \param [in]    guid    GUID of panel.
+     * \param [in]	name	Unused. Pass a null-terminiated empty string.
+     * \param [in]	guid	GUID of panel.
      */
     virtual void add_required_panel(const char* name, const GUID& guid) = 0;
 };
@@ -198,7 +233,7 @@ public:
     /**
      * Specifies panels that you are dependent on. You must specify all dependent panels.
      *
-     * \param [in]    panels    GUIDs of panels.
+     * \param [in]	panels	GUIDs of panels.
      */
     virtual void add_required_panels(const pfc::list_base_const_t<GUID>& panels) = 0;
     void add_required_panel(GUID guid) { add_required_panels(pfc::list_single_ref_t<GUID>(guid)); }
@@ -251,14 +286,14 @@ public:
     /**
      * Retrieves your data for an export.
      *
-     * \param [in]    type    Specifies export mode. See t_fcl_type.
+     * \param [in]	type	Specifies export mode. See t_fcl_type.
      */
     virtual void get_data(
         stream_writer* p_writer, t_uint32 type, t_export_feedback& feedback, abort_callback& p_abort) const = 0;
     /**
      * Sets your data for an import.
      *
-     * \param [in]    type    Specifies export mode. See t_fcl_type.
+     * \param [in]	type	Specifies export mode. See t_fcl_type.
      */
     virtual void set_data(
         stream_reader* p_reader, t_size size, t_uint32 type, t_import_feedback& feedback, abort_callback& p_abort)
@@ -269,7 +304,7 @@ public:
      *
      * \see get_data
      *
-     * \param [in]    type    Specifies export mode. See t_fcl_type.
+     * \param [in]	type	Specifies export mode. See t_fcl_type.
      */
     void get_data_to_array(pfc::array_t<uint8_t>& p_data, t_uint32 type, t_export_feedback& feedback,
         abort_callback& p_abort, bool b_reset = false) const;
@@ -279,7 +314,7 @@ public:
      *
      * \see set_data
      *
-     * \param [in]    type    Specifies export mode. See t_fcl_type.
+     * \param [in]	type	Specifies export mode. See t_fcl_type.
      */
     void set_data_from_ptr(
         const void* p_data, t_size size, t_uint32 type, t_import_feedback& feedback, abort_callback& p_abort);
