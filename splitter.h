@@ -184,7 +184,7 @@ public:
 
     bool query(const GUID& p_guid) const override
     {
-        return p_guid == get_class_guid() || splitter_item_full_t::query(p_guid);
+        return p_guid == get_class_guid() || splitter_item_full_v2_t::query(p_guid);
     }
 };
 
