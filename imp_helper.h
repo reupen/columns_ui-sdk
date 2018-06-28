@@ -35,7 +35,7 @@ public:
             // Create new window.
 
             // Store host.
-            host = p_host;
+            m_host = p_host;
 
             // create window
             m_wnd = create_window(wnd_parent);
@@ -54,9 +54,9 @@ public:
         }
 
         // ensure the window is not visible
-        ShowWindow(wnd, SW_HIDE);
+        ShowWindow(m_wnd, SW_HIDE);
 
-        return wnd;
+        return m_wnd;
     }
 
     virtual HWND get_wnd() const { return m_wnd; }
