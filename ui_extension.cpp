@@ -78,29 +78,32 @@ HWND uFindParentPopup(HWND wnd_child)
 
 HWND uie::window::g_on_tab(HWND wnd_focus)
 {
-    HWND rv = 0;
+    const HWND wnd_temp = GetAncestor(wnd_focus, GA_ROOT);
+    
+    if (!wnd_temp)
+        return nullptr;
 
-    HWND wnd_temp = GetAncestor(wnd_focus, GA_ROOT); /*_GetParent(wnd_focus);
-     
+    // Protect against infinite loop in GetNextDlgTabItem when the currently focused window is one
+    // that shouldn't have the keyboard focus
+    if (GetWindowLongPtr(wnd_focus, GWL_EXSTYLE) & WS_EX_CONTROLPARENT)
+        wnd_focus = wnd_temp;
 
-     while (wnd_temp && GetWindowLong(wnd_temp, GWL_EXSTYLE) & WS_EX_CONTROLPARENT)
-     {
-         if (GetWindowLong(wnd_temp, GWL_STYLE) & WS_POPUP) break;
-         else wnd_temp = _GetParent(wnd_temp);
-     }*/
+    const HWND wnd_next = GetNextDlgTabItem(wnd_temp, wnd_focus, (GetKeyState(VK_SHIFT) & KF_UP) != 0);
 
-    if (wnd_temp) {
-        HWND wnd_next = GetNextDlgTabItem(wnd_temp, wnd_focus, (GetKeyState(VK_SHIFT) & KF_UP) ? TRUE : FALSE);
-        if (wnd_next && wnd_next != wnd_focus) {
-            unsigned flags = uSendMessage(wnd_next, WM_GETDLGCODE, 0, 0);
-            if (flags & DLGC_HASSETSEL)
-                uSendMessage(wnd_next, EM_SETSEL, 0, -1);
-            SetFocus(wnd_next);
+    if (!wnd_next || wnd_next == wnd_focus)
+        return nullptr;
 
-            rv = wnd_next;
-        }
-    }
-    return rv;
+    // Do nothing if a sensible window wasn't selected
+    const auto next_window_has_tabstop_style = (GetWindowLongPtr(wnd_next, GWL_STYLE) & WS_TABSTOP) != 0;
+    if (!next_window_has_tabstop_style)
+        return nullptr;
+
+    const unsigned flags = SendMessage(wnd_next, WM_GETDLGCODE, 0, 0);
+    if (flags & DLGC_HASSETSEL)
+        SendMessage(wnd_next, EM_SETSEL, 0, -1);
+    SetFocus(wnd_next);
+
+    return wnd_next;
 };
 
 void uie::extension_base::set_config_from_ptr(const void* p_data, t_size p_size, abort_callback& p_abort)
