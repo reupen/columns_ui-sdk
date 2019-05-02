@@ -322,6 +322,26 @@ public:
     FB2K_MAKE_SERVICE_INTERFACE_ENTRYPOINT(dataset);
 };
 
+class NOVTABLE dataset_v2 : public dataset {
+public:
+    /**
+     * Determines the order in which data sets are imported when an FCL file 
+     * is being imported.
+     * 
+     * New in Columns UI 1.1.
+     * 
+     * Data sets with a higher priority value are imported first.
+     * 
+     * This can be used when there are dependencies between global configuration 
+     * data and panel instance data. Columns UI uses this internally to deprioritise
+     * the toolbar and layout data sets and you will not generally need to override
+     * this.
+     */
+    virtual double get_import_priority() const { return 0.0; }
+
+    FB2K_MAKE_SERVICE_INTERFACE(dataset_v2, dataset);
+};
+
 typedef service_ptr_t<dataset> dataset_ptr;
 typedef service_ptr_t<group> group_ptr;
 
@@ -374,7 +394,25 @@ public:
     void sort_by_name() { this->sort_t(g_compare_name); }
 };
 
-typedef service_list_auto_t<dataset> dataset_list;
+class dataset_list : public service_list_auto_t<dataset> {
+public:
+    dataset_list()
+    {
+        sort_t([](dataset::ptr& left, dataset::ptr& right) {
+            dataset_v2::ptr left_v2;
+            dataset_v2::ptr right_v2;
+
+            left->service_query_t(left_v2);
+            right->service_query_t(right_v2);
+
+            const auto priority_left = left_v2.is_valid() ? left_v2->get_import_priority() : 0.0;
+            const auto priority_right = right_v2.is_valid() ? right_v2->get_import_priority() : 0.0;
+
+            // Descending sort, so higher priorities are imported earlier
+            return pfc::compare_t<>(priority_right, priority_left);
+        });
+    }
+};
 typedef service_list_auto_t<group> group_list;
 
 /** Helper. */
