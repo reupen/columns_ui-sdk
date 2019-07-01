@@ -156,9 +156,7 @@
       <Culture>0x0409</Culture>
     </ResourceCompile>
     <Lib />
-    <Lib>
-      <SubSystem>Windows</SubSystem>
-    </Lib>
+    <Lib />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -183,9 +181,7 @@
       <Culture>0x0409</Culture>
     </ResourceCompile>
     <Lib />
-    <Lib>
-      <SubSystem>Windows</SubSystem>
-    </Lib>
+    <Lib />
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\columns_ui-sdk\base.h" />
