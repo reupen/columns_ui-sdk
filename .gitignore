@@ -188,3 +188,6 @@ vc14/Release.Win32/**/*
 *.db
 .vs
 doxygen
+
+# JetBrains
+.idea/
