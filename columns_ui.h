@@ -8,7 +8,7 @@
 
 /** \brief Namespace containing all Columns UI definitions */
 namespace cui {
-/** \brief Namespace containting standard Columns UI toolbar GUIDs */
+/** \brief Namespace containing standard Columns UI toolbar GUIDs */
 namespace toolbars {
 constexpr GUID guid_buttons{0xd8e65660, 0x64ed, 0x42e7, {0x85, 0xb, 0x31, 0xd8, 0x28, 0xc2, 0x52, 0x94}};
 
@@ -24,7 +24,7 @@ constexpr GUID guid_volume_control{0xb3259290, 0xcb68, 0x4d37, {0xb0, 0xf1, 0x80
 
 constexpr GUID guid_filter_search_bar{0x6e3b8b17, 0xaebd, 0x40d2, {0xa1, 0xf, 0x9d, 0x3a, 0xcf, 0x74, 0xf0, 0x91}};
 } // namespace toolbars
-/** \brief Namespace containting standard Columns UI panel GUIDs */
+/** \brief Namespace containing standard Columns UI panel GUIDs */
 namespace panels {
 constexpr GUID guid_playlist_switcher{0xc2cf9425, 0x540, 0x4579, {0xab, 0x3f, 0x13, 0xe2, 0x17, 0x66, 0x3d, 0x9b}};
 
@@ -47,12 +47,12 @@ constexpr GUID guid_item_details{0x59b4f428, 0x26a5, 0x4a51, {0x89, 0xe5, 0x39, 
 
 constexpr GUID guid_item_properties{0x8f6069cd, 0x2e36, 0x4ead, {0xb1, 0x71, 0x93, 0xf3, 0xdf, 0xf0, 0x7, 0x3a}};
 } // namespace panels
-/** \brief Namespace containting standard Columns UI visualisation GUIDs */
+/** \brief Namespace containing standard Columns UI visualisation GUIDs */
 namespace visualisations {
 constexpr GUID guid_spectrum_analyser{0xd947777c, 0x94c7, 0x409a, {0xb0, 0x2c, 0x9b, 0xe, 0xb9, 0xe3, 0x74, 0xfa}};
 }
 
-/** \brief Namespace containting Columns UI string GUIDs */
+/** \brief Namespace containing Columns UI string GUIDs */
 namespace strings {
 constexpr GUID guid_global_variables{0x493d419a, 0xcbb3, 0x4b8a, {0x8f, 0xb8, 0x28, 0xde, 0x2a, 0xe2, 0xf3, 0x6f}};
 }

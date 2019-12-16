@@ -2,7 +2,7 @@
 #define _COLUMNS_API_SPLITTER_H_
 
 /**
- * \file window.h
+ * \file splitter.h
  * \brief Splitter Window API
  */
 

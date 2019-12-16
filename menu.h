@@ -9,7 +9,7 @@ namespace uie {
  * menu_node_command_t, menu_node_popup_t or menu_node_separator_t
  *
  * \remark Remember, its derived from pfc::refcounted_object_root. So instantiate like:
- * \code uie::mode_node_ptr = new menu_node_impl; \encode
+ * \code uie::mode_node_ptr = new menu_node_impl; \endcode
  */
 class NOVTABLE menu_node_t : public pfc::refcounted_object_root {
 public:
@@ -155,7 +155,7 @@ public:
 /**
  * \brief Standard implementation of menu_hook_t, also exposes menu_node_t interface
  * \remark Remember, its derived from pfc::refcounted_object_root. So instantiate like:
- * \code pfc::refcounted_ptr_t<uie::menu_hook_impl> = new uie::menu_hook_impl; \encode
+ * \code pfc::refcounted_ptr_t<uie::menu_hook_impl> = new uie::menu_hook_impl; \endcode
  */
 class menu_hook_impl
     : public menu_hook_t

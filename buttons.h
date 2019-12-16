@@ -57,7 +57,7 @@ enum t_button_state {
     BUTTON_STATE_DEFAULT = BUTTON_STATE_ENABLED | BUTTON_STATE_SHOW_TOOLTIP,
 };
 
-/** \brief Class implemented by button hosts to recieve notification of button events */
+/** \brief Class implemented by button hosts to receive notification of button events */
 class NOVTABLE button_callback {
 public:
     /**

@@ -2,7 +2,7 @@
 #define _UI_EXTENSION_HOST_H_
 
 /**
- * \file window.h
+ * \file window_host.h
  * \brief Window Host API
  */
 
