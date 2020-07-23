@@ -150,7 +150,7 @@ public:
     void import_config_from_ptr(const void* p_data, t_size p_size, abort_callback& p_abort);
 
     /**
-     * \brief Helper function, writes instance configuration data to an array
+     * \brief Helper function, writes instance configuration data to an existing array
      *
      * \see get_config
      *
@@ -161,6 +161,17 @@ public:
      * \param [in]     b_reset           Indicates whether the contents of the array should first be cleared
      */
     void get_config_to_array(pfc::array_t<uint8_t>& p_data, abort_callback& p_abort, bool b_reset = false) const;
+
+    /**
+     * \brief Helper function, writes instance configuration data to a new array
+     *
+     * \see get_config
+     *
+     * \throw Throws pfc::exception on failure
+     *
+     * \param [in]     p_abort           Signals abort of operation
+     */
+    pfc::array_t<uint8_t> get_config_as_array(abort_callback& p_abort) const;
 
     /**
      * \brief Helper function, exports instance configuration data to an array

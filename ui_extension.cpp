@@ -125,6 +125,13 @@ void uie::extension_base::get_config_to_array(
     get_config(&writer, p_abort);
 }
 
+pfc::array_t<uint8_t> uie::extension_base::get_config_as_array(abort_callback& p_abort) const
+{
+    pfc::array_t<uint8_t> data;
+    get_config_to_array(data, p_abort);
+    return data;
+}
+
 void uie::extension_base::export_config_to_array(
     pfc::array_t<uint8_t>& p_data, abort_callback& p_abort, bool b_reset) const
 {
