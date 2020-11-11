@@ -195,7 +195,7 @@ public:
 /** One implementation in Columns UI - do not reimplement! */
 class NOVTABLE manager : public service_base {
 public:
-    /** \brief Retreives the font for the given client */
+    /** \brief Retrieves the font for the given client */
     virtual void get_font(const GUID& p_guid, LOGFONT& p_out) const = 0;
 
     /** \brief Retrieves common fonts. */
@@ -225,6 +225,40 @@ public:
     }
 
     FB2K_MAKE_SERVICE_INTERFACE_ENTRYPOINT(manager);
+};
+
+/**
+ * Experimental version of the font management API with custom DPI support.
+ *
+ * One implementation in Columns UI - do not reimplement!
+ */
+class NOVTABLE manager_v2 : public service_base {
+public:
+    /** \brief Retrieve the font for the given client */
+    virtual LOGFONT get_client_font(GUID guid, unsigned dpi = USER_DEFAULT_SCREEN_DPI) const = 0;
+
+    /** \brief Retrieve a common font. */
+    virtual LOGFONT get_common_font(font_type_t type, unsigned dpi = USER_DEFAULT_SCREEN_DPI) const = 0;
+
+    /** \brief Set your font as 'Custom' and to the specified font. */
+    virtual void set_client_font(GUID guid, const LOGFONT& font, int point_size_tenths) = 0;
+
+    virtual void register_common_callback(common_callback* callback) = 0;
+    virtual void deregister_common_callback(common_callback* callback) = 0;
+
+    HFONT get_client_font_handle(GUID guid, unsigned dpi = USER_DEFAULT_SCREEN_DPI) const
+    {
+        LOGFONT lf = get_client_font(guid, dpi);
+        return CreateFontIndirect(&lf);
+    }
+
+    HFONT get_common_font_handle(const font_type_t type, unsigned dpi = USER_DEFAULT_SCREEN_DPI) const
+    {
+        LOGFONT lf = get_common_font(type, dpi);
+        return CreateFontIndirect(&lf);
+    }
+
+    FB2K_MAKE_SERVICE_INTERFACE_ENTRYPOINT(manager_v2);
 };
 
 /** Helper to simplify retrieving the font for a specific client. */
