@@ -94,17 +94,5 @@ int message_box(HWND wnd, const TCHAR* text, const TCHAR* caption, UINT type);
 BOOL tooltip_add_tool(HWND wnd, TOOLINFO* ti, bool update = false);
 }; // namespace win32_helpers
 
-// for compatibility only (namely fcs files)
-
-void convert_logfont_utf8_to_os(const uLOGFONT& p_src, LOGFONT& p_dst);
-void convert_logfont_os_to_utf8(const LOGFONT& p_src, uLOGFONT& p_dst);
-
-struct logfont_os_from_utf8 : public LOGFONT {
-    logfont_os_from_utf8(const uLOGFONT& p_logfont) { convert_logfont_utf8_to_os(p_logfont, *this); }
-};
-
-struct logfont_utf8_from_os : public uLOGFONT {
-    logfont_utf8_from_os(const LOGFONT& p_logfont) { convert_logfont_os_to_utf8(p_logfont, *this); }
-};
 
 #endif
