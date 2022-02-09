@@ -16,6 +16,7 @@ enum colour_identifier_t {
     /** Reserved */
     colour_group_background,
 };
+
 enum colour_flag_t {
     colour_flag_text = 1 << colour_text,
     colour_flag_selection_text = 1 << colour_selection_text,
@@ -32,12 +33,18 @@ enum colour_flag_t {
         | (1 << colour_active_item_frame) | (1 << colour_group_foreground) | (1 << colour_group_background),
 
 };
+
 enum bool_identifier_t {
     bool_use_custom_active_item_frame,
+    /** Implemented in Columns UI 2.0. Always false on older versions. */
+    bool_dark_mode_enabled,
 };
+
 enum bool_flag_t {
     bool_flag_use_custom_active_item_frame = (1 << bool_use_custom_active_item_frame),
+    bool_flag_dark_mode_enabled = (1 << bool_dark_mode_enabled),
 };
+
 enum colour_mode_t { colour_mode_global, colour_mode_system, colour_mode_themed, colour_mode_custom };
 
 static COLORREF g_get_system_color(const colour_identifier_t p_identifier)
@@ -114,6 +121,7 @@ public:
         }
         return g_get_system_color(p_identifier);
     }
+
     bool get_bool(const cui::colours::bool_identifier_t& p_identifier) const
     {
         if (m_api.is_valid()) {
@@ -121,6 +129,7 @@ public:
         }
         return false;
     }
+
     bool get_themed() const
     {
         if (m_api.is_valid()) {
@@ -128,6 +137,20 @@ public:
         }
         return false;
     }
+
+    /**
+     * \brief Get whether the UI-wide dark mode is currently active.
+     *
+     * Implemented in Columns UI 2.0. Always false on older versions.
+     */
+    bool get_dark_mode_active() const
+    {
+        if (m_api.is_valid()) {
+            return m_api->get_bool(bool_dark_mode_enabled);
+        }
+        return false;
+    }
+
     /** You can specify a NULL GUID for the global colours */
     helper(GUID p_guid)
     {
