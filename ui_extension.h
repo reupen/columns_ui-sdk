@@ -3,6 +3,8 @@
 
 #define UI_EXTENSION_VERSION "6.5"
 
+#include <utility>
+
 // Included first, because pfc.h includes winsock2.h
 #include "../pfc/pfc.h"
 

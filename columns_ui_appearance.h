@@ -36,7 +36,11 @@ enum colour_flag_t {
 
 enum bool_identifier_t {
     bool_use_custom_active_item_frame,
-    /** Implemented in Columns UI 2.0. Always false on older versions. */
+    /**
+     * Implemented in Columns UI 2.0. Always false on older versions.
+     *
+     * \see helper for more details
+     */
     bool_dark_mode_enabled,
 };
 
@@ -78,7 +82,7 @@ public:
     virtual bool get_bool(const bool_identifier_t& p_identifier) const = 0;
 
     /**
-     * Only returns true if your appearance_client::get_themes_supported does.
+     * Only returns true if your client::get_themes_supported() method does.
      * Indicates selected items should be drawn using Theme API.
      */
     virtual bool get_themed() const = 0;
@@ -142,8 +146,21 @@ public:
      * \brief Get whether the UI-wide dark mode is currently active.
      *
      * Implemented in Columns UI 2.0. Always false on older versions.
+     *
+     * There is only one global value of this flag; it does not vary between colour clients.
+     *
+     * If your window contains a scroll bar, you should call SetWindowTheme based on the value
+     * of this flag as follows:
+     *
+     * \code{.cpp}
+     * const auto dark_mode_active = cui::colours::is_dark_mode_active().
+     * SetWindowTheme(wnd, dark_mode_active ? L"DarkMode_Explorer" : nullptr, nullptr);
+     * \endcode
+     *
+     * You should also do this when the client::on_bool_changed() method of your client is
+     * called with the #bool_flag_dark_mode_enabled bit set.
      */
-    bool get_dark_mode_active() const
+    bool is_dark_mode_active() const
     {
         if (m_api.is_valid()) {
             return m_api->get_bool(bool_dark_mode_enabled);
@@ -151,20 +168,29 @@ public:
         return false;
     }
 
-    /** You can specify a NULL GUID for the global colours */
-    helper(GUID p_guid)
+    /** You can omit guid for the global colours */
+    helper(GUID guid = GUID{})
     {
         try {
             manager::ptr api;
             standard_api_create_t(api);
-            api->create_instance(p_guid, m_api);
+            api->create_instance(guid, m_api);
         } catch (const exception_service_not_found&) {
         };
     }
 
 private:
-    service_ptr_t<cui::colours::manager_instance> m_api;
+    service_ptr_t<manager_instance> m_api;
 };
+
+/**
+ * \brief Get whether the UI-wide dark mode is currently active.
+ *
+ * Convenience method to avoid having to instantiate a helper instance.
+ *
+ * \see helper::is_dark_mode_active() for more details.
+ */
+bool is_dark_mode_active();
 
 class NOVTABLE client : public service_base {
 public:
@@ -175,12 +201,29 @@ public:
     {
         return cui::colours::colour_flag_all
             & ~(cui::colours::colour_flag_group_foreground | cui::colours::colour_flag_group_background);
-    } // bit-mask
+    }
+
+    /**
+     * Return a combination of bool_flag_t to indicate which boolean flags are supported.
+     *
+     * If dark mode is supported by your panel, you should set the #bool_flag_dark_mode_enabled bit.
+     */
     virtual t_size get_supported_bools() const = 0; // bit-mask
     /** Indicates whether you are Theme API aware and can draw selected items using Theme API */
     virtual bool get_themes_supported() const = 0;
 
     virtual void on_colour_changed(t_size mask) const = 0;
+
+    /**
+     * Called whenever a supported boolean flag changes. Support for a flag is determined using the
+     * get_supported_bools() method.
+     *
+     * \param [in] mask     a combination of bool_flag_t indicating the flags that have changed.
+     *                      (Only indicates which flags have changed, not the new values.)
+     *
+     * \note Only #bool_flag_dark_mode_enabled is currently supported. Ensure you inspect mask to check
+     * which flags have changed.
+     */
     virtual void on_bool_changed(t_size mask) const = 0;
 
     template <class tClass>
@@ -189,7 +232,43 @@ public:
 
     FB2K_MAKE_SERVICE_INTERFACE_ENTRYPOINT(client);
 };
-}; // namespace colours
+
+/**
+ * Helper for receiving notifications when the global dark mode status changes.
+ *
+ * This is mainly used by non-panel parts of the UI. Panels would normally receive
+ * this notification through the on_bool_changed method of their client instance.
+ */
+class dark_mode_notifier : common_callback {
+public:
+    dark_mode_notifier(std::function<void()> callback) : m_callback(std::move(callback))
+    {
+        if (fb2k::std_api_try_get(m_api)) {
+            m_api->register_common_callback(this);
+        }
+    }
+
+    ~dark_mode_notifier()
+    {
+        if (m_api.is_valid()) {
+            m_api->deregister_common_callback(this);
+        }
+    }
+
+    void on_colour_changed(t_size mask) const override {}
+    void on_bool_changed(t_size mask) const override
+    {
+        if (mask & bool_flag_dark_mode_enabled)
+            m_callback();
+    }
+
+private:
+    std::function<void()> m_callback;
+    manager::ptr m_api;
+};
+
+} // namespace colours
+
 namespace fonts {
 enum font_mode_t {
     font_mode_common_items,
