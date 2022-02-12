@@ -47,6 +47,11 @@ void cui::fcl::dataset::set_data_from_ptr(
     return set_data(&reader, size, type, feedback, p_abort);
 }
 
+bool colours::is_dark_mode_active()
+{
+    return colours::helper().is_dark_mode_active();
+}
+
 bool fonts::client::create_by_guid(const GUID& p_guid, client::ptr& p_out)
 {
     service_enum_t<client> p_enum;
