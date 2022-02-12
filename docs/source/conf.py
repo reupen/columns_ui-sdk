@@ -29,7 +29,7 @@ if read_the_docs_build:
 project = 'Columns UI SDK'
 copyright = f'Reupen Shah {date.today().year}'
 author = 'Reupen Shah'
-
+language = "en"
 
 # -- General configuration ---------------------------------------------------
 
@@ -38,6 +38,7 @@ author = 'Reupen Shah'
 # ones.
 extensions = [
     'breathe',
+    'sphinx_immaterial',
 ]
 
 breathe_projects = {
@@ -67,7 +68,54 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "sphinx_rtd_theme"
+html_theme = "sphinx_immaterial"
+
+
+html_theme_options = {
+    'site_url':
+        'https://yuo.be',
+    'repo_url':
+        'https://github.com/reupen/columns_ui-sdk/',
+    'repo_name':
+        'reupen/columns_ui-sdk',
+    'repo_type':
+        'github',
+    'globaltoc_collapse':
+        True,
+    'features': [
+        'navigation.expand',
+        # 'navigation.tabs',
+        # 'toc.integrate',
+        'navigation.sections',
+        # 'navigation.instant',
+        # 'header.autohide',
+        'navigation.top',
+        # 'search.highlight',
+        # 'search.share',
+    ],
+    'palette': [
+        {
+            'media': '(prefers-color-scheme: dark)',
+            'scheme': 'slate',
+            'primary': 'green',
+            'accent': 'light blue',
+            'toggle': {
+                'icon': 'material/lightbulb',
+                'name': 'Switch to light mode',
+            },
+        },
+        {
+            'media': '(prefers-color-scheme: light)',
+            'scheme': 'default',
+            'primary': 'green',
+            'accent': 'light blue',
+            'toggle': {
+                'icon': 'material/lightbulb-outline',
+                'name': 'Switch to dark mode',
+            },
+        },
+    ],
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
