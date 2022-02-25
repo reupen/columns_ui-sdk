@@ -95,8 +95,8 @@ public:
  */
 class NOVTABLE common_callback {
 public:
-    virtual void on_colour_changed(t_size mask) const = 0;
-    virtual void on_bool_changed(t_size mask) const = 0;
+    virtual void on_colour_changed(uint32_t changed_items_mask) const = 0;
+    virtual void on_bool_changed(uint32_t changed_items_mask) const = 0;
 };
 
 /**
@@ -197,7 +197,7 @@ public:
     virtual const GUID& get_client_guid() const = 0;
     virtual void get_name(pfc::string_base& p_out) const = 0;
 
-    virtual t_size get_supported_colours() const
+    virtual uint32_t get_supported_colours() const
     {
         return cui::colours::colour_flag_all
             & ~(cui::colours::colour_flag_group_foreground | cui::colours::colour_flag_group_background);
@@ -208,23 +208,24 @@ public:
      *
      * If dark mode is supported by your panel, you should set the #bool_flag_dark_mode_enabled bit.
      */
-    virtual t_size get_supported_bools() const = 0; // bit-mask
+    virtual uint32_t get_supported_bools() const = 0; // bit-mask
     /** Indicates whether you are Theme API aware and can draw selected items using Theme API */
     virtual bool get_themes_supported() const = 0;
 
-    virtual void on_colour_changed(t_size mask) const = 0;
+    virtual void on_colour_changed(uint32_t changed_items_mask) const = 0;
 
     /**
      * Called whenever a supported boolean flag changes. Support for a flag is determined using the
      * get_supported_bools() method.
      *
-     * \param [in] mask     a combination of bool_flag_t indicating the flags that have changed.
-     *                      (Only indicates which flags have changed, not the new values.)
+     * \param [in] changed_items_mask  a combination of bool_flag_t indicating the flags that have
+     *                                 changed. (Only indicates which flags have changed, not the
+     *                                 new values.)
      *
      * \note Only #bool_flag_dark_mode_enabled is currently supported. Ensure you inspect mask to check
      * which flags have changed.
      */
-    virtual void on_bool_changed(t_size mask) const = 0;
+    virtual void on_bool_changed(uint32_t changed_items_mask) const = 0;
 
     template <class tClass>
     class factory : public service_factory_t<tClass> {
@@ -255,10 +256,10 @@ public:
         }
     }
 
-    void on_colour_changed(t_size mask) const override {}
-    void on_bool_changed(t_size mask) const override
+    void on_colour_changed(uint32_t changed_items_mask) const override {}
+    void on_bool_changed(uint32_t changed_items_mask) const override
     {
-        if (mask & bool_flag_dark_mode_enabled)
+        if (changed_items_mask & bool_flag_dark_mode_enabled)
             m_callback();
     }
 
@@ -291,7 +292,7 @@ enum font_type_flag_t {
  */
 class NOVTABLE common_callback {
 public:
-    virtual void on_font_changed(t_size mask) const = 0;
+    virtual void on_font_changed(uint32_t changed_items_mask) const = 0;
 };
 
 /** One implementation in Columns UI - do not reimplement! */

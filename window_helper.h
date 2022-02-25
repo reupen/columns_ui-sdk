@@ -125,7 +125,7 @@ public:
         void deregister_window(container_window_release_t& ptr) { m_windows.remove_item(&ptr); }
 
     private:
-        void on_quit()
+        void on_quit() override
         {
             t_size i = m_windows.get_count();
             for (; i; i--) {

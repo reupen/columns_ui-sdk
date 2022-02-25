@@ -81,33 +81,33 @@ public:
 /** \brief Base class for command menu items */
 class NOVTABLE menu_node_command_t : public menu_node_t {
 public:
-    type_t get_type() const { return type_command; };
-    t_size get_children_count() const { return 0; }
-    void get_child(t_size index, menu_node_ptr& p_out) const {}
+    type_t get_type() const override { return type_command; };
+    t_size get_children_count() const override { return 0; }
+    void get_child(t_size index, menu_node_ptr& p_out) const override {}
 };
 
 /** \brief Base class for popup menu items */
 class NOVTABLE menu_node_popup_t : public menu_node_t {
 public:
-    type_t get_type() const { return type_popup; };
-    void execute(){};
-    bool get_description(pfc::string_base& p_out) const { return false; }
+    type_t get_type() const override { return type_popup; };
+    void execute() override{};
+    bool get_description(pfc::string_base& p_out) const override { return false; }
 };
 
 /** \brief Implements menu_node_t as a separator item */
 class menu_node_separator_t : public menu_node_t {
 public:
-    type_t get_type() const { return type_separator; };
-    void execute(){};
-    bool get_description(pfc::string_base& p_out) const { return false; }
-    t_size get_children_count() const { return 0; }
-    bool get_display_data(pfc::string_base& p_out, unsigned& p_displayflags) const
+    type_t get_type() const override { return type_separator; };
+    void execute() override{};
+    bool get_description(pfc::string_base& p_out) const override { return false; }
+    t_size get_children_count() const override { return 0; }
+    bool get_display_data(pfc::string_base& p_out, unsigned& p_displayflags) const override
     {
         p_out.reset();
         p_displayflags = 0;
         return true;
     }
-    void get_child(t_size index, menu_node_ptr& p_out) const {}
+    void get_child(t_size index, menu_node_ptr& p_out) const override {}
 };
 
 #if _MSC_VER >= 1800
@@ -169,14 +169,14 @@ class menu_hook_impl
     unsigned execute_by_id_recur(menu_node_ptr parent, unsigned base_id, unsigned max_id, unsigned id_exec);
 
 public:
-    virtual void add_node(const menu_node_ptr& p_node);
-    virtual t_size get_children_count() const;
-    virtual void get_child(t_size p_index, menu_node_ptr& p_out) const;
-    virtual type_t get_type() const;
+    void add_node(const menu_node_ptr& p_node) override;
+    t_size get_children_count() const override;
+    void get_child(t_size p_index, menu_node_ptr& p_out) const override;
+    type_t get_type() const override;
 
-    virtual bool get_display_data(pfc::string_base& p_out, unsigned& p_displayflags) const;
-    virtual bool get_description(pfc::string_base& p_out) const;
-    virtual void execute();
+    bool get_display_data(pfc::string_base& p_out, unsigned& p_displayflags) const override;
+    bool get_description(pfc::string_base& p_out) const override;
+    void execute() override;
 
     void win32_build_menu(
         HMENU menu, unsigned base_id, unsigned max_id); // menu item identifiers are base_id<=N<base_id+max_id (if

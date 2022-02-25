@@ -380,14 +380,15 @@ class menu_node_configure : public uie::menu_node_command_t {
     pfc::string8 m_title;
 
 public:
-    virtual bool get_display_data(pfc::string_base& p_out, unsigned& p_displayflags) const
+    bool get_display_data(pfc::string_base& p_out, unsigned& p_displayflags) const override
     {
         p_out = m_title;
         p_displayflags = 0;
         return true;
     }
-    virtual bool get_description(pfc::string_base& p_out) const { return false; }
-    virtual void execute() { p_this->show_config_popup(p_this->get_wnd()); }
+
+    bool get_description(pfc::string_base& p_out) const override { return false; }
+    void execute() override { p_this->show_config_popup(p_this->get_wnd()); }
     menu_node_configure(window* wnd, const char* p_title = "Options") : p_this(wnd), m_title(p_title){};
 };
 
@@ -430,7 +431,7 @@ public:
 
     ~window_factory() {}
 
-    virtual void instance_create(service_ptr_t<service_base>& p_out)
+    void instance_create(service_ptr_t<service_base>& p_out) override
     {
         service_impl_t<::window_implementation<T, false>>* item = new service_impl_t<::window_implementation<T, false>>;
         p_out = (service_base*)(window*)(::window_implementation<T, false>*)item;
@@ -455,7 +456,7 @@ public:
 
     ~window_factory_single() {}
 
-    virtual void instance_create(service_ptr_t<service_base>& p_out)
+    void instance_create(service_ptr_t<service_base>& p_out) override
     {
         p_out = (service_base*)(window*)(window_implementation<T, true>*)&g_instance;
     }
@@ -479,7 +480,7 @@ class window_factory_transparent_single
 public:
     window_factory_transparent_single() : service_factory_base_t<window>() {}
 
-    virtual void instance_create(service_ptr_t<service_base>& p_out)
+    void instance_create(service_ptr_t<service_base>& p_out) override
     {
         p_out = (service_base*)(window*)(window_implementation<T, true>*)this;
     }

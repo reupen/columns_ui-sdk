@@ -55,7 +55,7 @@ public:
     class window_class_release_delayed : public main_thread_callback {
     public:
         window_class_release_delayed(GUID const& p_guid) : m_guid(p_guid){};
-        virtual void callback_run();
+        void callback_run() override;
         GUID m_guid;
     };
 
@@ -262,7 +262,7 @@ LRESULT container_window_v2_t<TBase>::__on_message(HWND wnd, UINT msg, WPARAM wp
     if (get_flags() & flag_transparent_background) {
         if (msg == WM_ERASEBKGND || (msg == WM_PRINTCLIENT && (lp & PRF_ERASEBKGND))) {
             HDC dc = (HDC)wp;
-            BOOL b_ret = TRUE;
+            LRESULT b_ret = TRUE;
 
             HWND wnd_parent = GetParent(wnd);
             POINT pt = {0, 0}, pt_old = {0, 0};

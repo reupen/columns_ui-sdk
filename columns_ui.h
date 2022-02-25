@@ -131,8 +131,8 @@ class global_variable_list : public pfc::ptr_list_t<global_variable> {
 public:
     const char* find_by_name(const char* p_name, t_size length)
     {
-        unsigned n, count = get_count();
-        for (n = 0; n < count; n++) {
+        size_t count = get_count();
+        for (size_t n = 0; n < count; n++) {
             const char* ptr = get_item(n)->get_name();
             if (!stricmp_utf8_ex(p_name, length, ptr, pfc_infinite))
                 return get_item(n)->get_value();
@@ -152,15 +152,15 @@ class titleformat_hook_global_variables : public titleformat_hook {
     global_variable_list& p_vars;
 
 public:
-    virtual bool process_field(
-        titleformat_text_out* p_out, const char* p_name, unsigned p_name_length, bool& p_found_flag)
+    bool process_field(
+        titleformat_text_out* p_out, const char* p_name, size_t p_name_length, bool& p_found_flag) override
     {
         p_found_flag = false;
         return false;
     }
 
-    virtual bool process_function(titleformat_text_out* p_out, const char* p_name, unsigned p_name_length,
-        titleformat_hook_function_params* p_params, bool& p_found_flag)
+    bool process_function(titleformat_text_out* p_out, const char* p_name, size_t p_name_length,
+        titleformat_hook_function_params* p_params, bool& p_found_flag) override
     {
         p_found_flag = false;
         if (set && !stricmp_utf8_ex(p_name, p_name_length, "set_global", pfc_infinite)) {
@@ -255,10 +255,10 @@ public:
 /** Helper. Use group_impl_factory below. */
 class group_impl : public group {
 public:
-    virtual void get_name(pfc::string_base& p_out) const { p_out = m_name; }
-    virtual void get_description(pfc::string_base& p_out) const { p_out = m_desc; }
-    virtual const GUID& get_guid() const { return m_guid; }
-    virtual const GUID& get_parent_guid() const { return m_parent_guid; }
+    void get_name(pfc::string_base& p_out) const override { p_out = m_name; }
+    void get_description(pfc::string_base& p_out) const override { p_out = m_desc; }
+    const GUID& get_guid() const override { return m_guid; }
+    const GUID& get_parent_guid() const override { return m_parent_guid; }
 
     GUID m_guid, m_parent_guid;
     pfc::string8 m_name, m_desc;
