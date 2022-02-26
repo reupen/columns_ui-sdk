@@ -66,14 +66,17 @@ int uHeader_InsertItem(HWND wnd, int n, uHDITEM* hdi, bool insert)
         } else {
             text_utf16.convert(hdi->pszText);
             hdw.pszText = const_cast<WCHAR*>(text_utf16.get_ptr());
-            hdw.cchTextMax = text_utf16.length();            
+            hdw.cchTextMax = static_cast<int>(std::min(text_utf16.length(), static_cast<size_t>(INT_MAX)));
         }
     }
 
-    return SendMessage(wnd, insert ? HDM_INSERTITEMW : HDM_SETITEMW, n, (LPARAM)&hdw);
+    if (insert)
+        return Header_InsertItem(wnd, n, &hdw);
+
+    return Header_SetItem(wnd, n, &hdw);
 }
 
-BOOL uRebar_InsertItem(HWND wnd, int n, uREBARBANDINFO* rbbi, bool insert)
+bool uRebar_InsertItem(HWND wnd, int n, uREBARBANDINFO* rbbi, bool insert)
 {
     pfc::stringcvt::string_wide_from_utf8 text_utf16;
 
@@ -107,19 +110,18 @@ BOOL uRebar_InsertItem(HWND wnd, int n, uREBARBANDINFO* rbbi, bool insert)
     rbw.cxHeader = rbbi->cxHeader;
 #endif
 
-    return SendMessage(wnd, insert ? RB_INSERTBANDW : RB_SETBANDINFOW, n, (LPARAM)&rbw);
+    return SendMessage(wnd, insert ? RB_INSERTBANDW : RB_SETBANDINFOW, n, reinterpret_cast<LPARAM>(&rbw)) != 0;
 }
 
 namespace win32_helpers {
-BOOL tooltip_add_tool(HWND wnd, TOOLINFO* ti, bool update)
+bool tooltip_add_tool(HWND wnd, TOOLINFO* ti, bool update)
 {
-    BOOL rv = FALSE;
-    rv = SendMessage(wnd, update ? TTM_UPDATETIPTEXT : TTM_ADDTOOL, 0, (LPARAM)ti);
-    return rv;
+    const auto result = SendMessage(wnd, update ? TTM_UPDATETIPTEXT : TTM_ADDTOOL, 0, (LPARAM)ti);
+    return result != 0 || update;
 }
 } // namespace win32_helpers
 
-BOOL uToolTip_AddTool(HWND wnd, uTOOLINFO* ti, bool update)
+bool uToolTip_AddTool(HWND wnd, uTOOLINFO* ti, bool update)
 {
     pfc::stringcvt::string_wide_from_utf8 text_utf16;
     TOOLINFOW tiw{};
@@ -141,10 +143,11 @@ BOOL uToolTip_AddTool(HWND wnd, uTOOLINFO* ti, bool update)
         tiw.lpszText = const_cast<WCHAR*>(text_utf16.get_ptr());
     }
 
-    return SendMessage(wnd, update ? TTM_UPDATETIPTEXTW : TTM_ADDTOOLW, 0, (LPARAM)&tiw);
+    const auto result = SendMessage(wnd, update ? TTM_UPDATETIPTEXTW : TTM_ADDTOOLW, 0, (LPARAM)&tiw);
+    return result != 0 || update;
 }
 
-BOOL uTabCtrl_InsertItemText(HWND wnd, int idx, const char* text, bool insert)
+int uTabCtrl_InsertItemText(HWND wnd, int idx, const char* text, bool insert)
 {
     pfc::string8 temp2;
     uTCITEM tabs;
@@ -155,42 +158,49 @@ BOOL uTabCtrl_InsertItemText(HWND wnd, int idx, const char* text, bool insert)
     return insert ? uTabCtrl_InsertItem(wnd, idx, &tabs) : uTabCtrl_SetItem(wnd, idx, &tabs);
 }
 
-BOOL uComboBox_GetText(HWND combo, UINT index, pfc::string_base& out)
+bool uComboBox_GetText(HWND combo, UINT index, pfc::string_base& out)
 {
-    unsigned len = SendMessage(combo, CB_GETLBTEXTLEN, index, 0);
-    if (len == CB_ERR || len > 16 * 1024 * 1024)
-        return FALSE;
+    int len = ComboBox_GetLBTextLen(combo, index);
+
+    if (len < 0 || len > 16 * 1024 * 1024)
+        return false;
+
     if (len == 0) {
         out.reset();
-        return TRUE;
+        return true;
     }
 
     pfc::array_t<WCHAR> temp;
     temp.set_size(len + 1);
     if (temp.get_ptr() == 0)
-        return FALSE;
+        return false;
+
     temp.fill(0);
-    len = SendMessage(combo, CB_GETLBTEXT, index, (LPARAM)temp.get_ptr());
+    len = ComboBox_GetLBText(combo, index, temp.get_ptr());
+
     if (len == CB_ERR)
         return false;
+
     out.set_string(pfc::stringcvt::string_utf8_from_wide(temp.get_ptr()));
-    return TRUE;
+    return true;
 }
 
-BOOL uComboBox_SelectString(HWND combo, const char* src)
+bool uComboBox_SelectString(HWND combo, const char* src)
 {
-    unsigned idx = CB_ERR;
-    idx = uSendMessageText(combo, CB_FINDSTRINGEXACT, -1, src);
+    const auto idx = uSendMessageText(combo, CB_FINDSTRINGEXACT, -1, src);
+
     if (idx == CB_ERR)
         return false;
+
     SendMessage(combo, CB_SETCURSEL, idx, 0);
-    return TRUE;
+
+    return true;
 }
 
-BOOL uStatus_SetText(HWND wnd, int part, const char* text)
+bool uStatus_SetText(HWND wnd, int part, const char* text)
 {
     const pfc::stringcvt::string_wide_from_utf8 text_utf16(text);
-    return SendMessage(wnd, SB_SETTEXTW, part, (LPARAM)(text_utf16.get_ptr()));
+    return SendMessage(wnd, SB_SETTEXTW, part, (LPARAM)(text_utf16.get_ptr())) != 0;
 }
 
 HFONT uCreateIconFont()
@@ -236,11 +246,12 @@ BOOL uFormatMessage(DWORD dw_error, pfc::string_base& out)
 {
     BOOL rv = FALSE;
     pfc::array_t<WCHAR> buffer;
-    buffer.set_size(256);
+    constexpr unsigned buffer_size = 256;
+    buffer.set_size(buffer_size);
     // MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
     if (FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS, 0, dw_error, 0, buffer.get_ptr(),
-            buffer.get_size(), 0)) {
-        out.set_string(pfc::stringcvt::string_utf8_from_wide(buffer.get_ptr()));
+            buffer_size, 0)) {
+        out.set_string(pfc::stringcvt::string_utf8_from_wide(buffer.get_ptr(), buffer.get_size()));
         rv = TRUE;
     }
     return rv;

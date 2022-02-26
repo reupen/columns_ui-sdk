@@ -235,12 +235,12 @@ public:
         unsigned cy_hint, unsigned& handle_type) const = 0;
 
     /**
-     * \brief Not used.
+     * \brief Deprecated uie::button method, not used for uie::button_v2.
      */
-    virtual HBITMAP get_item_bitmap(unsigned command_state_index, COLORREF cr_btntext, t_mask& p_mask_type,
-        COLORREF& cr_mask, HBITMAP& bm_mask) const
+    HBITMAP get_item_bitmap(unsigned command_state_index, COLORREF cr_btntext, t_mask& p_mask_type, COLORREF& cr_mask,
+        HBITMAP& bm_mask) const override
     {
-        return NULL;
+        return nullptr;
     }
 
     FB2K_MAKE_SERVICE_INTERFACE(button_v2, button);
@@ -264,7 +264,7 @@ public:
 /** \brief Sub-class of uie::button, for buttons that implement their own command */
 class NOVTABLE custom_button : public button {
 public:
-    virtual t_button_guid get_guid_type() const { return BUTTON_GUID_BUTTON; }
+    t_button_guid get_guid_type() const override { return BUTTON_GUID_BUTTON; }
 
     /**
      * \brief Executes the custom button's command

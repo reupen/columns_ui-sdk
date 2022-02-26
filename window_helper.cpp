@@ -111,7 +111,7 @@ LRESULT WINAPI container_window::window_proc(HWND wnd, UINT msg, WPARAM wp, LPAR
     if (p_this && p_this->get_class_data().want_transparent_background) {
         if (msg == WM_ERASEBKGND || (msg == WM_PRINTCLIENT && (lp & PRF_ERASEBKGND))) {
             HDC dc = (HDC)wp;
-            BOOL b_ret = TRUE;
+            LRESULT b_ret = TRUE;
 
             HWND wnd_parent = GetParent(wnd);
             POINT pt = {0, 0}, pt_old = {0, 0};

@@ -3,6 +3,7 @@
 
 #define UI_EXTENSION_VERSION "6.5"
 
+#include <algorithm>
 #include <utility>
 
 // Included first, because pfc.h includes winsock2.h
@@ -22,7 +23,7 @@
 
 // ripped from stream_reader::read_string_raw
 void stream_to_mem_block(stream_reader* p_source, pfc::array_t<t_uint8>& p_out, abort_callback& p_abort,
-    unsigned p_sizehint = 0, bool b_reset = false);
+    size_t p_sizehint = 0, bool b_reset = false);
 
 class stream_writer_memblock_ref : public stream_writer {
 public:
@@ -31,7 +32,7 @@ public:
         if (b_reset)
             m_data.set_size(0);
     };
-    void write(const void* p_buffer, t_size p_bytes, abort_callback& p_abort)
+    void write(const void* p_buffer, t_size p_bytes, abort_callback& p_abort) override
     {
         m_data.append_fromptr((t_uint8*)p_buffer, p_bytes);
     }
@@ -43,7 +44,7 @@ private:
 class stream_writer_memblock : public stream_writer {
 public:
     stream_writer_memblock(){};
-    void write(const void* p_buffer, t_size p_bytes, abort_callback& p_abort)
+    void write(const void* p_buffer, t_size p_bytes, abort_callback& p_abort) override
     {
         m_data.append_fromptr((t_uint8*)p_buffer, p_bytes);
     }

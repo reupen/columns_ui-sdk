@@ -98,7 +98,7 @@ HWND uie::window::g_on_tab(HWND wnd_focus)
     if (!next_window_has_tabstop_style)
         return nullptr;
 
-    const unsigned flags = SendMessage(wnd_next, WM_GETDLGCODE, 0, 0);
+    const auto flags = SendMessage(wnd_next, WM_GETDLGCODE, 0, 0);
     if (flags & DLGC_HASSETSEL)
         SendMessage(wnd_next, EM_SETSEL, 0, -1);
     SetFocus(wnd_next);
@@ -141,8 +141,8 @@ void uie::extension_base::export_config_to_array(
 
 void uie::window_info_list_simple::get_name_by_guid(const GUID& in, pfc::string_base& out)
 {
-    unsigned n, count = get_count();
-    for (n = 0; n < count; n++) {
+    size_t count = get_count();
+    for (size_t n = 0; n < count; n++) {
         if (get_item(n).guid == in) {
             out = get_item(n).name;
             return;
@@ -178,7 +178,7 @@ unsigned uie::menu_hook_impl::flags_to_win32(unsigned flags)
     return ret;
 }
 
-void set_menu_item_radio(HMENU menu, UINT_PTR id)
+void set_menu_item_radio(HMENU menu, UINT id)
 {
     MENUITEMINFO mii;
     memset(&mii, 0, sizeof(mii));
@@ -197,9 +197,9 @@ unsigned uie::menu_hook_impl::win32_build_menu_recur(HMENU menu, uie::menu_node_
         pfc::string8_fast_aggressive temp, name;
         temp.prealloc(32);
         name.prealloc(32);
-        unsigned child_idx, child_num = parent->get_children_count();
+        const auto child_num = parent->get_children_count();
         unsigned new_base = base_id;
-        for (child_idx = 0; child_idx < child_num; child_idx++) {
+        for (size_t child_idx = 0; child_idx < child_num; child_idx++) {
             menu_node_ptr child;
             parent->get_child(child_idx, child);
             if (child.is_valid()) {
@@ -213,7 +213,8 @@ unsigned uie::menu_hook_impl::win32_build_menu_recur(HMENU menu, uie::menu_node_
                 menu_node_t::type_t type = child->get_type();
                 if (type == menu_node_t::type_popup) {
                     HMENU new_menu = CreatePopupMenu();
-                    uAppendMenu(menu, MF_STRING | MF_POPUP | flags_to_win32(displayflags), (UINT)new_menu, name);
+                    uAppendMenu(menu, MF_STRING | MF_POPUP | flags_to_win32(displayflags),
+                        reinterpret_cast<UINT_PTR>(new_menu), name);
                     new_base = win32_build_menu_recur(new_menu, child, new_base, max_id);
                 } else if (type == menu_node_t::type_separator) {
                     uAppendMenu(menu, MF_SEPARATOR, 0, 0);
@@ -237,9 +238,9 @@ unsigned uie::menu_hook_impl::execute_by_id_recur(uie::menu_node_ptr parent, uns
         id_exec) // menu item identifiers are base_id<=N<base_id+max_id (if theres too many items, they will be clipped)
 {
     if (parent.is_valid() && parent->get_type() == menu_node_t::type_popup) {
-        unsigned child_idx, child_num = parent->get_children_count();
+        size_t child_num = parent->get_children_count();
         unsigned new_base = base_id;
-        for (child_idx = 0; child_idx < child_num; child_idx++) {
+        for (size_t child_idx = 0; child_idx < child_num; child_idx++) {
             menu_node_ptr child;
             parent->get_child(child_idx, child);
             if (child.is_valid()) {
@@ -373,18 +374,18 @@ const GUID splitter_window::size_and_dpi
 }; // namespace uie
 
 void stream_to_mem_block(
-    stream_reader* p_source, pfc::array_t<t_uint8>& p_out, abort_callback& p_abort, unsigned p_sizehint, bool b_reset)
+    stream_reader* p_source, pfc::array_t<t_uint8>& p_out, abort_callback& p_abort, size_t p_sizehint, bool b_reset)
 {
     if (b_reset)
         p_out.set_size(0);
 
-    enum { min_buffer = 256 };
-    const unsigned buffer_size = max(min_buffer, p_sizehint);
+    constexpr size_t min_buffer = 256;
+    const auto buffer_size = std::max(min_buffer, p_sizehint);
     pfc::array_t<t_uint8> buffer;
     buffer.set_size(buffer_size);
 
     for (;;) {
-        unsigned delta_done = 0;
+        size_t delta_done = 0;
         delta_done = p_source->read(buffer.get_ptr(), buffer_size, p_abort);
         p_out.append_fromptr(buffer.get_ptr(), delta_done);
         if (delta_done < buffer_size)

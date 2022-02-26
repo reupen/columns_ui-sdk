@@ -23,18 +23,18 @@ typedef TOOLINFOA uTOOLINFO;
 typedef REBARBANDINFOA uREBARBANDINFO;
 typedef LOGFONTA uLOGFONT;
 
-#define RECT_CX(rc) (rc.right - rc.left)
-#define RECT_CY(rc) (rc.bottom - rc.top)
+#define RECT_CX(rc) ((rc).right - (rc).left)
+#define RECT_CY(rc) ((rc).bottom - (rc).top)
 
 int uHeader_InsertItem(HWND wnd, int n, uHDITEM* hdi, bool insert = true); // set insert to false to set the item
                                                                            // instead
 int uHeader_SetItemText(HWND wnd, int n, const char* text);
 int uHeader_SetItemWidth(HWND wnd, int n, UINT cx);
-BOOL uToolTip_AddTool(HWND wnd, uTOOLINFO* ti, bool update = false);
-BOOL uRebar_InsertItem(
+bool uToolTip_AddTool(HWND wnd, uTOOLINFO* ti, bool update = false);
+bool uRebar_InsertItem(
     HWND wnd, int n, uREBARBANDINFO* rbbi, bool insert = true); // set insert to false to set the item instead
 
-BOOL uTabCtrl_InsertItemText(HWND wnd, int idx, const char* text,
+int uTabCtrl_InsertItemText(HWND wnd, int idx, const char* text,
     bool insert = true); // fixes '&' characters also, set insert to false to set the item instead
 
 inline void GetRelativeRect(HWND wnd, HWND wnd_parent, RECT* rc) // get rect of wnd in wnd_parent coordinates
@@ -43,9 +43,9 @@ inline void GetRelativeRect(HWND wnd, HWND wnd_parent, RECT* rc) // get rect of 
     MapWindowPoints(HWND_DESKTOP, wnd_parent, (LPPOINT)rc, 2);
 }
 
-BOOL uComboBox_GetText(HWND combo, UINT index, pfc::string_base& out);
-BOOL uComboBox_SelectString(HWND combo, const char* src);
-BOOL uStatus_SetText(HWND wnd, int part, const char* text);
+bool uComboBox_GetText(HWND combo, UINT index, pfc::string_base& out);
+bool uComboBox_SelectString(HWND combo, const char* src);
+bool uStatus_SetText(HWND wnd, int part, const char* text);
 
 HFONT uCreateIconFont();
 HFONT uCreateMenuFont(bool vertical = false);
@@ -75,9 +75,6 @@ inline BOOL uGetLastErrorMessage(pfc::string_base& out)
     return uFormatMessage(GetLastError(), out);
 }
 
-DWORD uGetClassLong(HWND wnd, int index);
-DWORD uSetClassLong(HWND wnd, int index, long new_long);
-
 HWND uFindParentPopup(HWND wnd_child);
 
 #if (WINVER >= 0x0500)
@@ -91,7 +88,7 @@ namespace win32_helpers {
 void send_message_to_all_children(HWND wnd_parent, UINT msg, WPARAM wp, LPARAM lp);
 void send_message_to_direct_children(HWND wnd_parent, UINT msg, WPARAM wp, LPARAM lp);
 int message_box(HWND wnd, const TCHAR* text, const TCHAR* caption, UINT type);
-BOOL tooltip_add_tool(HWND wnd, TOOLINFO* ti, bool update = false);
+bool tooltip_add_tool(HWND wnd, TOOLINFO* ti, bool update = false);
 }; // namespace win32_helpers
 
 

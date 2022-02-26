@@ -234,7 +234,7 @@ public:
 
 class stream_writer_fixedbuffer : public stream_writer {
 public:
-    void write(const void* p_buffer, t_size p_bytes, abort_callback& p_abort)
+    void write(const void* p_buffer, t_size p_bytes, abort_callback& p_abort) override
     {
         if (p_bytes > 0) {
             if (p_bytes > m_bytes - m_bytes_read)
