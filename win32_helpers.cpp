@@ -35,6 +35,7 @@ int uHeader_SetItemWidth(HWND wnd, int n, UINT cx)
     memset(&hdi, 0, sizeof(hdi));
     hdi.mask = HDI_WIDTH;
     hdi.cxy = cx;
+#pragma warning(suppress : 4996)
     return uHeader_InsertItem(wnd, n, &hdi, false);
 }
 int uHeader_SetItemText(HWND wnd, int n, const char* text)
@@ -44,6 +45,7 @@ int uHeader_SetItemText(HWND wnd, int n, const char* text)
     hdi.mask = HDI_TEXT;
     hdi.cchTextMax = NULL;
     hdi.pszText = const_cast<char*>(text);
+#pragma warning(suppress : 4996)
     return uHeader_InsertItem(wnd, n, &hdi, false);
 }
 
