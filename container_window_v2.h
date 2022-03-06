@@ -131,7 +131,7 @@ public:
     virtual const char* get_window_title() { return ""; };
     virtual t_uint32 get_class_extra_wnd_bytes() const { return 0; }
 
-    virtual void on_size(t_size cx, t_size cy){};
+    virtual void on_size(int cx, int cy) {}
     void on_size();
 
     container_window_v2_t() : m_wnd(NULL), m_autounreg_disabled(false){};
