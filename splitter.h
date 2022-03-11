@@ -54,7 +54,7 @@ public:
 
         if (refresh && window.is_valid()) {
             window->get_config_to_array(p_data, fb2k::noAbort, reset);
-        } else {            
+        } else {
             stream_writer_memblock_ref writer(p_data, reset);
             get_panel_config(&writer);
         }
@@ -244,7 +244,9 @@ public:
         }
     }
     stream_writer_fixedbuffer(void* p_out, t_size p_bytes, t_size& p_bytes_read)
-        : m_out(p_out), m_bytes(p_bytes), m_bytes_read(p_bytes_read)
+        : m_out(p_out)
+        , m_bytes(p_bytes)
+        , m_bytes_read(p_bytes_read)
     {
         m_bytes_read = 0;
     }

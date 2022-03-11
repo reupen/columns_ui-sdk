@@ -79,7 +79,7 @@ HWND uFindParentPopup(HWND wnd_child)
 HWND uie::window::g_on_tab(HWND wnd_focus)
 {
     const HWND wnd_temp = GetAncestor(wnd_focus, GA_ROOT);
-    
+
     if (!wnd_temp)
         return nullptr;
 
