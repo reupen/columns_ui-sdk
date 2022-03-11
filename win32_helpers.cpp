@@ -94,7 +94,7 @@ bool uRebar_InsertItem(HWND wnd, int n, uREBARBANDINFO* rbbi, bool insert)
         text_utf16.convert(rbbi->lpText);
         rbw.lpText = const_cast<WCHAR*>(text_utf16.get_ptr());
     }
-    
+
     rbw.iImage = rbbi->iImage;
     rbw.hwndChild = rbbi->hwndChild;
     rbw.cxMinChild = rbbi->cxMinChild;

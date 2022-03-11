@@ -117,7 +117,8 @@ typedef service_ptr_t<control> control_ptr;
 class global_variable {
 public:
     global_variable(const char* p_name, t_size p_name_length, const char* p_value, t_size p_value_length)
-        : m_name(p_name, p_name_length), m_value(p_value, p_value_length)
+        : m_name(p_name, p_name_length)
+        , m_value(p_value, p_value_length)
     {
     }
     inline const char* get_name() const { return m_name; }
@@ -264,7 +265,10 @@ public:
     pfc::string8 m_name, m_desc;
 
     group_impl(const GUID& pguid, const char* pname, const char* pdesc, const GUID& pguidparent = pfc::guid_null)
-        : m_guid(pguid), m_parent_guid(pguidparent), m_name(pname), m_desc(pdesc){};
+        : m_guid(pguid)
+        , m_parent_guid(pguidparent)
+        , m_name(pname)
+        , m_desc(pdesc){};
 };
 
 /** Helper. */
@@ -325,14 +329,14 @@ public:
 class NOVTABLE dataset_v2 : public dataset {
 public:
     /**
-     * Determines the order in which data sets are imported when an FCL file 
+     * Determines the order in which data sets are imported when an FCL file
      * is being imported.
-     * 
+     *
      * New in Columns UI 1.1.
-     * 
+     *
      * Data sets with a higher priority value are imported first.
-     * 
-     * This can be used when there are dependencies between global configuration 
+     *
+     * This can be used when there are dependencies between global configuration
      * data and panel instance data. Columns UI uses this internally to deprioritise
      * the toolbar and layout data sets and you will not generally need to override
      * this.

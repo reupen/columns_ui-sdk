@@ -19,7 +19,8 @@ public:
 
     window_class(const GUID& p_guid, WNDPROC wndproc, t_uint32 class_styles, LPWSTR cursor, HBRUSH br_back,
         t_uint32 extra_wnd_bytes)
-        : m_refcount(1), m_guid(p_guid)
+        : m_refcount(1)
+        , m_guid(p_guid)
     {
         print_guid_wide wstr(m_guid);
 
