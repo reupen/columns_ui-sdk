@@ -11,11 +11,11 @@ Installation
 
 You’ll need:
 
--  `Microsoft Visual Studio 2019`_
+-  `Microsoft Visual Studio 2022`_
 -  `foobar2000 SDK`_
 
-To install, extract the columns_ui-sdk.7z archive to the foobar2000
-subdirectory of your foobar2000 SDK folder.
+To install, extract the columns_ui-sdk.7z archive alongside the foobar2000
+subdirectory of your foobar2000 SDK.
 
 Usage
 -----
@@ -80,5 +80,5 @@ namespace. The GUIDs for the standard toolbars may be found in the
 You may use these GUIDs to create the standard windows in your own component; do
 not use them as GUIDs for your own windows.
 
-.. _Microsoft Visual Studio 2019: https://visualstudio.microsoft.com/downloads/
+.. _Microsoft Visual Studio 2022: https://visualstudio.microsoft.com/downloads/
 .. _foobar2000 SDK: http://www.foobar2000.org/SDK
