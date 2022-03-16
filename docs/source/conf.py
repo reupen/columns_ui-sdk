@@ -45,6 +45,7 @@ breathe_projects = {
 }
 breathe_default_project = "columns-ui-sdk"
 breathe_default_members = ('members', 'undoc-members')
+breathe_show_include = False
 
 # Tell sphinx what the primary language being documented is.
 primary_domain = 'cpp'
