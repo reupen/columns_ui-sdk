@@ -307,4 +307,25 @@ BOOL uGetMonitorInfo(HMONITOR monitor, LPMONITORINFO lpmi)
     return rv;
 }
 
+namespace uie::win32 {
+
+LRESULT paint_background_using_parent(HWND wnd, HDC dc, bool use_wm_printclient)
+{
+    const auto wnd_parent = GetParent(wnd);
+    auto top_left = POINT{0, 0};
+    auto previous_origin = POINT{};
+
+    MapWindowPoints(wnd, wnd_parent, &top_left, 1);
+    OffsetWindowOrgEx(dc, top_left.x, top_left.y, &previous_origin);
+    auto _ = fb2k::callOnRelease(
+        [dc, previous_origin] { SetWindowOrgEx(dc, previous_origin.x, previous_origin.y, nullptr); });
+
+    if (use_wm_printclient)
+        return SendMessage(wnd_parent, WM_PRINTCLIENT, reinterpret_cast<WPARAM>(dc), PRF_ERASEBKGND);
+
+    return SendMessage(wnd_parent, WM_ERASEBKGND, reinterpret_cast<WPARAM>(dc), 0);
+}
+
+} // namespace uie::win32
+
 #endif
