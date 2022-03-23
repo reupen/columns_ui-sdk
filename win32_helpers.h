@@ -73,3 +73,9 @@ int message_box(HWND wnd, const TCHAR* text, const TCHAR* caption, UINT type);
 [[deprecated("No longer maintained.")]] bool tooltip_add_tool(HWND wnd, TOOLINFO* ti, bool update = false);
 
 }; // namespace win32_helpers
+
+namespace uie::win32 {
+
+LRESULT paint_background_using_parent(HWND wnd, HDC dc, bool use_wm_printclient);
+
+}

@@ -4,6 +4,8 @@
 #define UI_EXTENSION_VERSION "6.5"
 
 #include <algorithm>
+#include <unordered_map>
+#include <unordered_set>
 #include <utility>
 
 // Included first, because pfc.h includes winsock2.h
@@ -145,7 +147,8 @@ namespace ui_extension = uie;
 #include "window.h"
 #include "win32_helpers.h"
 #include "window_helper.h"
-#include "container_window_v2.h"
+#include "container_window_v3.h"
+#include "container_uie_window_v3.h"
 #include "splitter.h"
 #include "visualisation.h"
 #include "buttons.h"

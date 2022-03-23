@@ -6,8 +6,15 @@ These classes can be used to make implementing panels easier.
 Container window
 ----------------
 
-.. doxygenclass:: ui_helpers::container_window
+.. doxygenstruct:: uie::container_window_v3_config
 
-.. doxygenclass:: uie::container_ui_extension_t
+.. doxygenclass:: uie::container_window_v3
 
-.. doxygentypedef:: uie::container_ui_extension
+.. doxygenclass:: uie::container_uie_window_v3_t
+
+.. doxygentypedef:: uie::container_uie_window_v3
+
+Functions
+---------
+
+.. doxygenfunction:: uie::win32::paint_background_using_parent

@@ -50,10 +50,11 @@ namespace ui_helpers {
 
 /** \brief Implements a window that serves either as an empty container for either other windows, or as a custom control
  */
-class container_window {
+class [[deprecated("Use uie::container_window_v3")]] container_window
+{
 private:
     HWND wnd_host;
-    container_window(const container_window& p_source);
+    container_window(const container_window& p_source) = delete;
 
 public:
     struct class_data {
@@ -117,7 +118,9 @@ public:
  *            If you use this, you need to call destroy() in your WM_CLOSE handler (and be sure not to call
  * DefWindowProc)
  */
-class container_window_release_t : public container_window {
+#pragma warning(suppress : 4996)
+class [[deprecated("Use uie::container_window_v3")]] container_window_release_t : public container_window
+{
 public:
     class initquit_t : public initquit {
     public:
@@ -129,10 +132,13 @@ public:
         {
             t_size i = m_windows.get_count();
             for (; i; i--) {
+#pragma warning(suppress : 4996)
                 if (m_windows[i - 1]->get_wnd())
+#pragma warning(suppress : 4996)
                     SendMessage(m_windows[i - 1]->get_wnd(), WM_CLOSE, 0, 0);
             }
         }
+#pragma warning(suppress : 4996)
         pfc::list_t<container_window_release_t*> m_windows;
     };
 
@@ -142,7 +148,9 @@ public:
 public:
 };
 
-class container_window_autorelease_t : public container_window_release_t {
+#pragma warning(suppress : 4996)
+class [[deprecated("Use uie::container_window_v3")]] container_window_autorelease_t : public container_window_release_t
+{
 public:
     container_window_autorelease_t();
     ~container_window_autorelease_t();
@@ -156,9 +164,10 @@ namespace uie {
 
 /** \brief Wraps ui_helpers::container_window into a panel */
 template <class W = ui_helpers::container_window, class T = window>
-class container_ui_extension_t
+class [[deprecated("Use uie::container_uie_window_v3_t")]] container_ui_extension_t
     : public W
-    , public T {
+    , public T
+{
     window_host_ptr p_host;
 
 public:
@@ -189,23 +198,26 @@ public:
     const window_host_ptr& get_host() const { return p_host; }
     virtual HWND get_wnd() const { return W::get_wnd(); }
 
-    virtual LPVOID get_create_param()
-    {
-        return this;
-    } // lpCreateParams in CREATESTRUCT struct in WM_NCCREATE/WM_CREATE is a pointer to an array of LPVOIDs. This is the
-      // second LPVOID in the array.
+    // lpCreateParams in CREATESTRUCT struct in WM_NCCREATE/WM_CREATE is a pointer to an array of LPVOIDs. This is the
+    // second LPVOID in the array
+    virtual LPVOID get_create_param() { return this; }
 };
 
-// override all the ui_extension crap as well
+[[deprecated(
+#pragma warning(suppress : 4996)
+    "Use uie::container_uie_window_v3")]] typedef container_ui_extension_t<ui_helpers::container_window, uie::window>
+    container_ui_extension;
 
-//    container_ui_extension_t() {};
-
-typedef container_ui_extension_t<ui_helpers::container_window, uie::window> container_ui_extension;
-typedef container_ui_extension_t<ui_helpers::container_window, uie::menu_window> container_menu_ui_extension;
+#pragma warning(suppress : 4996)
+[[deprecated("Use uie::container_uie_window_v3_t")]] typedef container_ui_extension_t<ui_helpers::container_window,
+    uie::menu_window>
+    container_menu_ui_extension;
 
 #if _MSC_VER >= 1800
 template <class base_window_class = uie::window>
-using container_uie_window_t = container_ui_extension_t<ui_helpers::container_window, base_window_class>;
+using container_uie_window_t [[deprecated("Use uie::container_uie_window_v3_t")]]
+#pragma warning(suppress : 4996)
+= container_ui_extension_t<ui_helpers::container_window, base_window_class>;
 #endif
 
 }; // namespace uie
