@@ -49,8 +49,6 @@ enum bool_flag_t {
     bool_flag_dark_mode_enabled = (1 << bool_dark_mode_enabled),
 };
 
-enum colour_mode_t { colour_mode_global, colour_mode_system, colour_mode_themed, colour_mode_custom };
-
 static COLORREF g_get_system_color(const colour_identifier_t p_identifier)
 {
     switch (p_identifier) {
@@ -118,7 +116,7 @@ public:
 /** Helper to simplify retrieving colours. */
 class helper {
 public:
-    COLORREF get_colour(const cui::colours::colour_identifier_t& p_identifier) const
+    COLORREF get_colour(const colour_identifier_t& p_identifier) const
     {
         if (m_api.is_valid()) {
             return m_api->get_colour(p_identifier);
@@ -126,7 +124,7 @@ public:
         return g_get_system_color(p_identifier);
     }
 
-    bool get_bool(const cui::colours::bool_identifier_t& p_identifier) const
+    bool get_bool(const bool_identifier_t& p_identifier) const
     {
         if (m_api.is_valid()) {
             return m_api->get_bool(p_identifier);
@@ -176,7 +174,7 @@ public:
             standard_api_create_t(api);
             api->create_instance(guid, m_api);
         } catch (const exception_service_not_found&) {
-        };
+        }
     }
 
 private:
@@ -222,8 +220,20 @@ public:
      *                                 changed. (Only indicates which flags have changed, not the
      *                                 new values.)
      *
-     * \note Only #bool_flag_dark_mode_enabled is currently supported. Ensure you inspect mask to check
-     * which flags have changed.
+     * \note Only #bool_flag_dark_mode_enabled is currently supported. Ensure you inspect
+     * <code>changed_items_mask</code> to check which flags have changed.
+     *
+     * Example implementation:
+     *
+     * \code{.cpp}
+     * void on_bool_changed(uint32_t changed_items_mask) const override
+     * {
+     *     if (changed_items_mask & colours::bool_flag_dark_mode_enabled) {
+     *         const auto is_dark = cui::colours::is_dark_mode_action();
+     *         // Handle dark mode change
+     *     }
+     * }
+     * \endcode
      */
     virtual void on_bool_changed(uint32_t changed_items_mask) const = 0;
 
