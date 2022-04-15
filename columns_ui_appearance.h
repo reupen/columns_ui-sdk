@@ -229,7 +229,7 @@ public:
      * void on_bool_changed(uint32_t changed_items_mask) const override
      * {
      *     if (changed_items_mask & colours::bool_flag_dark_mode_enabled) {
-     *         const auto is_dark = cui::colours::is_dark_mode_action();
+     *         const auto is_dark = cui::colours::is_dark_mode_active();
      *         // Handle dark mode change
      *     }
      * }

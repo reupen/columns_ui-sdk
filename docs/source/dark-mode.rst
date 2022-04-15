@@ -10,7 +10,7 @@ controls and scroll bars, with a dark theme.
 The following code sample shows how to enable dark scroll bars for a window
 depending on whether dark mode is enabled::
 
-  const auto is_dark = cui::colours::is_dark_mode_action()
+  const auto is_dark = cui::colours::is_dark_mode_active()
   SetWindowTheme(hwnd, is_dark ? L"DarkMode_Explorer" : nullptr, nullptr);
 
 Some common controls have a native dark mode that can also be activated using
@@ -37,7 +37,7 @@ If you have an existing :class:`cui::colours::client` implementation, you should
     void on_bool_changed(uint32_t changed_items_mask) const override
     {
         if (changed_items_mask & colours::bool_flag_dark_mode_enabled) {
-            const auto is_dark = cui::colours::is_dark_mode_action();
+            const auto is_dark = cui::colours::is_dark_mode_active();
             for (auto hwnd : hwnds) {
                 SetWindowTheme(hwnd, is_dark ? L"DarkMode_Explorer" : nullptr, nullptr);
             }
