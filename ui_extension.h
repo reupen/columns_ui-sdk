@@ -1,7 +1,7 @@
 #ifndef _UI_EXTENSION_H_
 #define _UI_EXTENSION_H_
 
-#define UI_EXTENSION_VERSION "6.5"
+#define UI_EXTENSION_VERSION "7.0-beta.1"
 
 #include <algorithm>
 #include <unordered_map>
@@ -14,14 +14,6 @@
 #include <shlwapi.h>
 
 #include "../foobar2000/SDK/foobar2000.h"
-
-/**
- * \file ui_extension.h
- * \brief User interface extension API
- * \author musicmusic
- * \author Holger Stenger (original doxygen comments)
- * \version 6.5
- */
 
 // ripped from stream_reader::read_string_raw
 void stream_to_mem_block(stream_reader* p_source, pfc::array_t<t_uint8>& p_out, abort_callback& p_abort,

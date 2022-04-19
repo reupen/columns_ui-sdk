@@ -4,6 +4,7 @@
    :caption: Guides
 
    self
+   upgrading
    dark-mode
 
 .. toctree::
