@@ -4,7 +4,9 @@ Upgrading the SDK
 Version 7.0-beta.1
 ------------------
 
-The latest version of the Columns UI SDK requires Visual Studio 2022.
+This version of the Columns UI SDK requires Visual Studio 2022.
+
+The project file was also renamed ``columns_ui-sdk-public.vcxproj``.
 
 New in this version
 ~~~~~~~~~~~~~~~~~~~
