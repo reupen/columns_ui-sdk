@@ -22,6 +22,14 @@ struct container_window_v3_config {
      */
     bool use_transparent_background{true};
     bool invalidate_children_on_move_or_resize{};
+
+    /**
+     * Whether to forward WM_SETTINGCHANGE messages to direct child windows.
+     *
+     * This should be set to false if a toolbar control is a direct child window,
+     * as they can misbehave when handling WM_SETTINGCHANGE.
+     */
+    bool forward_wm_settingchange{true};
     unsigned window_styles{WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS};
     unsigned extended_window_styles{WS_EX_CONTROLPARENT};
     unsigned class_styles{};

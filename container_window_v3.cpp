@@ -68,7 +68,8 @@ LRESULT container_window_v3::on_message(HWND wnd, UINT msg, WPARAM wp, LPARAM lp
     case WM_SETTINGCHANGE:
     case WM_SYSCOLORCHANGE:
     case WM_TIMECHANGE:
-        win32_helpers::send_message_to_direct_children(wnd, msg, wp, lp);
+        if (msg != WM_SETTINGCHANGE || m_config.forward_wm_settingchange)
+            win32_helpers::send_message_to_direct_children(wnd, msg, wp, lp);
         break;
     case WM_ERASEBKGND:
         if (m_config.use_transparent_background) {
