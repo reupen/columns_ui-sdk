@@ -1,7 +1,7 @@
 #ifndef _UI_EXTENSION_H_
 #define _UI_EXTENSION_H_
 
-#define UI_EXTENSION_VERSION "7.0-beta.1"
+#define UI_EXTENSION_VERSION "7.0.0-beta.2"
 
 #include <algorithm>
 #include <unordered_map>
