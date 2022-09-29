@@ -1,8 +1,20 @@
 Upgrading the SDK
 =================
 
-Version 7.0-beta.1
-------------------
+Version 7.0.0-beta.2
+--------------------
+
+New in this version
+~~~~~~~~~~~~~~~~~~~
+
+This version adds an option to :class:`uie::container_window_v3` to disable the
+forwarding of ``WM_SETTINGCHANGE`` messages to direct child windows.
+
+This is useful when hosting the Win32 toolbar control as it can misbehave when
+handling this message.
+
+Version 7.0.0-beta.1
+--------------------
 
 This version of the Columns UI SDK requires Visual Studio 2022.
 
@@ -61,7 +73,8 @@ The following functions were deprecated:
 Removed in this version
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Example components are no longer bundled with the SDK. These are now published on GitHub:
+Example components are no longer bundled with the SDK. These are now published
+on GitHub:
 
 - `Example panel`_
 - `Console panel`_

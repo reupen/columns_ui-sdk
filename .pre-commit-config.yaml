@@ -1,6 +1,7 @@
+default_language_version:
+  python: python3.10
 exclude: |
   (?x)(
-      ^foo_ui_columns/resource.h|
       .rc|
       .vcxproj|
       .vcxproj.filters

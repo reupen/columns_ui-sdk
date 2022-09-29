@@ -5,8 +5,8 @@ Getting started
 
 The Columns UI SDK provides interfaces you can use to:
 
--  Create windows controlled by a host and embedded in the host’s window
--  Provide information about commands to be used as a toolbar button
+-  create windows controlled by a host and embedded in the host’s window
+-  provide information about commands to be used as a toolbar button
 
 Installation
 ------------
@@ -16,8 +16,8 @@ You’ll need:
 -  `Microsoft Visual Studio 2022`_
 -  `foobar2000 SDK`_
 
-To install, extract the columns_ui-sdk.7z archive alongside the foobar2000
-subdirectory of your foobar2000 SDK.
+To install, `download the SDK`_ and extract the archive alongside the
+foobar2000 subdirectory of your foobar2000 SDK.
 
 Usage
 -----
@@ -57,7 +57,7 @@ Helpers
 ~~~~~~~
 
 The preferred method of implementing the window class is to derive from
-:type:`uie::container_ui_extension` (although this may not be suitable for
+:type:`uie::container_uie_window_v3` (although this may not be suitable for
 single-instance panels or dialog-based panels).
 
 Button APIs
@@ -84,5 +84,6 @@ not use them as GUIDs for your own windows.
 
 .. _Microsoft Visual Studio 2022: https://visualstudio.microsoft.com/downloads/
 .. _foobar2000 SDK: http://www.foobar2000.org/SDK
+.. _download the SDK: https://yuo.be/columns-ui-sdk
 .. _Example panel: https://github.com/reupen/example_panel
 .. _Console panel: https://github.com/reupen/console_panel
