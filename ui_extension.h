@@ -4,6 +4,7 @@
 #define UI_EXTENSION_VERSION "7.0.0-beta.2"
 
 #include <algorithm>
+#include <memory>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
