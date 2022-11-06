@@ -41,8 +41,11 @@ public:
 
     void destroy_window() final
     {
-        m_window->destroy();
-        m_window.reset();
+        if (m_window) {
+            m_window->destroy();
+            m_window.reset();
+        }
+
         m_host.release();
     }
 

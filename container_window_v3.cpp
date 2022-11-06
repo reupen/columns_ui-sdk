@@ -29,7 +29,9 @@ HWND container_window_v3::create(HWND wnd_parent)
 
 void container_window_v3::destroy() const
 {
-    DestroyWindow(m_wnd);
+    if (m_wnd)
+        DestroyWindow(m_wnd);
+
     if (s_window_count[m_config.class_name] == 0) {
         deregister_class();
     }
