@@ -238,8 +238,7 @@ public:
     virtual void on_bool_changed(uint32_t changed_items_mask) const = 0;
 
     template <class tClass>
-    class factory : public service_factory_t<tClass> {
-    };
+    class factory : public service_factory_t<tClass> {};
 
     FB2K_MAKE_SERVICE_INTERFACE_ENTRYPOINT(client);
 };
@@ -413,8 +412,7 @@ public:
     virtual void on_font_changed() const = 0;
 
     template <class tClass>
-    class factory : public service_factory_t<tClass> {
-    };
+    class factory : public service_factory_t<tClass> {};
 
     FB2K_MAKE_SERVICE_INTERFACE_ENTRYPOINT(client);
 

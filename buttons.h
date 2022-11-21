@@ -123,7 +123,8 @@ public:
      * \return HBITMAP of menu item
      */
     virtual HBITMAP get_item_bitmap(unsigned command_state_index, COLORREF cr_btntext, t_mask& p_mask_type,
-        COLORREF& cr_mask, HBITMAP& bm_mask) const = 0;
+        COLORREF& cr_mask, HBITMAP& bm_mask) const
+        = 0;
 
     /**
      * \brief Get type of button
@@ -232,7 +233,8 @@ public:
      * \return Handle of image
      */
     virtual HANDLE get_item_bitmap(unsigned command_state_index, COLORREF cr_btntext, unsigned cx_hint,
-        unsigned cy_hint, unsigned& handle_type) const = 0;
+        unsigned cy_hint, unsigned& handle_type) const
+        = 0;
 
     /**
      * \brief Deprecated uie::button method, not used for uie::button_v2.
@@ -308,8 +310,7 @@ public:
 
 /** \brief Service factory for buttons. */
 template <class T>
-class button_factory : public service_factory_t<T> {
-};
+class button_factory : public service_factory_t<T> {};
 
 }; // namespace uie
 

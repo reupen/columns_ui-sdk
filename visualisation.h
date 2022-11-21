@@ -42,12 +42,10 @@ public:
  * \endcode
  */
 template <class T>
-class visualisation_host_factory : public service_factory_t<T> {
-};
+class visualisation_host_factory : public service_factory_t<T> {};
 
 template <class T>
-class visualization_host_factory : public visualisation_host_factory<T> {
-};
+class visualization_host_factory : public visualisation_host_factory<T> {};
 
 /**
  * \brief Interface for vis_extension service.
@@ -103,8 +101,7 @@ public:
  * \endcode
  */
 template <class T>
-class visualisation_factory : public service_factory_t<T> {
-};
+class visualisation_factory : public service_factory_t<T> {};
 
 // template<class T>
 // class visualization_factory : public visualisation_factory<T>{};

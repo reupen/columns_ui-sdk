@@ -293,7 +293,8 @@ public:
      * \param [in]	type	Specifies export mode. See t_fcl_type.
      */
     virtual void get_data(
-        stream_writer* p_writer, t_uint32 type, t_export_feedback& feedback, abort_callback& p_abort) const = 0;
+        stream_writer* p_writer, t_uint32 type, t_export_feedback& feedback, abort_callback& p_abort) const
+        = 0;
     /**
      * Sets your data for an import.
      *
@@ -350,12 +351,10 @@ typedef service_ptr_t<dataset> dataset_ptr;
 typedef service_ptr_t<group> group_ptr;
 
 template <class T>
-class dataset_factory : public service_factory_single_t<T> {
-};
+class dataset_factory : public service_factory_single_t<T> {};
 
 template <class T>
-class group_factory : public service_factory_single_t<T> {
-};
+class group_factory : public service_factory_single_t<T> {};
 
 /** Helper. */
 template <class t_service, class t_service_ptr = service_ptr_t<t_service>>
