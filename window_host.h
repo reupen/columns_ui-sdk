@@ -284,8 +284,7 @@ public:
  * \endcode
  */
 template <class T>
-class window_host_factory : public service_factory_t<T> {
-};
+class window_host_factory : public service_factory_t<T> {};
 
 /**
  * \brief Service factory for window hosts.
@@ -312,8 +311,7 @@ public:
  * as <code>foo_host2</code>.
  */
 template <class T>
-class window_host_factory_transparent_single : public service_factory_single_transparent_t<T> {
-};
+class window_host_factory_transparent_single : public service_factory_single_transparent_t<T> {};
 
 } // namespace uie
 
