@@ -1,4 +1,4 @@
- .. include:: toc.rst
+.. include:: toc.rst
 
 Getting started
 ===============
