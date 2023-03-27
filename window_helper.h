@@ -50,8 +50,7 @@ namespace ui_helpers {
 
 /** \brief Implements a window that serves either as an empty container for either other windows, or as a custom control
  */
-class [[deprecated("Use uie::container_window_v3")]] container_window
-{
+class [[deprecated("Use uie::container_window_v3")]] container_window {
 private:
     HWND wnd_host;
     container_window(const container_window& p_source) = delete;
@@ -119,8 +118,7 @@ public:
  * DefWindowProc)
  */
 #pragma warning(suppress : 4996)
-class [[deprecated("Use uie::container_window_v3")]] container_window_release_t : public container_window
-{
+class [[deprecated("Use uie::container_window_v3")]] container_window_release_t : public container_window {
 public:
     class initquit_t : public initquit {
     public:
@@ -149,8 +147,8 @@ public:
 };
 
 #pragma warning(suppress : 4996)
-class [[deprecated("Use uie::container_window_v3")]] container_window_autorelease_t : public container_window_release_t
-{
+class [[deprecated("Use uie::container_window_v3")]] container_window_autorelease_t
+    : public container_window_release_t {
 public:
     container_window_autorelease_t();
     ~container_window_autorelease_t();
@@ -166,8 +164,7 @@ namespace uie {
 template <class W = ui_helpers::container_window, class T = window>
 class [[deprecated("Use uie::container_uie_window_v3_t")]] container_ui_extension_t
     : public W
-    , public T
-{
+    , public T {
     window_host_ptr p_host;
 
 public:
@@ -194,25 +191,13 @@ public:
         p_host.release();
     }
 
-    virtual bool is_available(const window_host_ptr& p) const
-    {
-        return true;
-    }
-    const window_host_ptr& get_host() const
-    {
-        return p_host;
-    }
-    virtual HWND get_wnd() const
-    {
-        return W::get_wnd();
-    }
+    virtual bool is_available(const window_host_ptr& p) const { return true; }
+    const window_host_ptr& get_host() const { return p_host; }
+    virtual HWND get_wnd() const { return W::get_wnd(); }
 
     // lpCreateParams in CREATESTRUCT struct in WM_NCCREATE/WM_CREATE is a pointer to an array of LPVOIDs. This is the
     // second LPVOID in the array
-    virtual LPVOID get_create_param()
-    {
-        return this;
-    }
+    virtual LPVOID get_create_param() { return this; }
 };
 
 [[deprecated(
