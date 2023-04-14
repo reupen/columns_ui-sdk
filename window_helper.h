@@ -146,8 +146,8 @@ public:
 public:
 };
 
-#pragma warning(suppress : 4996)
 class [[deprecated("Use uie::container_window_v3")]] container_window_autorelease_t
+#pragma warning(suppress : 4996)
     : public container_window_release_t {
 public:
     container_window_autorelease_t();
