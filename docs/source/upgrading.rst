@@ -1,6 +1,17 @@
 Upgrading the SDK
 =================
 
+Version 7.0.0
+-------------
+
+New in this version
+-------------------
+
+This version fixes a compilation error when the ``<version>`` header had not
+been included, and it also fixes a crash in
+``container_uie_window_v3_t::destroy_window()`` if it’s called when the window
+has already been destroyed, or was never created.
+
 Version 7.0.0-beta.2
 --------------------
 
