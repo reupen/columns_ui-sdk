@@ -5,7 +5,7 @@ Version 7.0.0
 -------------
 
 New in this version
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 This version fixes a compilation error when the ``<version>`` header had not
 been included, and it also fixes a crash in
