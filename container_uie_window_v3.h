@@ -31,8 +31,10 @@ public:
             SetWindowPos(get_wnd(), nullptr, position.x, position.y, position.cx, position.cy, SWP_NOZORDER);
         } else {
             m_host = host;
-            m_window = std::make_unique<container_window_v3>(get_window_config(),
-                [this, ptr = this](auto&&... args) { return on_message(std::forward<decltype(args)>(args)...); });
+            m_window = std::make_unique<container_window_v3>(
+                get_window_config(), [this, _ = typename Base::ptr{this}](auto&&... args) {
+                    return on_message(std::forward<decltype(args)>(args)...);
+                });
             m_window->create(parent, position.x, position.y, position.cx, position.cy);
         }
 

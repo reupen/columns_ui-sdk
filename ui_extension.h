@@ -14,11 +14,12 @@
 
 #include <shlwapi.h>
 
-#include "../foobar2000/SDK/foobar2000.h"
-
-// ripped from stream_reader::read_string_raw
-void stream_to_mem_block(stream_reader* p_source, pfc::array_t<t_uint8>& p_out, abort_callback& p_abort,
-    size_t p_sizehint = 0, bool b_reset = false);
+#include "../foobar2000/SDK/foobar2000-lite.h"
+#include "../foobar2000/SDK/config_object.h"
+#include "../foobar2000/SDK/contextmenu_manager.h"
+#include "../foobar2000/SDK/initquit.h"
+#include "../foobar2000/SDK/titleformat.h"
+#include "../foobar2000/SDK/ui.h"
 
 class stream_writer_memblock_ref : public stream_writer {
 public:
@@ -38,7 +39,7 @@ private:
 
 class stream_writer_memblock : public stream_writer {
 public:
-    stream_writer_memblock(){};
+    stream_writer_memblock() {}
     void write(const void* p_buffer, t_size p_bytes, abort_callback& p_abort) override
     {
         m_data.append_fromptr((t_uint8*)p_buffer, p_bytes);

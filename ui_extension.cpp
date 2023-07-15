@@ -404,23 +404,3 @@ const GUID splitter_window::size_and_dpi
     = {0x443eea36, 0xe5f0, 0x4add, {0xba, 0xe, 0xf3, 0x17, 0x26, 0xb0, 0xbc, 0x45}};
 
 }; // namespace uie
-
-void stream_to_mem_block(
-    stream_reader* p_source, pfc::array_t<t_uint8>& p_out, abort_callback& p_abort, size_t p_sizehint, bool b_reset)
-{
-    if (b_reset)
-        p_out.set_size(0);
-
-    constexpr size_t min_buffer = 256;
-    const auto buffer_size = std::max(min_buffer, p_sizehint);
-    pfc::array_t<t_uint8> buffer;
-    buffer.set_size(buffer_size);
-
-    for (;;) {
-        size_t delta_done = 0;
-        delta_done = p_source->read(buffer.get_ptr(), buffer_size, p_abort);
-        p_out.append_fromptr(buffer.get_ptr(), delta_done);
-        if (delta_done < buffer_size)
-            break;
-    }
-}
