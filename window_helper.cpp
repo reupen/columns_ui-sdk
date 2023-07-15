@@ -1,7 +1,8 @@
 #include "ui_extension.h"
 
 namespace ui_helpers {
-const window_position_t ui_helpers::window_position_null(0, 0, 0, 0);
+
+const window_position_t window_position_null(0, 0, 0, 0);
 
 bool container_window::class_release()
 {

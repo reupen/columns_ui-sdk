@@ -249,7 +249,7 @@ public:
  * This is mainly used by non-panel parts of the UI. Panels would normally receive
  * this notification through the on_bool_changed method of their client instance.
  */
-class dark_mode_notifier : common_callback {
+class dark_mode_notifier final : common_callback {
 public:
     dark_mode_notifier(std::function<void()> callback) : m_callback(std::move(callback))
     {

@@ -406,7 +406,7 @@ public:
         for (i = 0; i < count; i++) {
             splitter_item_ptr si;
             get_panel(i, si);
-            if (si->get_window_ptr() == window) {
+            if (si->get_window_ptr().get_ptr() == window.get_ptr()) {
                 p_index = i;
                 return true;
             }
@@ -419,7 +419,7 @@ public:
         for (i = 0; i < count; i++) {
             splitter_item_ptr si;
             get_panel(i, si);
-            if (si->get_window_ptr() == window) {
+            if (si->get_window_ptr().get_ptr() == window.get_ptr()) {
                 remove_panel(i);
                 return;
             }

@@ -9,7 +9,7 @@ void send_message_to_all_children(HWND wnd_parent, UINT msg, WPARAM wp, LPARAM l
         do {
             send_message_to_all_children(wnd, msg, wp, lp);
             SendMessage(wnd, msg, wp, lp);
-        } while (wnd = GetWindow(wnd, GW_HWNDNEXT));
+        } while ((wnd = GetWindow(wnd, GW_HWNDNEXT)));
 }
 
 void send_message_to_direct_children(HWND wnd_parent, UINT msg, WPARAM wp, LPARAM lp)
@@ -18,7 +18,7 @@ void send_message_to_direct_children(HWND wnd_parent, UINT msg, WPARAM wp, LPARA
     if (wnd)
         do {
             SendMessage(wnd, msg, wp, lp);
-        } while (wnd = GetWindow(wnd, GW_HWNDNEXT));
+        } while ((wnd = GetWindow(wnd, GW_HWNDNEXT)));
 }
 
 int message_box(HWND wnd, const TCHAR* text, const TCHAR* caption, UINT type)
