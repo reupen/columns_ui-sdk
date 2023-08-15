@@ -309,7 +309,7 @@ public:
     virtual bool get_config_item(t_size index, const GUID& p_type, stream_writer* p_out, abort_callback& p_abort) const
     {
         return false;
-    };
+    }
 
     bool get_config_item(t_size index, const GUID& p_type, stream_writer* p_out) const
     {
@@ -319,13 +319,13 @@ public:
     virtual bool set_config_item(t_size index, const GUID& p_type, stream_reader* p_source, abort_callback& p_abort)
     {
         return false;
-    };
+    }
     template <typename class_t>
     bool set_config_item_t(t_size index, const GUID& p_type, const class_t& p_val, abort_callback& p_abort)
     {
         stream_reader_memblock_ref reader(&p_val, sizeof(class_t));
         return set_config_item(index, p_type, &reader, p_abort);
-    };
+    }
 
     template <class T>
     bool get_config_item(t_size p_index, const GUID& p_type, T& p_out, abort_callback& p_abort) const
@@ -348,7 +348,7 @@ public:
     /** This method may be called on both active and inactive (i.e. no window) instances */
     virtual void replace_panel(t_size index, const splitter_item_t* p_item) = 0;
     virtual t_size get_panel_count() const = 0;
-    virtual t_size get_maximum_panel_count() const { return pfc_infinite; };
+    virtual t_size get_maximum_panel_count() const { return pfc_infinite; }
 
     /** Reserved for future use */
     virtual void register_callback(class splitter_callback* p_callback){};
@@ -457,7 +457,7 @@ public:
     virtual bool is_point_ours(HWND wnd_point, const POINT& pt_screen, pfc::list_base_t<uie::window::ptr>& p_hierarchy)
     {
         return false;
-    };
+    }
 
     /**
      * \brief Checks if windows can be inserted into this splitter. Used for live editing.

@@ -26,7 +26,7 @@ public:
         y = rc.top; // + (RECT_CY(rc)-cy)/2;
         cx = u_cx;
         cy = u_cy;
-    };
+    }
 
     void convert_to_rect(RECT& p_out) const
     {
@@ -99,7 +99,7 @@ public:
     virtual bool get_short_name(pfc::string_base& out) const
     {
         return false;
-    }; // short/friendly name, e.g. order vs. playback order, playlists vs. playlist switcher
+    } // short/friendly name, e.g. order vs. playback order, playlists vs. playlist switcher
 
     /**
      * \brief Gets the description of the extension.
@@ -112,7 +112,7 @@ public:
     virtual bool get_description(pfc::string_base& out) const
     {
         return false;
-    }; // e.g. "Drop-down list to display the current playback order and to allow you to select a new playback order"
+    } // e.g. "Drop-down list to display the current playback order and to allow you to select a new playback order"
 
     /**
      * \brief Gets the type of the extension.

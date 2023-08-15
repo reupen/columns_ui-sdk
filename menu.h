@@ -24,7 +24,11 @@ public:
     };
 
     /** Type of the menu item */
-    enum type_t { type_popup, type_command, type_separator };
+    enum type_t {
+        type_popup,
+        type_command,
+        type_separator
+    };
 
     /**
      * Retrieves the type of the menu item.
@@ -81,7 +85,7 @@ public:
 /** \brief Base class for command menu items */
 class NOVTABLE menu_node_command_t : public menu_node_t {
 public:
-    type_t get_type() const override { return type_command; };
+    type_t get_type() const override { return type_command; }
     t_size get_children_count() const override { return 0; }
     void get_child(t_size index, menu_node_ptr& p_out) const override {}
 };
@@ -89,7 +93,7 @@ public:
 /** \brief Base class for popup menu items */
 class NOVTABLE menu_node_popup_t : public menu_node_t {
 public:
-    type_t get_type() const override { return type_popup; };
+    type_t get_type() const override { return type_popup; }
     void execute() override{};
     bool get_description(pfc::string_base& p_out) const override { return false; }
 };
@@ -97,7 +101,7 @@ public:
 /** \brief Implements menu_node_t as a separator item */
 class menu_node_separator_t : public menu_node_t {
 public:
-    type_t get_type() const override { return type_separator; };
+    type_t get_type() const override { return type_separator; }
     void execute() override{};
     bool get_description(pfc::string_base& p_out) const override { return false; }
     t_size get_children_count() const override { return 0; }

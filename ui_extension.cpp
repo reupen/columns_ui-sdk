@@ -136,7 +136,7 @@ HWND uie::window::g_on_tab(HWND wnd_focus)
     SetFocus(wnd_next);
 
     return wnd_next;
-};
+}
 
 void uie::extension_base::set_config_from_ptr(const void* p_data, t_size p_size, abort_callback& p_abort)
 {
@@ -310,16 +310,16 @@ void uie::menu_hook_impl::get_child(t_size p_index, menu_node_ptr& p_out) const
 uie::menu_node_t::type_t uie::menu_hook_impl::get_type() const
 {
     return type_popup;
-};
+}
 
 bool uie::menu_hook_impl::get_display_data(pfc::string_base& p_out, unsigned& p_displayflags) const
 {
     return false;
-};
+}
 bool uie::menu_hook_impl::get_description(pfc::string_base& p_out) const
 {
     return false;
-};
+}
 void uie::menu_hook_impl::execute(){};
 
 void uie::menu_hook_impl::win32_build_menu(HMENU menu, unsigned base_id, unsigned max_id)

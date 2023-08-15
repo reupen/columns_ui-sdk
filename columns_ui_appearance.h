@@ -31,7 +31,6 @@ enum colour_flag_t {
     colour_flag_all = (1 << colour_text) | (1 << colour_selection_text) | (1 << colour_inactive_selection_text)
         | (1 << colour_background) | (1 << colour_selection_background) | (1 << colour_inactive_selection_background)
         | (1 << colour_active_item_frame) | (1 << colour_group_foreground) | (1 << colour_group_background),
-
 };
 
 enum bool_identifier_t {
