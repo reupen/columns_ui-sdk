@@ -27,7 +27,7 @@ public:
     {
         if (b_reset)
             m_data.set_size(0);
-    };
+    }
     void write(const void* p_buffer, t_size p_bytes, abort_callback& p_abort) override
     {
         m_data.append_fromptr((t_uint8*)p_buffer, p_bytes);
@@ -92,7 +92,7 @@ enum size_limit_flag_t {
     size_limit_maximum_height = (1 << 3),
     /** All size limits changed. */
     size_limit_all
-    = size_limit_minimum_width | size_limit_maximum_width | size_limit_minimum_height | size_limit_maximum_height,
+        = size_limit_minimum_width | size_limit_maximum_width | size_limit_minimum_height | size_limit_maximum_height,
 };
 
 /**

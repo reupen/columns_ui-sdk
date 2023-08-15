@@ -40,7 +40,7 @@ public:
      * \param [in]    p_size          Size of data in stream
      * \param [in]    p_abort         Signals abort of operation
      */
-    virtual void set_config(stream_reader* p_reader, t_size p_size, abort_callback& p_abort) { ; };
+    virtual void set_config(stream_reader* p_reader, t_size p_size, abort_callback& p_abort) { ; }
 
     /**
      * \brief Get instance configuration data.
@@ -78,7 +78,7 @@ public:
     virtual void import_config(stream_reader* p_reader, t_size p_size, abort_callback& p_abort)
     {
         set_config(p_reader, p_size, p_abort);
-    };
+    }
 
     /**
      * \brief Get instance configuration data. This differs from get_config, in that
@@ -96,7 +96,7 @@ public:
     virtual void export_config(stream_writer* p_writer, abort_callback& p_abort) const
     {
         get_config(p_writer, p_abort);
-    };
+    }
 
     /**
      * \brief Gets whether the extension has a modal configuration window

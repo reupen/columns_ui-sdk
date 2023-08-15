@@ -366,7 +366,7 @@ public:
         t_service_ptr ptr;
         while (export_enum.next(ptr))
             this->add_item(ptr);
-    };
+    }
     bool find_by_guid(const GUID& guid, t_service_ptr& p_out)
     {
         t_size i, count = this->get_count();
