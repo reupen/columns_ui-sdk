@@ -1,6 +1,16 @@
 Upgrading the SDK
 =================
 
+Development version
+-------------------
+
+Bug fixes
+~~~~~~~~~
+
+The project file was updated to remove ``..\columns_ui-sdk`` from referenced
+file paths. This makes it possible for names other than ``columns_ui-sdk``
+to be used for the directory containing the Columns UI SDK.
+
 Version 7.0.0
 -------------
 
