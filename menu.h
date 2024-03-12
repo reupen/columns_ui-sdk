@@ -94,7 +94,7 @@ public:
 class NOVTABLE menu_node_popup_t : public menu_node_t {
 public:
     type_t get_type() const override { return type_popup; }
-    void execute() override{};
+    void execute() override {};
     bool get_description(pfc::string_base& p_out) const override { return false; }
 };
 
@@ -102,7 +102,7 @@ public:
 class menu_node_separator_t : public menu_node_t {
 public:
     type_t get_type() const override { return type_separator; }
-    void execute() override{};
+    void execute() override {};
     bool get_description(pfc::string_base& p_out) const override { return false; }
     t_size get_children_count() const override { return 0; }
     bool get_display_data(pfc::string_base& p_out, unsigned& p_displayflags) const override

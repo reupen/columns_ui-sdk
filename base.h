@@ -121,7 +121,7 @@ public:
      *
      * \param [in]    p_hook        The interface you use to add your menu items
      */
-    virtual void get_menu_items(menu_hook_t& p_hook){};
+    virtual void get_menu_items(menu_hook_t& p_hook) {};
 
     /**
      * \brief Helper function, set instance configuration data from raw pointer.

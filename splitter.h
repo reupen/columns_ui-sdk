@@ -351,9 +351,9 @@ public:
     virtual t_size get_maximum_panel_count() const { return pfc_infinite; }
 
     /** Reserved for future use */
-    virtual void register_callback(class splitter_callback* p_callback){};
+    virtual void register_callback(class splitter_callback* p_callback) {};
     /** Reserved for future use */
-    virtual void deregister_callback(class splitter_callback* p_callback){};
+    virtual void deregister_callback(class splitter_callback* p_callback) {};
 
 protected:
     /**
@@ -470,7 +470,7 @@ public:
      *                                        A set bit indicates the respective window cannot be inserted.
      */
     virtual void get_supported_panels(
-        const pfc::list_base_const_t<uie::window::ptr>& p_windows, bit_array_var& p_mask_unsupported){};
+        const pfc::list_base_const_t<uie::window::ptr>& p_windows, bit_array_var& p_mask_unsupported) {};
 
     FB2K_MAKE_SERVICE_INTERFACE(splitter_window_v2, splitter_window);
 };

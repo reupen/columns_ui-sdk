@@ -207,8 +207,7 @@ public:
 
 #pragma warning(suppress : 4996)
 [[deprecated("Use uie::container_uie_window_v3_t")]] typedef container_ui_extension_t<ui_helpers::container_window,
-    uie::menu_window>
-    container_menu_ui_extension;
+    uie::menu_window> container_menu_ui_extension;
 
 #if _MSC_VER >= 1800
 template <class base_window_class = uie::window>
