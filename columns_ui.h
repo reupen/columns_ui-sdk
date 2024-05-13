@@ -199,7 +199,7 @@ public:
         } else
             return false;
     }
-    inline titleformat_hook_global_variables(global_variable_list& vars) : p_vars(vars){};
+    inline titleformat_hook_global_variables(global_variable_list& vars) : p_vars(vars) {};
 };
 
 namespace fcl {
@@ -268,7 +268,7 @@ public:
         : m_guid(pguid)
         , m_parent_guid(pguidparent)
         , m_name(pname)
-        , m_desc(pdesc){};
+        , m_desc(pdesc) {};
 };
 
 /** Helper. */
@@ -276,7 +276,7 @@ class group_impl_factory : public service_factory_single_t<group_impl> {
 public:
     group_impl_factory(
         const GUID& pguid, const char* pname, const char* pdesc, const GUID& pguidparent = pfc::guid_null)
-        : service_factory_single_t<group_impl>(pguid, pname, pdesc, pguidparent){};
+        : service_factory_single_t<group_impl>(pguid, pname, pdesc, pguidparent) {};
 };
 
 class NOVTABLE dataset : public service_base {
