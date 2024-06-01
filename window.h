@@ -14,9 +14,9 @@ public:
     int y;
     unsigned cx;
     unsigned cy;
-    window_position_t(int i_x, int i_y, unsigned u_cx, unsigned u_cy) : x(i_x), y(i_y), cx(u_cx), cy(u_cy){};
-    window_position_t(const RECT& rc) : x(rc.left), y(rc.top), cx(rc.right - rc.left), cy(rc.bottom - rc.top){};
-    window_position_t(){};
+    window_position_t(int i_x, int i_y, unsigned u_cx, unsigned u_cy) : x(i_x), y(i_y), cx(u_cx), cy(u_cy) {};
+    window_position_t(const RECT& rc) : x(rc.left), y(rc.top), cx(rc.right - rc.left), cy(rc.bottom - rc.top) {};
+    window_position_t() {};
     window_position_t(HWND wnd_relative, int i_x, int i_y, unsigned u_cx, unsigned u_cy)
     {
         RECT rc;
@@ -64,7 +64,7 @@ struct size_limit_t {
      * \brief Default constructor
      * \remark Initialises max_height, max_width with MAXLONG because WIN32 API takes windows sizes as signed
      */
-    size_limit_t() : min_height(0), max_height(MAXLONG), min_width(0), max_width(MAXLONG){};
+    size_limit_t() : min_height(0), max_height(MAXLONG), min_width(0), max_width(MAXLONG) {};
 };
 
 /**
@@ -389,7 +389,7 @@ public:
 
     bool get_description(pfc::string_base& p_out) const override { return false; }
     void execute() override { p_this->show_config_popup(p_this->get_wnd()); }
-    menu_node_configure(window* wnd, const char* p_title = "Options") : p_this(wnd), m_title(p_title){};
+    menu_node_configure(window* wnd, const char* p_title = "Options") : p_this(wnd), m_title(p_title) {};
 };
 
 template <class T>
@@ -408,7 +408,7 @@ class window_implementation : public T {
     virtual const bool get_is_single_instance() const { return B; }
 
 protected:
-    window_implementation(){};
+    window_implementation() {};
 
     friend uie::window_factory<T>;
     friend uie::window_factory_single<T>;
@@ -498,7 +498,7 @@ public:
     pfc::string8 category;
     bool prefer_multiple_instances;
     unsigned type;
-    window_info_simple() : guid(pfc::guid_null), prefer_multiple_instances(false), type(NULL){};
+    window_info_simple() : guid(pfc::guid_null), prefer_multiple_instances(false), type(NULL) {};
 };
 
 /**

@@ -26,7 +26,7 @@ public:
     virtual const window_ptr& get_window_ptr() const = 0;
 
     virtual bool query(const GUID& p_guid) const { return false; }
-    virtual ~splitter_item_t(){};
+    virtual ~splitter_item_t() {};
 
     template <typename t_class>
     bool query(const t_class*& p_out) const
