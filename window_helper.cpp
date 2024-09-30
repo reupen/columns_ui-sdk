@@ -13,7 +13,7 @@ bool container_window::class_release()
     return get_class_data().class_registered == false;
 }
 
-container_window::container_window() : wnd_host(0) {};
+container_window::container_window() : wnd_host(0) {}
 
 #pragma warning(suppress : 4996)
 initquit_factory_t<container_window_autorelease_t::initquit_t> g_container_window_autorelease_initquit;

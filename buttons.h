@@ -187,7 +187,7 @@ public:
      *
      * \param [in]    p_callback    Reference to callback object requesting callbacks
      */
-    virtual void register_callback(button_callback& p_callback) {};
+    virtual void register_callback(button_callback& p_callback) {}
 
     /**
      * \brief Deregisters a button_callback class to stop receiving callbacks
@@ -197,7 +197,7 @@ public:
      * The object implementing this method must not keep any references to the specified
      * callback object after this method returns
      */
-    virtual void deregister_callback(button_callback& p_callback) {};
+    virtual void deregister_callback(button_callback& p_callback) {}
 
     FB2K_MAKE_SERVICE_INTERFACE_ENTRYPOINT(button);
 };
