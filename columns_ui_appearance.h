@@ -106,8 +106,8 @@ public:
     /** \brief Creates a manager_instance for the given client (null GUID implies global settings). */
     virtual void create_instance(const GUID& p_client_guid, cui::colours::manager_instance::ptr& p_out) = 0;
 
-    virtual void register_common_callback(common_callback* p_callback) {};
-    virtual void deregister_common_callback(common_callback* p_callback) {};
+    virtual void register_common_callback(common_callback* p_callback) {}
+    virtual void deregister_common_callback(common_callback* p_callback) {}
 
     FB2K_MAKE_SERVICE_INTERFACE_ENTRYPOINT(manager);
 };

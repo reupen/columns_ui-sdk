@@ -320,7 +320,7 @@ bool uie::menu_hook_impl::get_description(pfc::string_base& p_out) const
 {
     return false;
 }
-void uie::menu_hook_impl::execute() {};
+void uie::menu_hook_impl::execute() {}
 
 void uie::menu_hook_impl::win32_build_menu(HMENU menu, unsigned base_id, unsigned max_id)
 {
