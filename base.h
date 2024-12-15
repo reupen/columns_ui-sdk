@@ -108,7 +108,7 @@ public:
     virtual bool have_config_popup() const { return false; }
 
     /**
-     * \brief Displays a modal configuartion dialog
+     * \brief Displays a modal configuration dialog
      *
      * \param [in]    wnd_parent    The window to use as the owner window for your configuration dialog
      *

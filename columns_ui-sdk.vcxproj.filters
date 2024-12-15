@@ -52,6 +52,9 @@
     <ClInclude Include="container_uie_window_v3.h">
       <Filter>Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="font_manager_v3.h">
+      <Filter>CUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="win32_helpers.cpp">
