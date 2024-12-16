@@ -3,6 +3,10 @@
 
 #define UI_EXTENSION_VERSION "7.0.0"
 
+#if !__has_include(<dwrite_3.h>)
+#define CUI_SDK_DWRITE_DISABLED
+#endif
+
 #include <algorithm>
 #include <memory>
 #include <unordered_map>
@@ -12,6 +16,9 @@
 // Included first, because pfc.h includes winsock2.h
 #include "../pfc/pfc.h"
 
+#ifndef CUI_SDK_DWRITE_DISABLED
+#include <dwrite_3.h>
+#endif
 #include <shlwapi.h>
 
 #include "../foobar2000/SDK/foobar2000-lite.h"
@@ -148,6 +155,10 @@ namespace ui_extension = uie;
 #include "buttons.h"
 #include "columns_ui.h"
 #include "columns_ui_appearance.h"
+
+#ifndef CUI_SDK_DWRITE_DISABLED
+#include "font_manager_v3.h"
+#endif
 
 namespace ui_extension = uie;
 namespace columns_ui = cui;

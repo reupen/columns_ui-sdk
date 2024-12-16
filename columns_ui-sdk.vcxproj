@@ -163,6 +163,7 @@
   <ItemGroup>
     <ClInclude Include="base.h" />
     <ClInclude Include="buttons.h" />
+    <ClInclude Include="font_manager_v3.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="splitter.h" />
     <ClInclude Include="visualisation.h" />
