@@ -84,7 +84,7 @@ public:
     void deregister_class() const;
 
 private:
-    static LRESULT WINAPI s_on_message(HWND wnd, UINT msg, WPARAM wp, LPARAM lp);
+    static LRESULT WINAPI s_on_message(HWND wnd, UINT msg, WPARAM wp, LPARAM lp) noexcept;
 
     LRESULT on_message(HWND wnd, UINT msg, WPARAM wp, LPARAM lp);
     void register_class() const;

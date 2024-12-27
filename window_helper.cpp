@@ -87,7 +87,7 @@ void container_window::destroy()
 }
 
 #pragma warning(suppress : 4996)
-LRESULT WINAPI container_window::window_proc(HWND wnd, UINT msg, WPARAM wp, LPARAM lp)
+LRESULT WINAPI container_window::window_proc(HWND wnd, UINT msg, WPARAM wp, LPARAM lp) noexcept
 {
     container_window* p_this;
 
