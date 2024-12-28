@@ -104,7 +104,7 @@ public:
     void destroy(); // if destroying someother way, you should make sure you call class_release() after destroying the
                     // window (e.g. call it on app-shutdown)
 
-    static LRESULT WINAPI window_proc(HWND wnd, UINT msg, WPARAM wp, LPARAM lp);
+    static LRESULT WINAPI window_proc(HWND wnd, UINT msg, WPARAM wp, LPARAM lp) noexcept;
 
     HWND get_wnd() const;
 
@@ -126,7 +126,7 @@ public:
         void deregister_window(container_window_release_t& ptr) { m_windows.remove_item(&ptr); }
 
     private:
-        void on_quit() override
+        void on_quit() noexcept override
         {
             t_size i = m_windows.get_count();
             for (; i; i--) {

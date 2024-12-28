@@ -37,7 +37,7 @@ void container_window_v3::destroy() const
     }
 }
 
-LRESULT container_window_v3::s_on_message(HWND wnd, UINT msg, WPARAM wp, LPARAM lp)
+LRESULT container_window_v3::s_on_message(HWND wnd, UINT msg, WPARAM wp, LPARAM lp) noexcept
 {
     container_window_v3* self{};
 
