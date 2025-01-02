@@ -20,7 +20,8 @@ inline void GetRelativeRect(HWND wnd, HWND wnd_parent, RECT* rc)
 }
 
 bool uComboBox_GetText(HWND combo, UINT index, pfc::string_base& out);
-bool uStatus_SetText(HWND wnd, int part, const char* text);
+
+[[deprecated("No longer maintained.")]] bool uStatus_SetText(HWND wnd, int part, const char* text);
 
 HFONT uCreateIconFont();
 HFONT uCreateMenuFont(bool vertical = false);
@@ -55,7 +56,8 @@ HWND uRecursiveChildWindowFromPoint(HWND parent, POINT pt_parent);
 namespace win32_helpers {
 
 void send_message_to_direct_children(HWND wnd_parent, UINT msg, WPARAM wp, LPARAM lp);
-int message_box(HWND wnd, const TCHAR* text, const TCHAR* caption, UINT type);
+
+[[deprecated("No longer maintained.")]] int message_box(HWND wnd, const TCHAR* text, const TCHAR* caption, UINT type);
 
 }; // namespace win32_helpers
 

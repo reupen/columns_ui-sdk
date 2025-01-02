@@ -11,6 +11,14 @@ The project file was updated to remove ``..\columns_ui-sdk`` from referenced
 file paths. This makes it possible for names other than ``columns_ui-sdk``
 to be used for the directory containing the Columns UI SDK.
 
+Deprecated in this version
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following functions were deprecated:
+
+- :func:`uStatus_SetText()`
+- :func:`win32_helpers::message_box()`
+
 Removed in this version
 ~~~~~~~~~~~~~~~~~~~~~~~
 
