@@ -15,33 +15,6 @@ bool container_window::class_release()
 
 container_window::container_window() : wnd_host(0) {}
 
-#pragma warning(suppress : 4996)
-initquit_factory_t<container_window_autorelease_t::initquit_t> g_container_window_autorelease_initquit;
-
-#pragma warning(suppress : 4996)
-void container_window_release_t::register_initquit()
-{
-    g_container_window_autorelease_initquit.get_static_instance().register_window(*this);
-}
-
-#pragma warning(suppress : 4996)
-void container_window_release_t::deregister_initquit()
-{
-    g_container_window_autorelease_initquit.get_static_instance().deregister_window(*this);
-}
-
-container_window_autorelease_t::container_window_autorelease_t()
-{
-#pragma warning(suppress : 4996)
-    register_initquit();
-}
-
-container_window_autorelease_t::~container_window_autorelease_t()
-{
-#pragma warning(suppress : 4996)
-    deregister_initquit();
-}
-
 HWND container_window::create(
     HWND wnd_parent, LPVOID create_param, const ui_helpers::window_position_t& p_window_position)
 {

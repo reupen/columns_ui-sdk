@@ -113,47 +113,6 @@ public:
     virtual LRESULT on_message(HWND wnd, UINT msg, WPARAM wp, LPARAM lp) = 0;
 };
 
-/** \brief    Implements a container_window that cleans up on quit.
- *            If you use this, you need to call destroy() in your WM_CLOSE handler (and be sure not to call
- * DefWindowProc)
- */
-#pragma warning(suppress : 4996)
-class [[deprecated("Use uie::container_window_v3")]] container_window_release_t : public container_window {
-public:
-    class initquit_t : public initquit {
-    public:
-        void register_window(container_window_release_t& ptr) { m_windows.add_item(&ptr); }
-        void deregister_window(container_window_release_t& ptr) { m_windows.remove_item(&ptr); }
-
-    private:
-        void on_quit() noexcept override
-        {
-            t_size i = m_windows.get_count();
-            for (; i; i--) {
-#pragma warning(suppress : 4996)
-                if (m_windows[i - 1]->get_wnd())
-#pragma warning(suppress : 4996)
-                    SendMessage(m_windows[i - 1]->get_wnd(), WM_CLOSE, 0, 0);
-            }
-        }
-#pragma warning(suppress : 4996)
-        pfc::list_t<container_window_release_t*> m_windows;
-    };
-
-    void register_initquit();
-    void deregister_initquit();
-
-public:
-};
-
-class [[deprecated("Use uie::container_window_v3")]] container_window_autorelease_t
-#pragma warning(suppress : 4996)
-    : public container_window_release_t {
-public:
-    container_window_autorelease_t();
-    ~container_window_autorelease_t();
-};
-
 }; // namespace ui_helpers
 
 // for multiple instance extensions only
@@ -204,10 +163,6 @@ public:
 #pragma warning(suppress : 4996)
     "Use uie::container_uie_window_v3")]] typedef container_ui_extension_t<ui_helpers::container_window, uie::window>
     container_ui_extension;
-
-#pragma warning(suppress : 4996)
-[[deprecated("Use uie::container_uie_window_v3_t")]] typedef container_ui_extension_t<ui_helpers::container_window,
-    uie::menu_window> container_menu_ui_extension;
 
 #if _MSC_VER >= 1800
 template <class base_window_class = uie::window>

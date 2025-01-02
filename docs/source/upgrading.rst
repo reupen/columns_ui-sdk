@@ -11,6 +11,39 @@ The project file was updated to remove ``..\columns_ui-sdk`` from referenced
 file paths. This makes it possible for names other than ``columns_ui-sdk``
 to be used for the directory containing the Columns UI SDK.
 
+Removed in this version
+~~~~~~~~~~~~~~~~~~~~~~~
+
+The following deprecated named constants were removed:
+
+- :code:`cui::panels::guid_playlist_view`
+
+The following structs were removed:
+
+- :code:`uTOOLINFO`
+- :code:`uHDITEM`
+
+The following preprocessor macros were removed:
+
+- :code:`RECT_CX()`
+- :code:`RECT_CY()`
+
+The following deprecated classes were removed:
+
+- :class:`uie::container_menu_ui_extension`
+- :class:`uie::container_window_autorelease_t`
+- :class:`uie::container_window_release_t`
+
+The following deprecated functions were removed:
+
+- :func:`uHeader_InsertItem()`
+- :func:`uHeader_SetItemText()`
+- :func:`uHeader_SetItemWidth()`
+- :func:`uToolTip_AddTool()`
+- :func:`uComboBox_SelectString()`
+- :func:`win32_helpers::send_message_to_all_children()`
+- :func:`win32_helpers::tooltip_add_tool()`
+
 Version 7.0.0
 -------------
 
