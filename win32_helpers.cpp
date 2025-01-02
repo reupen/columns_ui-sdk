@@ -2,16 +2,6 @@
 
 namespace win32_helpers {
 
-void send_message_to_all_children(HWND wnd_parent, UINT msg, WPARAM wp, LPARAM lp)
-{
-    HWND wnd = GetWindow(wnd_parent, GW_CHILD);
-    if (wnd)
-        do {
-            send_message_to_all_children(wnd, msg, wp, lp);
-            SendMessage(wnd, msg, wp, lp);
-        } while ((wnd = GetWindow(wnd, GW_HWNDNEXT)));
-}
-
 void send_message_to_direct_children(HWND wnd_parent, UINT msg, WPARAM wp, LPARAM lp)
 {
     HWND wnd = GetWindow(wnd_parent, GW_CHILD);
@@ -28,55 +18,6 @@ int message_box(HWND wnd, const TCHAR* text, const TCHAR* caption, UINT type)
 }
 
 }; // namespace win32_helpers
-
-int uHeader_SetItemWidth(HWND wnd, int n, UINT cx)
-{
-    uHDITEM hdi;
-    memset(&hdi, 0, sizeof(hdi));
-    hdi.mask = HDI_WIDTH;
-    hdi.cxy = cx;
-#pragma warning(suppress : 4996)
-    return uHeader_InsertItem(wnd, n, &hdi, false);
-}
-int uHeader_SetItemText(HWND wnd, int n, const char* text)
-{
-    uHDITEM hdi;
-    memset(&hdi, 0, sizeof(hdi));
-    hdi.mask = HDI_TEXT;
-    hdi.cchTextMax = NULL;
-    hdi.pszText = const_cast<char*>(text);
-#pragma warning(suppress : 4996)
-    return uHeader_InsertItem(wnd, n, &hdi, false);
-}
-
-int uHeader_InsertItem(HWND wnd, int n, uHDITEM* hdi, bool insert)
-{
-    pfc::stringcvt::string_wide_from_utf8 text_utf16;
-
-    HDITEMW hdw{};
-    hdw.cxy = hdi->cxy;
-    hdw.fmt = hdi->fmt;
-    hdw.hbm = hdi->hbm;
-    hdw.iImage = hdi->iImage;
-    hdw.iOrder = hdi->iOrder;
-    hdw.lParam = hdi->lParam;
-    hdw.mask = hdi->mask;
-
-    if (hdi->mask & HDI_TEXT) {
-        if (hdi->pszText == LPSTR_TEXTCALLBACKA) {
-            hdw.pszText = LPSTR_TEXTCALLBACKW;
-        } else {
-            text_utf16.convert(hdi->pszText);
-            hdw.pszText = const_cast<WCHAR*>(text_utf16.get_ptr());
-            hdw.cchTextMax = static_cast<int>(std::min(text_utf16.length(), static_cast<size_t>(INT_MAX)));
-        }
-    }
-
-    if (insert)
-        return Header_InsertItem(wnd, n, &hdw);
-
-    return Header_SetItem(wnd, n, &hdw);
-}
 
 bool uRebar_InsertItem(HWND wnd, int n, uREBARBANDINFO* rbbi, bool insert)
 {
@@ -115,40 +56,6 @@ bool uRebar_InsertItem(HWND wnd, int n, uREBARBANDINFO* rbbi, bool insert)
     return SendMessage(wnd, insert ? RB_INSERTBANDW : RB_SETBANDINFOW, n, reinterpret_cast<LPARAM>(&rbw)) != 0;
 }
 
-namespace win32_helpers {
-bool tooltip_add_tool(HWND wnd, TOOLINFO* ti, bool update)
-{
-    const auto result = SendMessage(wnd, update ? TTM_UPDATETIPTEXT : TTM_ADDTOOL, 0, (LPARAM)ti);
-    return result != 0 || update;
-}
-} // namespace win32_helpers
-
-bool uToolTip_AddTool(HWND wnd, uTOOLINFO* ti, bool update)
-{
-    pfc::stringcvt::string_wide_from_utf8 text_utf16;
-    TOOLINFOW tiw{};
-
-    tiw.cbSize = sizeof(tiw);
-    tiw.uFlags = ti->uFlags;
-    tiw.hwnd = ti->hwnd;
-    tiw.uId = ti->uId;
-    tiw.rect = ti->rect;
-    tiw.hinst = ti->hinst;
-    tiw.lParam = ti->lParam;
-
-    if (ti->lpszText == LPSTR_TEXTCALLBACKA) {
-        tiw.lpszText = LPSTR_TEXTCALLBACKW;
-    } else if (IS_INTRESOURCE(ti->lpszText)) {
-        tiw.lpszText = reinterpret_cast<LPWSTR>(ti->lpszText);
-    } else {
-        text_utf16.convert(ti->lpszText);
-        tiw.lpszText = const_cast<WCHAR*>(text_utf16.get_ptr());
-    }
-
-    const auto result = SendMessage(wnd, update ? TTM_UPDATETIPTEXTW : TTM_ADDTOOLW, 0, (LPARAM)&tiw);
-    return result != 0 || update;
-}
-
 int uTabCtrl_InsertItemText(HWND wnd, int idx, const char* text, bool insert)
 {
     pfc::string8 temp2;
@@ -184,18 +91,6 @@ bool uComboBox_GetText(HWND combo, UINT index, pfc::string_base& out)
         return false;
 
     out.set_string(pfc::stringcvt::string_utf8_from_wide(temp.get_ptr()));
-    return true;
-}
-
-bool uComboBox_SelectString(HWND combo, const char* src)
-{
-    const auto idx = uSendMessageText(combo, CB_FINDSTRINGEXACT, -1, src);
-
-    if (idx == CB_ERR)
-        return false;
-
-    SendMessage(combo, CB_SETCURSEL, idx, 0);
-
     return true;
 }
 

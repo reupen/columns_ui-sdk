@@ -4,12 +4,7 @@
 #include <windowsx.h>
 #include <CommCtrl.h>
 
-typedef HDITEMA uHDITEM;
-typedef TOOLINFOA uTOOLINFO;
 typedef REBARBANDINFOA uREBARBANDINFO;
-
-#define RECT_CX(rc) ((rc).right - (rc).left)
-#define RECT_CY(rc) ((rc).bottom - (rc).top)
 
 // set insert to false to set the item instead
 bool uRebar_InsertItem(HWND wnd, int n, uREBARBANDINFO* rbbi, bool insert = true);
@@ -25,7 +20,8 @@ inline void GetRelativeRect(HWND wnd, HWND wnd_parent, RECT* rc)
 }
 
 bool uComboBox_GetText(HWND combo, UINT index, pfc::string_base& out);
-bool uStatus_SetText(HWND wnd, int part, const char* text);
+
+[[deprecated("No longer maintained.")]] bool uStatus_SetText(HWND wnd, int part, const char* text);
 
 HFONT uCreateIconFont();
 HFONT uCreateMenuFont(bool vertical = false);
@@ -57,20 +53,11 @@ BOOL uGetMonitorInfo(HMONITOR monitor, LPMONITORINFO lpmi);
 HWND uRecursiveChildWindowFromPoint(HWND parent, POINT pt_parent);
 #endif
 
-[[deprecated("No longer maintained.")]] int uHeader_InsertItem(HWND wnd, int n, uHDITEM* hdi, bool insert = true);
-[[deprecated("No longer maintained.")]] int uHeader_SetItemText(HWND wnd, int n, const char* text);
-[[deprecated("No longer maintained.")]] int uHeader_SetItemWidth(HWND wnd, int n, UINT cx);
-[[deprecated("No longer maintained.")]] bool uToolTip_AddTool(HWND wnd, uTOOLINFO* ti, bool update = false);
-[[deprecated("No longer maintained.")]] bool uComboBox_SelectString(HWND combo, const char* src);
-
 namespace win32_helpers {
 
 void send_message_to_direct_children(HWND wnd_parent, UINT msg, WPARAM wp, LPARAM lp);
-int message_box(HWND wnd, const TCHAR* text, const TCHAR* caption, UINT type);
 
-[[deprecated("No longer maintained.")]] void send_message_to_all_children(
-    HWND wnd_parent, UINT msg, WPARAM wp, LPARAM lp);
-[[deprecated("No longer maintained.")]] bool tooltip_add_tool(HWND wnd, TOOLINFO* ti, bool update = false);
+[[deprecated("No longer maintained.")]] int message_box(HWND wnd, const TCHAR* text, const TCHAR* caption, UINT type);
 
 }; // namespace win32_helpers
 
