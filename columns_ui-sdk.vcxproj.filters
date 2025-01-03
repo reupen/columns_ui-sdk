@@ -42,9 +42,6 @@
     <ClInclude Include="columns_ui.h">
       <Filter>CUI</Filter>
     </ClInclude>
-    <ClInclude Include="columns_ui_appearance.h">
-      <Filter>CUI</Filter>
-    </ClInclude>
     <ClInclude Include="ui_extension.h" />
     <ClInclude Include="container_window_v3.h">
       <Filter>Helpers</Filter>
@@ -53,6 +50,12 @@
       <Filter>Helpers</Filter>
     </ClInclude>
     <ClInclude Include="font_manager_v3.h">
+      <Filter>CUI</Filter>
+    </ClInclude>
+    <ClInclude Include="colours.h">
+      <Filter>CUI</Filter>
+    </ClInclude>
+    <ClInclude Include="fonts.h">
       <Filter>CUI</Filter>
     </ClInclude>
   </ItemGroup>
@@ -69,6 +72,15 @@
     <ClCompile Include="ui_extension.cpp" />
     <ClCompile Include="container_window_v3.cpp">
       <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="colours.cpp">
+      <Filter>CUI</Filter>
+    </ClCompile>
+    <ClCompile Include="fonts.cpp">
+      <Filter>CUI</Filter>
+    </ClCompile>
+    <ClCompile Include="font_manager_v3.cpp">
+      <Filter>CUI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

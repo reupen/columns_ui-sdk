@@ -154,7 +154,8 @@ namespace ui_extension = uie;
 #include "visualisation.h"
 #include "buttons.h"
 #include "columns_ui.h"
-#include "columns_ui_appearance.h"
+#include "colours.h"
+#include "fonts.h"
 
 #ifndef CUI_SDK_DWRITE_DISABLED
 #include "font_manager_v3.h"
