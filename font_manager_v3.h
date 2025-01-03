@@ -109,7 +109,7 @@ public:
     }
 #endif
 
-    FB2K_MAKE_SERVICE_INTERFACE_ENTRYPOINT(font);
+    FB2K_MAKE_SERVICE_INTERFACE(font, service_base);
 };
 
 /**

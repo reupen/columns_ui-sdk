@@ -163,9 +163,11 @@
   <ItemGroup>
     <ClInclude Include="base.h" />
     <ClInclude Include="buttons.h" />
+    <ClInclude Include="callback_token.h" />
     <ClInclude Include="colours.h" />
     <ClInclude Include="fonts.h" />
     <ClInclude Include="font_manager_v3.h" />
+    <ClInclude Include="font_utils.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="splitter.h" />
     <ClInclude Include="visualisation.h" />
@@ -182,6 +184,7 @@
     <ClCompile Include="colours.cpp" />
     <ClCompile Include="fonts.cpp" />
     <ClCompile Include="font_manager_v3.cpp" />
+    <ClCompile Include="font_utils.cpp" />
     <ClCompile Include="win32_helpers.cpp" />
     <ClCompile Include="window_helper.cpp" />
     <ClCompile Include="columns_ui.cpp" />
