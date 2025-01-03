@@ -9,6 +9,7 @@
 
 #include <algorithm>
 #include <memory>
+#include <optional>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
@@ -153,6 +154,7 @@ namespace ui_extension = uie;
 #include "splitter.h"
 #include "visualisation.h"
 #include "buttons.h"
+#include "callback_token.h"
 #include "columns_ui.h"
 #include "colours.h"
 #include "fonts.h"
@@ -160,6 +162,8 @@ namespace ui_extension = uie;
 #ifndef CUI_SDK_DWRITE_DISABLED
 #include "font_manager_v3.h"
 #endif
+
+#include "font_utils.h"
 
 namespace ui_extension = uie;
 namespace columns_ui = cui;

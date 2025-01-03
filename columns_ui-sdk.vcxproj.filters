@@ -58,6 +58,12 @@
     <ClInclude Include="fonts.h">
       <Filter>CUI</Filter>
     </ClInclude>
+    <ClInclude Include="font_utils.h">
+      <Filter>CUI</Filter>
+    </ClInclude>
+    <ClInclude Include="callback_token.h">
+      <Filter>CUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="win32_helpers.cpp">
@@ -80,6 +86,9 @@
       <Filter>CUI</Filter>
     </ClCompile>
     <ClCompile Include="font_manager_v3.cpp">
+      <Filter>CUI</Filter>
+    </ClCompile>
+    <ClCompile Include="font_utils.cpp">
       <Filter>CUI</Filter>
     </ClCompile>
   </ItemGroup>

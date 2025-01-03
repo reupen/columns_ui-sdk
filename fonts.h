@@ -43,8 +43,7 @@ public:
     /** Helper */
     HFONT get_font(const GUID& p_guid) const
     {
-        LOGFONT lf;
-        memset(&lf, 0, sizeof(LOGFONT));
+        LOGFONT lf{};
         get_font(p_guid, lf);
         return CreateFontIndirect(&lf);
     }
@@ -52,8 +51,7 @@ public:
     /** Helper */
     HFONT get_font(const font_type_t p_type) const
     {
-        LOGFONT lf;
-        memset(&lf, 0, sizeof(LOGFONT));
+        LOGFONT lf{};
         get_font(p_type, lf);
         return CreateFontIndirect(&lf);
     }
