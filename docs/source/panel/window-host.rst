@@ -7,11 +7,14 @@ Window host
 -----------
 
 .. doxygenclass:: uie::window_host
+
 .. doxygenclass:: uie::window_host_with_control
 
 Factories
 ---------
 
 .. doxygenclass:: uie::window_host_factory
+
 .. doxygenclass:: uie::window_host_factory_single
+
 .. doxygenclass:: uie::window_host_factory_transparent_single
