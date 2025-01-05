@@ -60,7 +60,12 @@ public:
 };
 
 /**
- * Experimental version of the font management API with custom DPI support.
+ * Font management API with support for custom DPIs.
+ *
+ * This was intended for per-monitor DPI support. However, neither Columns UI
+ * nor foobar2000 currently support per-monitor DPI.
+ *
+ * \note Requires Columns UI 1.7.0 beta 1 or newer.
  *
  * One implementation in Columns UI - do not reimplement!
  */

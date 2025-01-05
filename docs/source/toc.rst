@@ -5,6 +5,7 @@
 
    self
    upgrading
+   using-fonts
    dark-mode
 
 .. toctree::
