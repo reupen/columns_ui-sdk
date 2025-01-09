@@ -8,8 +8,8 @@ Bug fixes
 ~~~~~~~~~
 
 The project file was updated to remove ``..\columns_ui-sdk`` from referenced
-file paths. This makes it possible for names other than ``columns_ui-sdk``
-to be used for the directory containing the Columns UI SDK.
+file paths. This makes it possible for names other than ``columns_ui-sdk`` to be
+used for the directory containing the Columns UI SDK.
 
 Deprecated in this version
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -24,17 +24,17 @@ Removed in this version
 
 The following deprecated named constants were removed:
 
-- :code:`cui::panels::guid_playlist_view`
+- ``cui::panels::guid_playlist_view``
 
 The following structs were removed:
 
-- :code:`uTOOLINFO`
-- :code:`uHDITEM`
+- ``uTOOLINFO``
+- ``uHDITEM``
 
 The following preprocessor macros were removed:
 
-- :code:`RECT_CX()`
-- :code:`RECT_CY()`
+- ``RECT_CX()``
+- ``RECT_CY()``
 
 The following deprecated classes were removed:
 
@@ -163,6 +163,8 @@ The following macros were removed:
 - :c:macro:`Tu()`
 - :c:macro:`TSu()`
 
-.. _support for the Columns UI dark mode: Dark mode
-.. _Example panel: https://github.com/reupen/example_panel
-.. _Console panel: https://github.com/reupen/console_panel
+.. _console panel: https://github.com/reupen/console_panel
+
+.. _example panel: https://github.com/reupen/example_panel
+
+.. _support for the columns ui dark mode: Darkmode

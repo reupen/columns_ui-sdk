@@ -3,12 +3,13 @@
 
 #define UI_EXTENSION_VERSION "7.0.0"
 
-#if !__has_include(<dwrite_3.h>)
-#define CUI_SDK_DWRITE_DISABLED
+#ifndef CUI_SDK_DWRITE_ENABLED
+#define CUI_SDK_DWRITE_ENABLED __has_include(<dwrite_3.h>)
 #endif
 
 #include <algorithm>
 #include <memory>
+#include <optional>
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
@@ -16,7 +17,7 @@
 // Included first, because pfc.h includes winsock2.h
 #include "../pfc/pfc.h"
 
-#ifndef CUI_SDK_DWRITE_DISABLED
+#if CUI_SDK_DWRITE_ENABLED
 #include <dwrite_3.h>
 #endif
 #include <shlwapi.h>
@@ -153,12 +154,16 @@ namespace ui_extension = uie;
 #include "splitter.h"
 #include "visualisation.h"
 #include "buttons.h"
+#include "callback_token.h"
 #include "columns_ui.h"
-#include "columns_ui_appearance.h"
+#include "colours.h"
+#include "fonts.h"
 
-#ifndef CUI_SDK_DWRITE_DISABLED
+#if CUI_SDK_DWRITE_ENABLED
 #include "font_manager_v3.h"
 #endif
+
+#include "font_utils.h"
 
 namespace ui_extension = uie;
 namespace columns_ui = cui;

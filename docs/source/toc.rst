@@ -1,46 +1,47 @@
 .. toctree::
-   :hidden:
-   :maxdepth: 2
-   :caption: Guides
+    :hidden:
+    :maxdepth: 2
+    :caption: Guides
 
-   self
-   upgrading
-   dark-mode
-
-.. toctree::
-   :hidden:
-   :maxdepth: 2
-   :caption: Panels and toolbars
-
-   panel/base-extension
-   panel/window
-   panel/splitter-window
-   panel/window-helpers
-   panel/visualisation
-   panel/context-menu
-   panel/window-host
+    self
+    upgrading
+    using-fonts
+    dark-mode
 
 .. toctree::
-   :hidden:
-   :maxdepth: 2
-   :caption: Colours and fonts
+    :hidden:
+    :maxdepth: 2
+    :caption: Panels and toolbars
 
-   appearance/colours
-   appearance/fonts
-
-.. toctree::
-   :hidden:
-   :maxdepth: 2
-   :caption: Buttons
-
-   button/button
+    panel/base-extension
+    panel/window
+    panel/splitter-window
+    panel/window-helpers
+    panel/visualisation
+    panel/context-menu
+    panel/window-host
 
 .. toctree::
-   :hidden:
-   :maxdepth: 2
-   :caption: Columns UI
+    :hidden:
+    :maxdepth: 2
+    :caption: Colours and fonts
 
-   cui/fcl
-   cui/window-identifiers
-   cui/title-formatting
-   cui/settings
+    appearance/colours
+    appearance/fonts
+
+.. toctree::
+    :hidden:
+    :maxdepth: 2
+    :caption: Buttons
+
+    button/button
+
+.. toctree::
+    :hidden:
+    :maxdepth: 2
+    :caption: Columns UI
+
+    cui/fcl
+    cui/window-identifiers
+    cui/title-formatting
+    cui/settings

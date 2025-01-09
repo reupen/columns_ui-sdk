@@ -1,7 +1,8 @@
 Button
 ======
 
-These interfaces are used to implement custom buttons for the Columns UI buttons toolbar.
+These interfaces are used to implement custom buttons for the Columns UI buttons
+toolbar.
 
 Constants
 ---------
