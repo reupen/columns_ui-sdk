@@ -3,8 +3,8 @@
 
 #define UI_EXTENSION_VERSION "7.0.0"
 
-#if !__has_include(<dwrite_3.h>)
-#define CUI_SDK_DWRITE_DISABLED
+#ifndef CUI_SDK_DWRITE_ENABLED
+#define CUI_SDK_DWRITE_ENABLED __has_include(<dwrite_3.h>)
 #endif
 
 #include <algorithm>
@@ -17,7 +17,7 @@
 // Included first, because pfc.h includes winsock2.h
 #include "../pfc/pfc.h"
 
-#ifndef CUI_SDK_DWRITE_DISABLED
+#if CUI_SDK_DWRITE_ENABLED
 #include <dwrite_3.h>
 #endif
 #include <shlwapi.h>
@@ -159,7 +159,7 @@ namespace ui_extension = uie;
 #include "colours.h"
 #include "fonts.h"
 
-#ifndef CUI_SDK_DWRITE_DISABLED
+#if CUI_SDK_DWRITE_ENABLED
 #include "font_manager_v3.h"
 #endif
 

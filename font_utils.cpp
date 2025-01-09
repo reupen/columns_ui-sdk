@@ -61,7 +61,7 @@ HFONT create_common_hfont_with_fallback(font_type_t common_font_type)
     return CreateFontIndirect(&log_font);
 }
 
-#ifndef CUI_SDK_DWRITE_DISABLED
+#if CUI_SDK_DWRITE_ENABLED
 font::ptr get_client_font(GUID font_client_id)
 {
     if (manager_v3::ptr api; fb2k::std_api_try_get(api)) {

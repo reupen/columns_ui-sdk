@@ -54,7 +54,7 @@ namespace cui::fonts {
  */
 [[nodiscard]] HFONT create_common_hfont_with_fallback(font_type_t common_font_type);
 
-#ifndef CUI_SDK_DWRITE_DISABLED
+#if CUI_SDK_DWRITE_ENABLED
 
 /**
  * Get a font::ptr for a particular font client. This is mainly intended for DirectWrite usage.
