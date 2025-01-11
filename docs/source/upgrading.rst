@@ -4,6 +4,25 @@ Upgrading the SDK
 Development version
 -------------------
 
+New in this version
+~~~~~~~~~~~~~~~~~~~
+
+This version adds a new, experimental :class:`cui::font_manager_v3` service with
+DirectWrite support.
+
+The following new named constants were added:
+
+- :var:`cui::fonts::items_font_id`
+- :var:`cui::fonts::labels_font_id`
+
+The following new font helpers were also added:
+
+- :func:`cui::fonts::get_log_font()`
+- :func:`cui::fonts::get_log_font_with_fallback()`
+- :func:`cui::fonts::create_hfont_with_fallback()`
+- :func:`cui::fonts::get_font()`
+- :func:`cui::fonts::on_common_font_changed()`
+
 Bug fixes
 ~~~~~~~~~
 

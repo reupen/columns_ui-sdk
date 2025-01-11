@@ -4,9 +4,6 @@ namespace cui::fonts {
 
 PFC_DECLARE_EXCEPTION(exception_font_client_not_found, pfc::exception, "Font client not found");
 
-constexpr GUID items_font_id{0x1d1be0c7, 0x59f8, 0x44ff, {0x9e, 0xbb, 0x07, 0xda, 0xf2, 0x27, 0xa9, 0x0f}};
-constexpr GUID labels_font_id{0x238cc90a, 0x9d4c, 0x471d, {0x8b, 0x02, 0xec, 0xdc, 0x78, 0x10, 0x58, 0x8c}};
-
 #if NTDDI_VERSION >= 0x0A000004
 static_assert(sizeof(DWRITE_FONT_AXIS_VALUE) == 8);
 using AxisValue = DWRITE_FONT_AXIS_VALUE;

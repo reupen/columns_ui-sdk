@@ -12,6 +12,14 @@ enum font_type_flag_t {
 };
 
 /**
+ * ID for the common items font.
+ *
+ * \note Added in Columns UI 3.0.0 alpha 1. Use
+ */
+constexpr GUID items_font_id{0x1d1be0c7, 0x59f8, 0x44ff, {0x9e, 0xbb, 0x07, 0xda, 0xf2, 0x27, 0xa9, 0x0f}};
+constexpr GUID labels_font_id{0x238cc90a, 0x9d4c, 0x471d, {0x8b, 0x02, 0xec, 0xdc, 0x78, 0x10, 0x58, 0x8c}};
+
+/**
  * Use this class if you wish to use the common fonts rather than implementing client
  */
 class NOVTABLE common_callback {
@@ -94,31 +102,13 @@ public:
 /** Helper to simplify retrieving the font for a specific client. */
 class helper {
 public:
-    void get_font(LOGFONT& p_out) const
-    {
-        if (m_api.is_valid()) {
-            m_api->get_font(m_guid, p_out);
-        } else
-            uGetIconFont(&p_out);
-    }
-    HFONT get_font() const
-    {
-        if (m_api.is_valid()) {
-            return m_api->get_font(m_guid);
-        }
-        return uCreateIconFont();
-    }
-    helper(GUID p_guid) : m_guid(p_guid)
-    {
-        try {
-            standard_api_create_t(m_api);
-        } catch (const exception_service_not_found&) {
-        };
-    }
+    void get_font(LOGFONT& p_out) const;
+    HFONT get_font() const;
+
+    helper(GUID font_id) : m_font_id(font_id) {}
 
 private:
-    service_ptr_t<manager> m_api;
-    GUID m_guid;
+    GUID m_font_id;
 };
 class NOVTABLE client : public service_base {
 public:

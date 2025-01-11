@@ -3,56 +3,30 @@
 namespace cui::fonts {
 
 /**
- * Get a LOGFONT for a particular font client.
+ * Get a LOGFONT for a particular client or common font.
  *
- * \param font_client_id GUID of the font client
+ * \param font_id GUID of the font client or common font
  * \return populated LOGFONT structure, or empty optional if Columns UI is not installed
  */
-[[nodiscard]] std::optional<LOGFONT> get_client_log_font(GUID font_client_id);
+[[nodiscard]] std::optional<LOGFONT> get_log_font(GUID font_id);
 
 /**
- * Get a LOGFONT for a common font.
- *
- * \param common_font_type common font type
- * \return populated LOGFONT structure, or empty optional if Columns UI is not installed
- */
-[[nodiscard]] std::optional<LOGFONT> get_common_log_font(font_type_t common_font_type);
-
-/**
- * Get a LOGFONT for a particular font client, falling back to the system icon font
+ * Get a LOGFONT for a particular client or common font, falling back to the system icon font
  * if Columns UI is not installed.
  *
- * \param font_client_id GUID of the font client
+ * \param font_id GUID of the font client or common font
  * \return populated LOGFONT structure
  */
-[[nodiscard]] LOGFONT get_client_log_font_with_fallback(GUID font_client_id);
+[[nodiscard]] LOGFONT get_log_font_with_fallback(GUID font_id);
 
 /**
- * Get a LOGFONT for a common font, falling back to the system icon font if Columns UI
- * is not installed.
- *
- * \param common_font_type common font type
- * \return populated LOGFONT structure
- */
-[[nodiscard]] LOGFONT get_common_log_font_with_fallback(font_type_t common_font_type);
-
-/**
- * Get an HFONT for a particular font client, falling back to the system icon font
+ * Get an HFONT for a particular font client or common font, falling back to the system icon font
  * if Columns UI is not installed.
  *
- * \param font_client_id GUID of the font client
+ * \param font_id GUID of the font client or common font
  * \return HFONT handle. The caller must delete it using DeleteObject when it’s no longer required.
  */
-[[nodiscard]] HFONT create_client_hfont_with_fallback(GUID font_client_id);
-
-/**
- * Get an HFONT for a common font, falling back to the system icon font
- * if Columns UI is not installed.
- *
- * \param common_font_type common font type
- * \return HFONT handle. The caller must delete it using DeleteObject when it’s no longer required.
- */
-[[nodiscard]] HFONT create_common_hfont_with_fallback(font_type_t common_font_type);
+[[nodiscard]] HFONT create_hfont_with_fallback(GUID font_id);
 
 #if CUI_SDK_DWRITE_ENABLED
 
