@@ -26,6 +26,10 @@ The following deprecated named constants were removed:
 
 - ``cui::panels::guid_playlist_view``
 
+The following enumerations were removed:
+
+- ``cui::fonts::font_mode_t``
+
 The following structs were removed:
 
 - ``uTOOLINFO``

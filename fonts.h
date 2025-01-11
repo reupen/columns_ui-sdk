@@ -2,13 +2,6 @@
 
 namespace cui::fonts {
 
-enum font_mode_t {
-    font_mode_common_items,
-    font_mode_common_labels,
-    font_mode_custom,
-    font_mode_system,
-};
-
 enum font_type_t {
     font_type_items,
     font_type_labels,

@@ -2,6 +2,11 @@
 
 namespace cui::fonts {
 
+PFC_DECLARE_EXCEPTION(exception_font_client_not_found, pfc::exception, "Font client not found");
+
+constexpr GUID items_font_id{0x1d1be0c7, 0x59f8, 0x44ff, {0x9e, 0xbb, 0x07, 0xda, 0xf2, 0x27, 0xa9, 0x0f}};
+constexpr GUID labels_font_id{0x238cc90a, 0x9d4c, 0x471d, {0x8b, 0x02, 0xec, 0xdc, 0x78, 0x10, 0x58, 0x8c}};
+
 #if NTDDI_VERSION >= 0x0A000004
 static_assert(sizeof(DWRITE_FONT_AXIS_VALUE) == 8);
 using AxisValue = DWRITE_FONT_AXIS_VALUE;
@@ -75,10 +80,18 @@ public:
     /**
      * Get a GDI-compatible LOGFONT for this font.
      *
-     * Note that this is the closest equivalent as GDI does not support
-     * modern font features.
+     * Note that the LOGFONT returned is the closest equivalent as GDI does
+     * not support modern font features.
      */
     [[nodiscard]] virtual LOGFONT log_font() noexcept = 0;
+
+    /**
+     * Get a GDI-compatible LOGFONT for this font and a specific DPI.
+     *
+     * Note that the LOGFONT returned is the closest equivalent as GDI does
+     * not support modern font features.
+     */
+    [[nodiscard]] virtual LOGFONT log_font_for_dpi(unsigned dpi) noexcept = 0;
 
     /**
      * Create a DirectWrite text format for this font.
@@ -109,7 +122,7 @@ public:
     }
 #endif
 
-    FB2K_MAKE_SERVICE_INTERFACE(font, service_base);
+    FB2K_MAKE_SERVICE_INTERFACE(font, service_base)
 };
 
 /**
@@ -120,10 +133,33 @@ public:
  */
 class NOVTABLE manager_v3 : public service_base {
 public:
-    [[nodiscard]] virtual font::ptr get_client_font(GUID id) const = 0;
-    virtual void set_client_font_size(GUID id, float size) = 0;
+    /**
+     * Get a font definition for a particular font client or a common font.
+     *
+     * \param id font client or common font GUID
+     * \return service pointer for a font instance.
+     * \throw exception_font_client_not_found thrown if an invalid GUID is supplied
+     */
+    [[nodiscard]] virtual font::ptr get_font(GUID id) const = 0;
 
-    FB2K_MAKE_SERVICE_INTERFACE_ENTRYPOINT(manager_v3);
+    /**
+     * Set the font size for a client font.
+     *
+     * \param id font client GUID
+     * \param size new size in DIP units
+     * \throw exception_font_client_not_found thrown if an invalid GUID is supplied
+     */
+    virtual void set_font_size(GUID id, float size) = 0;
+
+    /**
+     * Register a new callback for when a font has changed.
+     * @param id client or common font GUID
+     * @param callback callback function
+     * @return callback token that should be reset when you no longer want the callback function to be called
+     */
+    [[nodiscard]] virtual callback_token::ptr on_font_changed(GUID id, basic_callback::ptr callback) = 0;
+
+    FB2K_MAKE_SERVICE_INTERFACE_ENTRYPOINT(manager_v3)
 };
 
 } // namespace cui::fonts

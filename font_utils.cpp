@@ -62,10 +62,10 @@ HFONT create_common_hfont_with_fallback(font_type_t common_font_type)
 }
 
 #if CUI_SDK_DWRITE_ENABLED
-font::ptr get_client_font(GUID font_client_id)
+font::ptr get_font(GUID font_id)
 {
     if (manager_v3::ptr api; fb2k::std_api_try_get(api)) {
-        return api->get_client_font(font_client_id);
+        return api->get_font(font_id);
     }
 
     return {};
@@ -92,7 +92,7 @@ private:
 
 } // namespace
 
-std::unique_ptr<callback_token> on_common_font_changed(std::function<void(uint32_t changed_items_mask)> callback_func)
+callback_token::ptr on_common_font_changed(std::function<void(uint32_t changed_items_mask)> callback_func)
 {
     manager::ptr api;
 
@@ -105,7 +105,7 @@ std::unique_ptr<callback_token> on_common_font_changed(std::function<void(uint32
 
     auto deregister = [callback{std::move(callback)}, api]() mutable { api->deregister_common_callback(&*callback); };
 
-    return std::make_unique<callback_token_lambda>(std::move(deregister));
+    return fb2k::service_new<lambda_callback_token>(std::move(deregister));
 }
 
 } // namespace cui::fonts

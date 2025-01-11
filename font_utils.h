@@ -57,16 +57,17 @@ namespace cui::fonts {
 #if CUI_SDK_DWRITE_ENABLED
 
 /**
- * Get a font::ptr for a particular font client. This is mainly intended for DirectWrite usage.
+ * Get a font::ptr for a particular font. This is mainly intended for DirectWrite usage.
  *
  * \note Requires Columns UI 3.0.0 alpha 1 or newer. You must check if the returned service pointer
  *       is valid.
  *
- * \param font_client_id font client GUID
+ * \param font_id font client or common font GUID
  * \return font::ptr for the specified font client. Will be empty if a compatible Columns UI version
- * is not installed.
+ *         is not installed.
+ * \throw exception_font_client_not_found thrown if an invalid GUID is supplied
  */
-[[nodiscard]] font::ptr get_client_font(GUID font_client_id);
+[[nodiscard]] font::ptr get_font(GUID font_id);
 
 #endif
 
@@ -80,10 +81,10 @@ namespace cui::fonts {
  *       fonts can be customised specifically for your panel. This callback is only useful if you do
  *       not do that and use common fonts instead.
  *
- * @param callback_func Function to be called when a common font has changed.
- * @return Token that should be reset once you no longer want the callback function to be called.
+ * @param callback_func function to be called when a common font has changed
+ * @return callback token that should be reset when you no longer want the callback function to be called
  */
-[[nodiscard]] std::unique_ptr<callback_token> on_common_font_changed(
+[[nodiscard]] callback_token::ptr on_common_font_changed(
     std::function<void(uint32_t changed_items_mask)> callback_func);
 
 } // namespace cui::fonts
