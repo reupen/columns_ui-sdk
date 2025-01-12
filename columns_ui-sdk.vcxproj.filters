@@ -61,7 +61,7 @@
     <ClInclude Include="font_utils.h">
       <Filter>CUI</Filter>
     </ClInclude>
-    <ClInclude Include="callback_token.h">
+    <ClInclude Include="callback.h">
       <Filter>CUI</Filter>
     </ClInclude>
   </ItemGroup>
@@ -89,6 +89,9 @@
       <Filter>CUI</Filter>
     </ClCompile>
     <ClCompile Include="font_utils.cpp">
+      <Filter>CUI</Filter>
+    </ClCompile>
+    <ClCompile Include="callback.cpp">
       <Filter>CUI</Filter>
     </ClCompile>
   </ItemGroup>

@@ -20,6 +20,16 @@ const GUID client::class_guid = {0x3fbcc2b0, 0x978e, 0x406f, {0xa4, 0x46, 0x46, 
 
 #endif
 
+void helper::get_font(LOGFONT& p_out) const
+{
+    p_out = get_log_font_with_fallback(m_font_id);
+}
+
+HFONT helper::get_font() const
+{
+    return create_hfont_with_fallback(m_font_id);
+}
+
 bool client::create_by_guid(const GUID& p_guid, client::ptr& p_out)
 {
     service_enum_t<client> p_enum;

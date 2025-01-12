@@ -23,25 +23,22 @@ A single component can add multiple entries by implementing
 Querying fonts
 --------------
 
-:func:`cui::fonts::create_client_hfont_with_fallback()` can be used to create to
-an ``HFONT`` for a particular font client, while
-:func:`cui::fonts::get_client_log_font_with_fallback()` and can be used to get
-the ``LOGFONT`` structure for a particular font client. There are also various
-other utility functions for other scenarios in the :cpp:type:`cui::fonts`
-namespace.
+:func:`cui::fonts::create_hfont_with_fallback()` can be used to create to an
+``HFONT`` for a particular font client, while
+:func:`cui::fonts::get_log_font_with_fallback()` and can be used to get the
+``LOGFONT`` structure for a particular font client. There are also various other
+utility functions for other scenarios in the :cpp:type:`cui::fonts` namespace.
 
-It’s also possible to create an ``HFONT`` for a common font using
-:func:`cui::fonts::create_common_hfont_with_fallback()`. However, given the ease
-of implementing a font client to add a custom entry, it’s not generally
-recommended to use the common fonts directly.
+It’s also possible to pass the ID of a common font rather than a font client to
+these functions. However, given the ease of implementing a font client to add a
+custom entry, it’s not generally recommended to use the common fonts directly.
 
-Panels using DirectWrite can use the experimental
-:func:`cui::fonts::get_client_font()` function to retrieve a
-:class:`cui::fonts::font` instance and create a ``IDWriteTextFormat`` object.
-Note that :func:`cui::fonts::get_client_font()` requires Columns UI 3.0.0 alpha
-1 or later, and compatibility may be broken before the final Columns UI 3.0.0
-release. If a compatible version of Columns UI isn’t installed, the function
-will return an empty ``std::optional``. Fallback logic should be implemented for
-scenario.
+Panels using DirectWrite can use the experimental :func:`cui::fonts::get_font()`
+function to retrieve a :class:`cui::fonts::font` instance and create an
+``IDWriteTextFormat`` object. Note that :func:`cui::fonts::get_font()` requires
+Columns UI 3.0.0 alpha 1 or later, and compatibility may be broken before the
+final Columns UI 3.0.0 release. If a compatible version of Columns UI isn’t
+installed, the function will return an empty ``std::optional``. Fallback logic
+should be implemented for this scenario.
 
 .. _the console panel source: https://github.com/reupen/console_panel/blob/38983f68cea0bb6843ce8401f8601bb0651bc8c4/foo_uie_console/main.cpp#L624-L659
