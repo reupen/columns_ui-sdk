@@ -1,14 +1,14 @@
 Upgrading the SDK
 =================
 
-Development version
--------------------
+Version 8.0.0-beta.1
+--------------------
 
 New in this version
 ~~~~~~~~~~~~~~~~~~~
 
-This version adds a new, experimental :class:`cui::font_manager_v3` service with
-DirectWrite support.
+This version adds a new, experimental :class:`cui::fonts::manager_v3` service
+with DirectWrite support.
 
 The following new named constants were added:
 
