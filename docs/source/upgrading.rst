@@ -1,14 +1,14 @@
 Upgrading the SDK
 =================
 
-Development version
--------------------
+Version 8.0.0-beta.1
+--------------------
 
 New in this version
 ~~~~~~~~~~~~~~~~~~~
 
-This version adds a new, experimental :class:`cui::font_manager_v3` service with
-DirectWrite support.
+This version adds a new, experimental :class:`cui::fonts::manager_v3` service
+with DirectWrite support.
 
 The following new named constants were added:
 
@@ -26,9 +26,12 @@ The following new font helpers were also added:
 Bug fixes
 ~~~~~~~~~
 
-The project file was updated to remove ``..\columns_ui-sdk`` from referenced
-file paths. This makes it possible for names other than ``columns_ui-sdk`` to be
-used for the directory containing the Columns UI SDK.
+- The project file was updated to remove ``..\columns_ui-sdk`` from referenced
+  file paths. This makes it possible for names other than ``columns_ui-sdk`` to
+  be used for the directory containing the Columns UI SDK.
+- :class:`cui::colours::client::factory` and
+  :class:`cui::fonts::client::factory` are now defined to be
+  ``service_factory_single_t`` rather than ``service_factory_t``.
 
 Deprecated in this version
 ~~~~~~~~~~~~~~~~~~~~~~~~~~

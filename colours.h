@@ -235,8 +235,8 @@ public:
      */
     virtual void on_bool_changed(uint32_t changed_items_mask) const = 0;
 
-    template <class tClass>
-    class factory : public service_factory_t<tClass> {};
+    template <class base>
+    using factory = service_factory_single_t<base>;
 
     FB2K_MAKE_SERVICE_INTERFACE_ENTRYPOINT(client);
 };
