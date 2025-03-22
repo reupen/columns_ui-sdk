@@ -17,6 +17,7 @@ struct AxisValue {
 struct rendering_options {
     DWRITE_RENDERING_MODE rendering_mode{DWRITE_RENDERING_MODE_DEFAULT};
     bool force_greyscale_antialiasing{};
+    bool use_colour_glyphs{true};
 };
 
 enum class FontFamilyModel {
@@ -108,7 +109,16 @@ public:
      */
     [[nodiscard]] virtual bool force_greyscale_antialiasing() noexcept = 0;
 
-    rendering_options get_rendering_options() { return {rendering_mode(), force_greyscale_antialiasing()}; }
+    /**
+     * Retrieves the value of the 'Use colour glyphs when available' setting in
+     * Columns UI preferences.
+     */
+    [[nodiscard]] virtual bool use_colour_glyphs() noexcept = 0;
+
+    rendering_options get_rendering_options()
+    {
+        return {rendering_mode(), force_greyscale_antialiasing(), use_colour_glyphs()};
+    }
 
 #ifdef __WIL_COM_INCLUDED
     wil::com_ptr_t<IDWriteTextFormat> create_wil_text_format(const wchar_t* locale_name = L"")
