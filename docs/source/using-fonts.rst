@@ -23,22 +23,41 @@ A single component can add multiple entries by implementing
 Querying fonts
 --------------
 
+GDI
+~~~
+
 :func:`cui::fonts::create_hfont_with_fallback()` can be used to create to an
 ``HFONT`` for a particular font client, while
 :func:`cui::fonts::get_log_font_with_fallback()` and can be used to get the
 ``LOGFONT`` structure for a particular font client. There are also various other
 utility functions for other scenarios in the :cpp:type:`cui::fonts` namespace.
 
-It’s also possible to pass the ID of a common font rather than a font client to
-these functions. However, given the ease of implementing a font client to add a
-custom entry, it’s not generally recommended to use the common fonts directly.
+DirectWrite
+~~~~~~~~~~~
 
 Panels using DirectWrite can use the experimental :func:`cui::fonts::get_font()`
-function to retrieve a :class:`cui::fonts::font` instance and create an
-``IDWriteTextFormat`` object. Note that :func:`cui::fonts::get_font()` requires
-Columns UI 3.0.0 alpha 1 or later, and compatibility may be broken before the
-final Columns UI 3.0.0 release. If a compatible version of Columns UI isn’t
-installed, the function will return an empty ``std::optional``. Fallback logic
-should be implemented for this scenario.
+function to retrieve a :class:`cui::fonts::font` instance. The
+:func:`cui::fonts::font::create_text_format()` member function can then be
+called to create an ``IDWriteTextFormat`` object.
+
+You should also apply the rendering options returned by
+:func:`cui::fonts::font::rendering_options()` when rendering text using the text
+format.
+
+Note that :func:`cui::fonts::get_font()` requires Columns UI 3.0.0 beta 1 or
+later, and compatibility may be broken before the final Columns UI 3.0.0
+release.
+
+If a compatible version of Columns UI isn’t installed,
+:func:`cui::fonts::get_font()` will return an empty ``std::optional``. Fallback
+logic should be implemented for this scenario.
+
+Common fonts
+~~~~~~~~~~~~
+
+It’s also possible to pass the ID of a common font rather than a font client to
+the functions mentioned in the previous two sections. However, given the ease of
+implementing a font client to add a custom entry, it’s not generally recommended
+to use the common fonts directly.
 
 .. _the console panel source: https://github.com/reupen/console_panel/blob/38983f68cea0bb6843ce8401f8601bb0651bc8c4/foo_uie_console/main.cpp#L624-L659
