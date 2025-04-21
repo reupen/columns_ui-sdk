@@ -14,12 +14,6 @@ struct AxisValue {
 };
 #endif
 
-struct rendering_options {
-    DWRITE_RENDERING_MODE rendering_mode{DWRITE_RENDERING_MODE_DEFAULT};
-    bool force_greyscale_antialiasing{};
-    bool use_colour_glyphs{true};
-};
-
 enum class FontFamilyModel {
     /**
      * Returns the typographic font family name if known,
@@ -39,12 +33,46 @@ enum class FontFamilyModel {
 };
 
 /**
+ * Defines text rendering options, as configured in Columns UI Colours and fonts preferences.
+ *
+ * \note Part of the preliminary DirectWrite-friendly manager_v3 interface.
+ *       Subject to change before the final Columns UI 3.0.0 release.
+ */
+class NOVTABLE rendering_options : public service_base {
+public:
+    /**
+     * Retrieves the rendering mode configured in Columns UI preferences.
+     */
+    [[nodiscard]] virtual DWRITE_RENDERING_MODE rendering_mode() noexcept = 0;
+
+    /**
+     * Retrieves the value of the 'Force greyscale anti-aliasing' setting in
+     * Columns UI preferences.
+     *
+     * If enabled, `DWRITE_PIXEL_GEOMETRY_FLAT` and/or `D2D1_TEXT_ANTIALIAS_MODE_GRAYSCALE`
+     * should be used.
+     */
+    [[nodiscard]] virtual bool force_greyscale_antialiasing() noexcept = 0;
+
+    /**
+     * Retrieves the value of the 'Use colour glyphs when available' setting in
+     * Columns UI preferences.
+     *
+     * For `ID2D1RenderTarget::DrawTextLayout()` and similar methods, this refers to the
+     * `D2D1_DRAW_TEXT_OPTIONS_ENABLE_COLOR_FONT` flag.
+     */
+    [[nodiscard]] virtual bool use_colour_glyphs() noexcept = 0;
+
+    FB2K_MAKE_SERVICE_INTERFACE(rendering_options, service_base)
+};
+
+/**
  * Defines a font, as configured in Columns UI Colours and fonts preferences.
  *
  * \note Part of the preliminary DirectWrite-friendly manager_v3 interface.
  *       Subject to change before the final Columns UI 3.0.0 release.
  *
- * The recommended methods to use are create_text_format() and get_rendering_options().
+ * The recommended methods to use are create_text_format() and rendering_options().
  * However, access to the underlying data is also provided for less common use cases.
  */
 class NOVTABLE font : public service_base {
@@ -92,33 +120,45 @@ public:
     [[nodiscard]] virtual LOGFONT log_font_for_dpi(unsigned dpi) noexcept = 0;
 
     /**
+     * Returns a font fallback object that should be applied to the text
+     * format using `IDWriteTextFormat1::SetFontFallback()`.
+     *
+     * \note You do not need to use this method if the text format was created
+     * using `create_text_format()`.
+     *
+     * Do not call `IDWriteTextFormat1::SetFontFallback()` if the returned
+     * object pointer is not valid (i.e. the `is_valid()` method returns false).
+     *
+     * The custom font fallback object is used for the ‘Use alternative emoji font
+     * selection logic’ option in Columns UI text rendering options.
+     */
+    [[nodiscard]] virtual pfc::com_ptr_t<
+#ifdef DWRITE_2_H_INCLUDED
+        IDWriteFontFallback
+#else
+        IUnknown
+#endif
+        >
+    get_font_fallback() noexcept = 0;
+
+    /**
      * Create a DirectWrite text format for this font.
+     *
+     * The font fallback object for the font will be automatically configured if needed.
+     *
+     * No further customisation of the text format is performed. You should configure text
+     * alignment, paragraph alignment, word wrapping and other options according to your needs.
      */
     [[nodiscard]] virtual pfc::com_ptr_t<IDWriteTextFormat> create_text_format(
         const wchar_t* locale_name = L"") noexcept
         = 0;
 
     /**
-     * Retrieves the rendering mode configured in Columns UI preferences.
+     * Retrieves text rendering options.
+     *
+     * These options should be used when rendering text using the created text format.
      */
-    [[nodiscard]] virtual DWRITE_RENDERING_MODE rendering_mode() noexcept = 0;
-
-    /**
-     * Retrieves the value of the 'Force greyscale antialiasing' setting in
-     * Columns UI preferences.
-     */
-    [[nodiscard]] virtual bool force_greyscale_antialiasing() noexcept = 0;
-
-    /**
-     * Retrieves the value of the 'Use colour glyphs when available' setting in
-     * Columns UI preferences.
-     */
-    [[nodiscard]] virtual bool use_colour_glyphs() noexcept = 0;
-
-    rendering_options get_rendering_options()
-    {
-        return {rendering_mode(), force_greyscale_antialiasing(), use_colour_glyphs()};
-    }
+    [[nodiscard]] virtual rendering_options::ptr rendering_options() noexcept = 0;
 
 #ifdef __WIL_COM_INCLUDED
     wil::com_ptr_t<IDWriteTextFormat> create_wil_text_format(const wchar_t* locale_name = L"")
