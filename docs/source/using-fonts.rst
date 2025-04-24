@@ -55,9 +55,10 @@ logic should be implemented for this scenario.
 Common fonts
 ~~~~~~~~~~~~
 
-It’s also possible to pass the ID of a common font rather than a font client to
-the functions mentioned in the previous two sections. However, given the ease of
-implementing a font client to add a custom entry, it’s not generally recommended
-to use the common fonts directly.
+It’s also possible to pass the ID of a common font (i.e.
+``cui::fonts::items_font_id`` or ``cui::fonts::labels_font_id``) rather than the
+ID of a font client to the functions mentioned in the previous two sections.
+However, given the ease of implementing a font client to add a custom entry,
+it’s not generally recommended to use the common fonts directly.
 
 .. _the console panel source: https://github.com/reupen/console_panel/blob/38983f68cea0bb6843ce8401f8601bb0651bc8c4/foo_uie_console/main.cpp#L624-L659

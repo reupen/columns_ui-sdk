@@ -139,7 +139,7 @@ public:
         IUnknown
 #endif
         >
-    get_font_fallback() noexcept = 0;
+    font_fallback() noexcept = 0;
 
     /**
      * Create a DirectWrite text format for this font.
@@ -190,6 +190,33 @@ public:
     [[nodiscard]] virtual font::ptr get_font(GUID id) const = 0;
 
     /**
+     * Retrieves the default text rendering options.
+     *
+     * \remark ``font::rendering_options()`` should be used in preference to this method. This method is only provided
+     * to allow access to the configured rendering options when the font being used is not provided by Columns UI.
+     *
+     * \see ``font::rendering_options()``
+     */
+    [[nodiscard]] virtual rendering_options::ptr get_default_rendering_options() noexcept = 0;
+
+    /**
+     * Get the default Columns UI font fallback object when it’s required.
+     *
+     * \remark ``font::font_fallback()`` should be used in preference to this method. This method is only provided to
+     * allow access to the font fallback object when the font being used is not provided by Columns UI.
+     *
+     * \see See ``font::font_fallback()`` for more details about the %font fallback object returned.
+     */
+    [[nodiscard]] virtual pfc::com_ptr_t<
+#ifdef DWRITE_2_H_INCLUDED
+        IDWriteFontFallback
+#else
+        IUnknown
+#endif
+        >
+    get_default_font_fallback() noexcept = 0;
+
+    /**
      * Set the font size for a client font.
      *
      * \param id font client GUID
@@ -205,6 +232,28 @@ public:
      * @return callback token that should be reset when you no longer want the callback function to be called
      */
     [[nodiscard]] virtual callback_token::ptr on_font_changed(GUID id, basic_callback::ptr callback) = 0;
+
+    /**
+     * Register a new callback for when the default rendering options have changed.
+     *
+     * \remark This callback should only be used if ``get_default_rendering_options()`` is being used. Do not use it if
+     * you’re using ``font::rendering_options()``.
+     *
+     * @param callback callback function
+     * @return callback token that should be reset when you no longer want the callback function to be called
+     */
+    [[nodiscard]] virtual callback_token::ptr on_default_rendering_options_changed(basic_callback::ptr callback) = 0;
+
+    /**
+     * Register a new callback for when the font fallback object has changed.
+     *
+     * \remark This callback should only be used if ``get_default_font_fallback()`` is being used. Do not use it if
+     * you’re using ``font::font_fallback()``.
+     *
+     * @param callback callback function
+     * @return callback token that should be reset when you no longer want the callback function to be called
+     */
+    [[nodiscard]] virtual callback_token::ptr on_default_font_fallback_changed(basic_callback::ptr callback) = 0;
 
     FB2K_MAKE_SERVICE_INTERFACE_ENTRYPOINT(manager_v3)
 };
