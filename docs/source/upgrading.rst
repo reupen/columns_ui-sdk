@@ -4,24 +4,43 @@ Upgrading the SDK
 Version 8.0.0-beta.1
 --------------------
 
-New in this version
-~~~~~~~~~~~~~~~~~~~
+Highlights
+~~~~~~~~~~
 
 This version adds a new, experimental :class:`cui::fonts::manager_v3` service
 with DirectWrite support.
 
-The following new named constants were added:
+New in this version
+~~~~~~~~~~~~~~~~~~~
+
+The following services were added:
+
+- :class:`cui::fonts::manager_v3`
+- :class:`cui::fonts::rendering_options`
+- :class:`cui::fonts::font`
+
+The following enumerations were added:
+
+- :class:`cui::fonts::font_family_model`
+
+The following exceptions were added:
+
+- :class:`cui::fonts::exception_font_client_not_found`
+
+The following named constants were added:
 
 - :var:`cui::fonts::items_font_id`
 - :var:`cui::fonts::labels_font_id`
 
-The following new font helpers were also added:
+The following helpers were added:
 
 - :func:`cui::fonts::get_log_font()`
 - :func:`cui::fonts::get_log_font_with_fallback()`
 - :func:`cui::fonts::create_hfont_with_fallback()`
 - :func:`cui::fonts::get_font()`
 - :func:`cui::fonts::on_common_font_changed()`
+- :func:`cui::dwrite_utils::get_monitor_for_window()`
+- :func:`cui::dwrite_utils::create_custom_rendering_params()`
 
 Bug fixes
 ~~~~~~~~~

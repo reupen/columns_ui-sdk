@@ -28,6 +28,7 @@
 
     appearance/colours
     appearance/fonts
+    appearance/directwrite-utilities
 
 .. toctree::
     :hidden:
