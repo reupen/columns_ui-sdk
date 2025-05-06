@@ -6,30 +6,30 @@ PFC_DECLARE_EXCEPTION(exception_font_client_not_found, pfc::exception, "Font cli
 
 #if NTDDI_VERSION >= 0x0A000004
 static_assert(sizeof(DWRITE_FONT_AXIS_VALUE) == 8);
-using AxisValue = DWRITE_FONT_AXIS_VALUE;
+using axis_value = DWRITE_FONT_AXIS_VALUE;
 #else
-struct AxisValue {
+struct axis_value {
     uint32_t axis_tag;
     float value;
 };
 #endif
 
-enum class FontFamilyModel {
+enum class font_family_model {
     /**
      * Returns the typographic font family name if known,
      * otherwise the weight-stretch-style family name.
      */
-    Automatic = 0,
+    automatic = 0,
     /**
      * Requests the weight-stretch-style family name.
      * May return an empty string if not known.
      */
-    WeightStretchStyle = 1,
+    weight_stretch_style = 1,
     /**
      * Requests the typographic family name.
      * May return an empty string if not known.
      */
-    Typographic = 2,
+    typographic = 2,
 };
 
 /**
@@ -43,7 +43,7 @@ public:
     /**
      * Retrieves the rendering mode configured in Columns UI preferences.
      */
-    [[nodiscard]] virtual DWRITE_RENDERING_MODE rendering_mode() noexcept = 0;
+    [[nodiscard]] virtual DWRITE_RENDERING_MODE rendering_mode() const noexcept = 0;
 
     /**
      * Retrieves the value of the 'Force greyscale anti-aliasing' setting in
@@ -52,7 +52,7 @@ public:
      * If enabled, `DWRITE_PIXEL_GEOMETRY_FLAT` and/or `D2D1_TEXT_ANTIALIAS_MODE_GRAYSCALE`
      * should be used.
      */
-    [[nodiscard]] virtual bool force_greyscale_antialiasing() noexcept = 0;
+    [[nodiscard]] virtual bool force_greyscale_antialiasing() const noexcept = 0;
 
     /**
      * Retrieves the value of the 'Use colour glyphs when available' setting in
@@ -61,9 +61,83 @@ public:
      * For `ID2D1RenderTarget::DrawTextLayout()` and similar methods, this refers to the
      * `D2D1_DRAW_TEXT_OPTIONS_ENABLE_COLOR_FONT` flag.
      */
-    [[nodiscard]] virtual bool use_colour_glyphs() noexcept = 0;
+    [[nodiscard]] virtual bool use_colour_glyphs() const noexcept = 0;
+
+#ifdef _D2D1_H_
+    /**
+     * Helper function that returns the Direct2D text antialiasing mode.
+     *
+     * This can be used with `ID2D1RenderTarget::SetTextAntialiasMode()`.
+     */
+    [[nodiscard]] D2D1_TEXT_ANTIALIAS_MODE d2d_text_antialiasing_mode() const
+    {
+        if (rendering_mode() == DWRITE_RENDERING_MODE_ALIASED)
+            return D2D1_TEXT_ANTIALIAS_MODE_ALIASED;
+
+        if (force_greyscale_antialiasing())
+            return D2D1_TEXT_ANTIALIAS_MODE_GRAYSCALE;
+
+        return D2D1_TEXT_ANTIALIAS_MODE_CLEARTYPE;
+    }
+#endif
+
+    /**
+     * Helper function that returns whether a GDI-compatible text layout should be used.
+     *
+     * If this returns true, `IDWriteFactory::CreateGdiCompatibleTextLayout()` should be used instead of
+     * `IDWriteFactory::CreateTextLayout()`.
+     */
+    [[nodiscard]] bool use_gdi_compatible_layout() const
+    {
+        const auto rendering_mode_ = rendering_mode();
+
+        return rendering_mode_ == DWRITE_RENDERING_MODE_ALIASED || rendering_mode_ == DWRITE_RENDERING_MODE_GDI_CLASSIC
+            || rendering_mode_ == DWRITE_RENDERING_MODE_GDI_NATURAL;
+    }
+
+    /**
+     * Helper function that returns the value of the `useGdiNatural` argument of
+     * `IDWriteFactory::CreateGdiCompatibleTextLayout()`.
+     *
+     * \see `use_gdi_compatible_layout()`
+     */
+    [[nodiscard]] bool use_gdi_natural() const { return rendering_mode() == DWRITE_RENDERING_MODE_GDI_NATURAL; }
 
     FB2K_MAKE_SERVICE_INTERFACE(rendering_options, service_base)
+};
+
+/**
+ * Implementation of rendering_options. Can be used to create an instance of `rendering_options` when the `manager_v3`
+ * service is missing (due to a compatible version of Columns UI not being installed).
+ *
+ * To create an instance of this class, use `fb2k::service_new()` function:
+ *
+ * \code{.cpp}
+ * const auto rendering_options_ptr = fb2k::service_new<RenderingOptions>(
+ *   // constructor arguments
+ * );
+ * \endcode
+ */
+class NOVTABLE rendering_options_impl : public rendering_options {
+public:
+    rendering_options_impl() {}
+
+    rendering_options_impl(
+        DWRITE_RENDERING_MODE rendering_mode, bool force_greyscale_antialiasing, bool use_colour_glyphs)
+        : m_rendering_mode(rendering_mode)
+        , m_force_greyscale_antialiasing(force_greyscale_antialiasing)
+        , m_use_colour_glyphs(use_colour_glyphs)
+    {
+    }
+
+    DWRITE_RENDERING_MODE rendering_mode() const noexcept override { return m_rendering_mode; }
+    bool force_greyscale_antialiasing() const noexcept override { return m_force_greyscale_antialiasing; }
+    bool use_colour_glyphs() const noexcept override { return m_use_colour_glyphs; }
+
+private:
+    DWRITE_RENDERING_MODE m_rendering_mode{DWRITE_RENDERING_MODE_DEFAULT};
+    bool m_force_greyscale_antialiasing{};
+    bool m_use_colour_glyphs{true};
 };
 
 /**
@@ -78,7 +152,7 @@ public:
 class NOVTABLE font : public service_base {
 public:
     [[nodiscard]] virtual const wchar_t* family_name(
-        FontFamilyModel font_family_model = FontFamilyModel::Automatic) noexcept
+        font_family_model font_family_model = font_family_model::automatic) noexcept
         = 0;
     [[nodiscard]] virtual DWRITE_FONT_WEIGHT weight() noexcept = 0;
     [[nodiscard]] virtual DWRITE_FONT_STRETCH stretch() noexcept = 0;
@@ -101,7 +175,7 @@ public:
      * \param index Axis index. Must be in the range 0 <= index < axis_count().
      * \throws std::out_of_range on invalid index
      */
-    [[nodiscard]] virtual AxisValue axis_value(size_t index) const = 0;
+    [[nodiscard]] virtual axis_value axis_value(size_t index) const = 0;
 
     /**
      * Get a GDI-compatible LOGFONT for this font.

@@ -145,6 +145,7 @@
     <ClInclude Include="buttons.h" />
     <ClInclude Include="callback.h" />
     <ClInclude Include="colours.h" />
+    <ClInclude Include="dwrite_utils.h" />
     <ClInclude Include="fonts.h" />
     <ClInclude Include="font_manager_v3.h" />
     <ClInclude Include="font_utils.h" />
@@ -163,6 +164,7 @@
   <ItemGroup>
     <ClCompile Include="callback.cpp" />
     <ClCompile Include="colours.cpp" />
+    <ClCompile Include="dwrite_utils.cpp" />
     <ClCompile Include="fonts.cpp" />
     <ClCompile Include="font_manager_v3.cpp" />
     <ClCompile Include="font_utils.cpp" />

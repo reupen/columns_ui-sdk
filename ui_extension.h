@@ -19,6 +19,7 @@
 
 #if CUI_SDK_DWRITE_ENABLED
 #include <dwrite_3.h>
+#include <d2d1.h>
 #endif
 #include <shlwapi.h>
 
@@ -161,6 +162,7 @@ namespace ui_extension = uie;
 
 #if CUI_SDK_DWRITE_ENABLED
 #include "font_manager_v3.h"
+#include "dwrite_utils.h"
 #endif
 
 #include "font_utils.h"
