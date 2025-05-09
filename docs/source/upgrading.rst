@@ -31,6 +31,9 @@ The following named constants were added:
 
 - :var:`cui::fonts::items_font_id`
 - :var:`cui::fonts::labels_font_id`
+- :var:`cui::fonts::core_console_font_id`
+- :var:`cui::fonts::core_default_font_id`
+- :var:`cui::fonts::core_lists_font_id`
 
 The following helpers were added:
 

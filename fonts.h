@@ -14,10 +14,45 @@ enum font_type_flag_t {
 /**
  * ID for the common items font.
  *
- * \note Added in Columns UI 3.0.0 alpha 1. Use
+ * \note Added in Columns UI 3.0.0 alpha 1.
  */
 constexpr GUID items_font_id{0x1d1be0c7, 0x59f8, 0x44ff, {0x9e, 0xbb, 0x07, 0xda, 0xf2, 0x27, 0xa9, 0x0f}};
+
+/**
+ * ID for the common labels font.
+ *
+ * \note Added in Columns UI 3.0.0 alpha 1.
+ */
 constexpr GUID labels_font_id{0x238cc90a, 0x9d4c, 0x471d, {0x8b, 0x02, 0xec, 0xdc, 0x78, 0x10, 0x58, 0x8c}};
+
+/**
+ * ID for the core console font.
+ *
+ * This corresponds to the `ui_font_console` font available via `ui_config_manager` when Columns UI is the active UI.
+ *
+ * \note Added in Columns UI 2.0.0.
+ */
+constexpr GUID core_console_font_id = {0xe9f4d060, 0x6feb, 0x4626, {0xb2, 0x5d, 0xba, 0x09, 0x0f, 0x75, 0xf7, 0xa5}};
+
+/**
+ * ID for the default core font.
+ *
+ * This corresponds to any font other than `ui_font_console`, `ui_font_lists` and `ui_font_playlists` available via
+ * `ui_config_manager` when Columns UI is the active UI.
+ *
+ * \note Added in Columns UI 2.0.0.
+ */
+constexpr GUID core_default_font_id = {0x1adbc094, 0x3b35, 0x4bab, {0x82, 0xd5, 0x3b, 0xdd, 0x4a, 0x5c, 0x6a, 0xf9}};
+
+/**
+ * ID for the core lists font.
+ *
+ * This corresponds to the `ui_font_lists` and `ui_font_playlists` fonts available via `ui_config_manager` when Columns
+ * UI is the active UI.
+ *
+ * \note Added in Columns UI 2.0.0.
+ */
+constexpr GUID core_lists_font_id = {0xfc3cb3a8, 0x72db, 0x4448, {0xb1, 0x2c, 0x2e, 0xf7, 0x6a, 0x15, 0xd7, 0x53}};
 
 /**
  * Use this class if you wish to use the common fonts rather than implementing client
