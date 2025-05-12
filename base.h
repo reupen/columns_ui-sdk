@@ -2,13 +2,16 @@
 #define _COLUMNS_SDK_BASE_H_
 
 namespace uie {
-/** \brief Base class for uie::window and uie::visualisation classes */
+/** \brief Base class for uie::window. */
 class NOVTABLE extension_base : public service_base {
 public:
     /**
-     * \brief Get unique ID of extension.
+     * \brief Get unique ID representing this extension.
      *
-     * This GUID is used to identify a specific extension.
+     * The returned GUID must be unique per registered extension.
+     *
+     * \note Because the return type is a reference, you must return either a static
+     * local variable or a global variable.
      *
      * \return extension GUID
      */
@@ -20,7 +23,7 @@ public:
      * \warning
      * Do not use the name to identify extensions; use extension GUIDs instead.
      *
-     * \param [out] out receives the name of the extension, e.g. "Spectrum analyser"
+     * \param [out] out receives the name of the extension, e.g. `"Spectrum analyser"`
      *
      * \see get_extension_guid
      */
@@ -29,10 +32,14 @@ public:
     /**
      * \brief Set instance configuration data.
      *
-     * \remarks
-     * - Only called before enabling/window creation.
-     * - Must not be used by single instance extensions.
-     * - You should also make sure you deal with the case of an empty stream
+     * \remark
+     * - This method is only called before `window::create_or_transfer_window()` (i.e. it will not
+     *   be called once your window has been created)
+     * - It must not be used by single instance extensions
+     * - You should handle the case of an empty stream
+     *
+     * \note Consider both forwards and backwards compatibility deciding upon a data
+     * format, when implementing this method and when implementing `get_config()`.
      *
      * \throw Throws pfc::exception on failure
      *
@@ -40,17 +47,16 @@ public:
      * \param [in]    p_size          Size of data in stream
      * \param [in]    p_abort         Signals abort of operation
      */
-    virtual void set_config(stream_reader* p_reader, t_size p_size, abort_callback& p_abort) { ; }
+    virtual void set_config(stream_reader* p_reader, t_size p_size, abort_callback& p_abort) {}
 
     /**
      * \brief Get instance configuration data.
-     * \remarks
+     *
+     * \remark
      * Must not be used by single instance extensions.
      *
-     * \note  Consider compatibility with future versions of you own component when deciding
-     *         upon a data format. You may wish to change what is written by this function
-     *         in the future. If you prepare for this in advance, you won't have to take
-     *         measures such as changing your extension GUID to avoid incompatibility.
+     * \note Consider both forwards and backwards compatibility deciding upon a data
+     * format, when implementing this method and when implementing `set_config()`.
      *
      * \throw Throws pfc::exception on failure
      *
@@ -60,14 +66,22 @@ public:
     virtual void get_config(stream_writer* p_writer, abort_callback& p_abort) const {}
 
     /**
-     * \brief Set instance configuration data. This differs from set_config in that
-     *         the data will be of that returned by export_config
+     * \brief Import previously exported instance configuration data.
      *
-     * \remarks
-     * - Only called before enabling/window creation.
+     * The export_config() method is used when exporting the Columns UI configuration and
+     * ‘Any foobar2000 installation’ is selected as the target.
      *
-     * \note  The default implementation calls set_config for compatibility only. Be sure that
-     *        you override if you need to.
+     * The import_config() method is used when importing a configuration previously exported
+     * with ‘Any foobar2000 installation’ selected as the target.
+     *
+     * You only need to consider overriding both methods if your normal configuration data
+     * contains references to external resources specific to the current system.
+     *
+     * \remark
+     * - This method is only called before `window::create_or_transfer_window()` (i.e. it will
+     *   not be called once your window has been created)
+     *
+     * \note The default implementation simply calls set_config().
      *
      * \throw Throws pfc::exception on failure
      *
@@ -81,12 +95,26 @@ public:
     }
 
     /**
-     * \brief Get instance configuration data. This differs from get_config, in that
-     *          what is written is intended to be transferable between different foobar2000
-     *         installations on different computers (i.e. self-contained).
+     * \brief Export instance configuration data.
      *
-     * \note  The default implementation calls get_config for compatibility only. Be sure that
-     *        you override if you need to.
+     * This differs from get_config(), in that the data that is written is intended to be
+     * transferable between different foobar2000 installations on different computers (i.e.
+     * it is self-contained).
+     *
+     * The export_config() method is used when exporting the Columns UI configuration and
+     * ‘Any foobar2000 installation’ is selected as the target.
+     *
+     * The import_config()   method is used when importing a configuration previously exported
+     * with ‘Any foobar2000 installation’ selected as the target.
+     *
+     * You only need to consider overriding both methods if your normal configuration data
+     * contains references to external resources specific to the current system.
+     *
+     * \remark
+     * - This method is only called before `window::create_or_transfer_window()` (i.e. it will
+     *   not be called once your window has been created)
+     *
+     * \note The default implementation simply calls get_config().
      *
      * \throw Throws pfc::exception on failure
      *
@@ -99,16 +127,16 @@ public:
     }
 
     /**
-     * \brief Gets whether the extension has a modal configuration window
+     * \brief Get whether the extension has a modal configuration window.
      *
      * The window is exposed through show_config_popup()
      *
-     * \return true iff a configuration window is exposed through show_config_popup
+     * \return true if the extension has a configuration window that can be shown using show_config_popup
      */
     virtual bool have_config_popup() const { return false; }
 
     /**
-     * \brief Displays a modal configuration dialog
+     * \brief Display a modal configuration dialog.
      *
      * \param [in]    wnd_parent    The window to use as the owner window for your configuration dialog
      *
@@ -117,7 +145,7 @@ public:
     virtual bool show_config_popup(HWND wnd_parent) { return false; }
 
     /**
-     * \brief Retrieve menu items to be displayed in the host menu
+     * \brief Retrieve menu items to be displayed in the host menu.
      *
      * \param [in]    p_hook        The interface you use to add your menu items
      */
@@ -139,7 +167,7 @@ public:
     /**
      * \brief Helper function. Import instance configuration data from a raw pointer.
      *
-     * \see import_config.
+     * \see import_config
      *
      * \throw Throws pfc::exception on failure
      *
@@ -150,7 +178,7 @@ public:
     void import_config_from_ptr(const void* p_data, t_size p_size, abort_callback& p_abort);
 
     /**
-     * \brief Helper function, writes instance configuration data to an existing array
+     * \brief Helper function. Write instance configuration data to an existing array.
      *
      * \see get_config
      *
@@ -163,7 +191,7 @@ public:
     void get_config_to_array(pfc::array_t<uint8_t>& p_data, abort_callback& p_abort, bool b_reset = false) const;
 
     /**
-     * \brief Helper function, writes instance configuration data to a new array
+     * \brief Helper function. Write instance configuration data to a new array.
      *
      * \see get_config
      *
@@ -174,7 +202,7 @@ public:
     pfc::array_t<uint8_t> get_config_as_array(abort_callback& p_abort) const;
 
     /**
-     * \brief Helper function, exports instance configuration data to an array
+     * \brief Helper function. Export instance configuration data to an array.
      *
      * \see export_config
      *

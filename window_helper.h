@@ -78,8 +78,7 @@ public:
      * \return                    Reference to class_data
      *
      * \par Sample implementation:
-     * \code
-     * virtual class_data & get_class_data() const
+     * \code{.cpp}     * virtual class_data & get_class_data() const
      * {
      * __implement_get_class_data(
      * "My Window Class", //window class name

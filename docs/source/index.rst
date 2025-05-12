@@ -41,22 +41,24 @@ Panel APIs
 APIs
 ~~~~
 
-Clients should implement :class:`uie::window`. Specific sub-classes exist for
+Components wishing to provide a panel or toolbar should implement
+:class:`uie::window`. Specific subclasses exist for:
 
-- Menus: :class:`uie::menu_window`
-- Playlists: :class:`uie::playlist_window`
-- Splitter panels: :class:`uie::splitter_window`
+- Menus – :class:`uie::menu_window`
+- Playlists – :class:`uie::playlist_window`
+- Splitter panels – :class:`uie::splitter_window`
 
-Hosts should implement :class:`uie::window_host`. Hosts wishing to expose
-external control methods can implement :class:`uie::window_host_with_control`
-instead.
+Components wishing to host panels and toolbars should implement
+:class:`uie::window_host`.
 
 Helpers
 ~~~~~~~
 
-The preferred method of implementing the window class is to derive from
-:type:`uie::container_uie_window_v3` (although this may not be suitable for
-single-instance panels or dialog-based panels).
+:type:`uie::container_uie_window_v3` aims to simplify the implementation of a
+panel or toolbar, creating a window for you and partially implementing
+:class:`uie::window`. It may not be suitable if you want to support multiple UI
+components, or you wish to also allow your panel to be opened as a pop-up
+window.
 
 Button APIs
 -----------

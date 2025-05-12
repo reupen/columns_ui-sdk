@@ -17,7 +17,6 @@
     panel/window
     panel/splitter-window
     panel/window-helpers
-    panel/visualisation
     panel/context-menu
     panel/window-host
 

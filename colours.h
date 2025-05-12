@@ -16,6 +16,11 @@ enum colour_identifier_t {
     colour_group_background,
 };
 
+/**
+ * Bitwise flags used with colour change callbacks.
+ *
+ * \see client::on_colour_changed(), common_callback::on_colour_changed()
+ */
 enum colour_flag_t {
     colour_flag_text = 1 << colour_text,
     colour_flag_selection_text = 1 << colour_selection_text,
@@ -42,6 +47,11 @@ enum bool_identifier_t {
     bool_dark_mode_enabled,
 };
 
+/**
+ * Bitwise flags used to indicate supported features and also used in bool change callbacks.
+ *
+ * \see client::get_supported_bools, client::on_bool_changed, common_callback::on_bool_changed
+ */
 enum bool_flag_t {
     bool_flag_use_custom_active_item_frame = (1 << bool_use_custom_active_item_frame),
     bool_flag_dark_mode_enabled = (1 << bool_dark_mode_enabled),

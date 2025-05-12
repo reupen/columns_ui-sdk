@@ -134,7 +134,12 @@ public:
     FB2K_MAKE_SERVICE_INTERFACE_ENTRYPOINT(manager_v2);
 };
 
-/** Helper to simplify retrieving the font for a specific client. */
+/**
+ * Helper to simplify retrieving the font for a specific client.
+ *
+ * \see This has been superseded by get_log_font(), get_log_font_with_fallback()
+ * and create_hfont_with_fallback()
+ */
 class helper {
 public:
     void get_font(LOGFONT& p_out) const;
@@ -145,6 +150,7 @@ public:
 private:
     GUID m_font_id;
 };
+
 class NOVTABLE client : public service_base {
 public:
     virtual const GUID& get_client_guid() const = 0;

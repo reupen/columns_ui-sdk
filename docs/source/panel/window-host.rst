@@ -18,3 +18,10 @@ Factories
 .. doxygenclass:: uie::window_host_factory_single
 
 .. doxygenclass:: uie::window_host_factory_transparent_single
+
+Constants
+---------
+
+.. doxygenenum:: uie::size_limit_flag_t
+
+.. doxygenenum:: uie::resize_flag_t
