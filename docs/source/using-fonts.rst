@@ -6,7 +6,7 @@ page. This allows fonts for different parts of the UI to be configured in one
 place.
 
 Third-party panel components can add their own entries to the Font preferences
-page, and query fonts that have configured.
+page and they can query fonts that have configured.
 
 Adding a new entry
 ------------------

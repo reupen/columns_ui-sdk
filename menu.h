@@ -62,7 +62,7 @@ public:
      *                          Valid only if flag_separator is not specified
      * \param [out]    p_state  Receives display state, combination of state_t flags.
      *
-     * \return                true iff the item should be displayed
+     * \return                whether the item should be displayed
      */
     virtual bool get_display_data(pfc::string_base& p_out, unsigned& p_state) const = 0;
 
@@ -71,7 +71,7 @@ public:
      *
      * \param [out]    p_out    Receives item description, utf-8 encoded.
      *
-     * \return                true iff the item has a description and p_out was set to it
+     * \return                whether p_out was set to a non-empty value
      */
     virtual bool get_description(pfc::string_base& p_out) const = 0;
 

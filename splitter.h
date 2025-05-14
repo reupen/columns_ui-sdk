@@ -165,7 +165,7 @@ public:
 class splitter_item_full_v3_t : public splitter_item_full_v2_t {
 public:
     /**
-     * \brief Gets the additional data associated with this splitter item
+     * \brief Get the additional data associated with this splitter item.
      *
      * \note
      * Check that get_extra_data_format_id() matches your format ID before
@@ -183,7 +183,7 @@ public:
     virtual void get_extra_data(stream_writer* writer) const = 0;
 
     /**
-     * \brief Gets a GUID to identify the format of the data returned by
+     * \brief Get a GUID to identify the format of the data returned by
      *        get_extra_data()
      * \return The format identifier
      */
@@ -274,7 +274,7 @@ struct size_and_dpi {
 /**
  * \brief Subclass of uie::window, specifically for splitters.
  *
- * Splitter classes must support multiple instances
+ * Splitter classes must support multiple instances.
  */
 class NOVTABLE splitter_window : public window {
 public:
@@ -296,16 +296,6 @@ public:
      */
     virtual bool get_config_item_supported(t_size p_index, const GUID& p_type) const { return false; }
 
-    /**
-     * \brief Creates non-modal child configuration dialog.
-     * Since its non-modal, remember to keep a refcounted reference to yourself.
-     * Use WS_EX_CONTROLPARENT
-     */
-    // virtual HWND create_config_window(HWND wnd_parent, const container_window::window_position_t & p_placement)
-    // {return 0;}
-
-    // this config system isn't great. it may be changed.
-    // write in native-endianess (i.e. use write_object_t)
     virtual bool get_config_item(t_size index, const GUID& p_type, stream_writer* p_out, abort_callback& p_abort) const
     {
         return false;
@@ -316,10 +306,12 @@ public:
         abort_callback_dummy p_abort;
         return get_config_item(index, p_type, p_out, p_abort);
     }
+
     virtual bool set_config_item(t_size index, const GUID& p_type, stream_reader* p_source, abort_callback& p_abort)
     {
         return false;
     }
+
     template <typename class_t>
     bool set_config_item_t(t_size index, const GUID& p_type, const class_t& p_val, abort_callback& p_abort)
     {
@@ -442,7 +434,7 @@ public:
 class NOVTABLE splitter_window_v2 : public splitter_window {
 public:
     /**
-     * \brief Checks if a point is within this splitter window. Used for live layout editing.
+     * \brief Check if a point is within this splitter window. Used for live layout editing.
      *
      * \param  [in]     wnd_point        The window the original mouse message was being sent to.
      * \param  [in]     pt_screen        The point being checked.
@@ -460,7 +452,7 @@ public:
     }
 
     /**
-     * \brief Checks if windows can be inserted into this splitter. Used for live editing.
+     * \brief Check if windows can be inserted into this splitter. Used for live editing.
      *
      * Implement this by calling uie::window::is_available on each window.
      *

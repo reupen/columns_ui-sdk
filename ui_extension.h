@@ -57,7 +57,8 @@ public:
 };
 
 /**
- * \brief Namespace for UI Extension services
+ * \brief Namespace for functionality relating to hosted windows (commonly known as
+ * panels and toolbars, and formerly called UI extensions).
  */
 namespace uie {
 
@@ -67,7 +68,7 @@ namespace uie {
  * \remarks Combine multiple flags using bitwise or,
  * if an extension supports more than one type.
  *
- * \see window::get_type, window_host_with_control::get_supported_types
+ * \see window::get_type(), window_host_with_control::get_supported_types()
  */
 enum window_type_t {
     /** The extension is a sidebar panel. */
@@ -88,7 +89,7 @@ enum window_type_t {
  * Combine multiple flags using bitwise or,
  * if more than one size limit changed.
  *
- * \see window_host::on_size_limit_change
+ * \see window_host::on_size_limit_change()
  */
 enum size_limit_flag_t {
     /** The minimum width changed. */
@@ -109,7 +110,7 @@ enum size_limit_flag_t {
  *
  * Combine multiple flags using bitwise or.
  *
- * \see uie::window_host::on_size_limit_change
+ * \see uie::window_host::is_resize_supported(), uie::window_host::request_resize()
  */
 enum resize_flag_t {
     /** The width parameter is valid. */

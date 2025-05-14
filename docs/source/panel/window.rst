@@ -24,3 +24,8 @@ Factories
 ---------
 
 .. doxygenclass:: uie::window_factory
+
+Constants
+---------
+
+.. doxygenenum:: uie::window_type_t

@@ -68,110 +68,117 @@ struct size_limit_t {
 };
 
 /**
- * \brief Interface for window service.
+ * \brief Base class for window (panel or toolbar) services (formerly known as UI
+ * extensions).
  */
 class NOVTABLE window : public extension_base {
 public:
     /**
-     * \brief Gets whether the panel is single instance or not.
+     * \brief Get whether is a single-instance window (as opposed to a
+     * multi-instance window).
      *
      * \note Do not explicitly override. The service factory implements this method.
      */
     virtual const bool get_is_single_instance() const = 0;
 
     /**
-     * \brief Gets the category of the extension.
+     * \brief Get the category of this window.
      *
-     * Categories you may use are "Toolbars", "Panels", "Splitters", "Playlist views" and "Visualisations"
+     * Pre-defined categories you can use are `"Toolbars"`, `"Panels"`, `"Splitters"`,
+     * `"Playlist views"` and `"Visualisations"`.
      *
      * \param [out]    out        receives the category of the panel, utf-8 encoded
      */
     virtual void get_category(pfc::string_base& out) const = 0;
 
     /**
-     * \brief Gets the short, presumably more user-friendly than the name returned by get_name, name of the panel.
+     * \brief Get a shorter name of the window.
      *
      * \param [out]    out    receives the short name of the extension, e.g. "Order" instead
      *                        of "Playback order", or "Playlists" instead of "Playlist switcher"
      *
      * \return                true if the extension has a short name
      */
-    virtual bool get_short_name(pfc::string_base& out) const
-    {
-        return false;
-    } // short/friendly name, e.g. order vs. playback order, playlists vs. playlist switcher
+    virtual bool get_short_name(pfc::string_base& out) const { return false; }
 
     /**
-     * \brief Gets the description of the extension.
+     * \brief Get a description of the extension.
      *
-     * \param [out]    out        receives the description of the extension,
+     * \param [out]    out    receives the description of the extension,
      *                        e.g. "Drop-down list for displaying and changing the current playback order"
      *
      * \return true if the extension has a description
      */
-    virtual bool get_description(pfc::string_base& out) const
-    {
-        return false;
-    } // e.g. "Drop-down list to display the current playback order and to allow you to select a new playback order"
+    virtual bool get_description(pfc::string_base& out) const { return false; }
 
     /**
-     * \brief Gets the type of the extension.
+     * \brief Get the type of the extension.
      *
-     * \return                a combination of uie::type_* flags
+     * \return               one or more `uie::window_type_t` flags, combined using bitwise OR
      *
      * \see uie::window_type_t
      */
     virtual unsigned get_type() const = 0;
 
     /**
-     * \brief Gets whther the panel prefers to be created in multiple instances.
+     * \brief Get whether the panel prefers to be created in multiple instances in the toolbars.
      *
-     * For example, a spacer panel.
+     * For example, this could be a spacer panel.
      *
-     * \return                true iff the panel prefers to be created in multiple instances
+     * \return               true if the panel prefers to be created in multiple instances
      */
     virtual bool get_prefer_multiple_instances() const { return false; }
 
     /**
-     * \brief Get availability of the extension.
+     * \brief Get whether the window is available to be inserted in a particular host.
      *
-     * This method is called before create_or_transfer() to test, if this call will be legal.
-     * If this instance is already hosted, it should check whether the given host's GUID equals its
-     * current host's GUID, and should return <code>false</code>, if it does. This is mostly important
-     * for single instance extensions.
+     * For multi-instance windows, you can always return `true`.
      *
-     * Extensions that support multiple instances can generally return <code>true</code>.
+     * For single-instance windows, if an existing host has been assigned to the window,
+     * return false if its GUID is equal to the GUID of `p_host`. Otherwise, return `true.
      *
      * \return whether this instance can be created in or moved to the given host
      */
     virtual bool is_available(const window_host_ptr& p_host) const = 0;
 
     /**
-     * \brief Create or transfer extension window.
+     * \brief Create the panel or toolbar window or transfer the window to a new host.
      *
-     * Create your window here.
+     * A canonical implementation of this method is similar to:
      *
-     * In the case of single instance panels, if your window is already created, you must
-     * (in the same order):
-     * - Hide your window. i.e: \code ShowWindow(wnd, SW_HIDE) \endcode
-     * - Set the parent window to to wnd_parent. I.e. \code SetParent(get_wnd(), wnd_parent) \endcode
-     * - Move your window to the new window position. I.e.:
-     *   \code SetWindowPos(get_wnd(), NULL, p_position.x, p_position.y, p_position.cx, p_position.cy, SWP_NOZORDER);
-     *\endcode
-     * - Call relinquish_ownership() on your current host.
+     * \code{.cpp}
+     * if (m_wnd) {
+     *     ShowWindow(m_wnd, SW_HIDE);
+     *     SetParent(m_wnd, parent);
+     *     m_host->relinquish_ownership(get_wnd());
+     *     m_host = host;
+     *     SetWindowPos(get_wnd(), nullptr, position.x, position.y, position.cx, position.cy, SWP_NOZORDER);
+     * } else {
+     *     m_host = host;
+     *     m_wnd = CreateWindowEx(ex_styles, class_name, window_name, styles,
+     *         position.x, position.y, position.cx, position.cy, parent,
+     *         reinterpret_cast<HMENU>(0), core_api::get_my_instance(), nullptr);
+     * }
      *
-     * Other rules you should follow are:
-     * - Ensure you are using the correct window styles. The window MUST have the WS_CHILD
-     *   window style. It MUST NOT have the WS_POPUP, WS_CAPTION styles.
-     * - The window must be created hidden.
-     * - Use WS_EX_CONTROLPARENT if you have child windows that receive keyboard input,
-     *   and you want them to be included in tab operations in the host window.
+     * return m_wnd;
+     * \endcode
+     *
+     * Note that the case where this method is called to transfer an already-created window to
+     * a new host is only relevant for single-instance windows. For multi-instance windows, you can
+     * instead call `uBugCheck()` or do something similar if that happens.
+     *
+     * \remark
+     * - The window must have the `WS_CHILD` window style. It must not have the `WS_POPUP`,
+     *   `WS_CAPTION` or `WS_VISIBLE` styles.
+     * - Do not make the window visible – the host will do this when ready.
+     * - Use the `WS_EX_CONTROLPARENT` extended style if the window has child windows that receive
+     *   keyboard input, and you want them to be included in tab operations in the host window.
      * - Do not directly create a common control as your window. You must create
-     *   a window to contain any common controls, and any other controls that
-     *   communicate to the parent window via WM_COMMAND and WM_NOTIFY window messages.
-     * - Under NO CIRCUMSTANCES may you subclass the host window.
-     * - If you are not hosting any panels yourself, you may dialog manage your window if you wish.
-     * - The window MUST have a dialog item ID of 0.
+     *   an intermediate window to contain any common controls (or other child windows) that
+     *   communicate to the parent window via `WM_COMMAND` and `WM_NOTIFY` window messages.
+     * - If this window is not itself hosting another panel or toolbar, it can be dialog managed
+     *   (i.e. using `modeless_dialog_manager`) if required.
+     * - The window must have a dialog item ID of 0.
      *
      * \pre May only be called if is_available() returned true.
      *
@@ -179,35 +186,38 @@ public:
      * \param [in]    p_host            Pointer to the host that creates the extension.
      *                                This parameter may not be NULL.
      * \param [in]    p_position        Initial position of the window
-     * \return                        Window handle of the panel window
+     * \return                        Window handle of the panel or toolbar window
      */
     virtual HWND create_or_transfer_window(HWND wnd_parent, const window_host_ptr& p_host,
         const ui_helpers::window_position_t& p_position = ui_helpers::window_position_null)
         = 0;
 
     /**
-     * \brief Destroys the extension window.
+     * \brief Destroy the window.
+     *
+     * Typically, you would call `DestroyWindow()` in this method, and clean up any
+     * resources that are no longer required.
+     *
+     * In normal circumstances, the window will always be destroyed using this method.
      */
     virtual void destroy_window() = 0;
 
     /**
-     * \brief Gets extension window handle.
+     * \brief Get the extension window handle.
      *
      * \pre May only be called on hosted extensions.
      *
-     * \return                        Window handle of the extension window
+     * \return Window handle of the extension window (or
+     *         `nullptr` if the window has not been created)
      */
     virtual HWND get_wnd() const = 0;
 
     /**
-     * \brief Gets size limits of the window.
+     * \brief This function is not used.
      *
-     * Override if you like, or just handle WM_GETMINMAXINFO.
+     * \note Handle the `WM_GETMINMAXINFO` message to indicate size limits to the host.
      *
-     * \note    This function is reserved for future use. Handle WM_GETMINMAXINFO
-     *        for now instead.
-     *
-     * \param [out]    p_out            Receives the size limits of the window.
+     * \param [out]    p_out    Not used.
      */
     virtual void get_size_limits(size_limit_t& p_out) const
     {
@@ -224,14 +234,14 @@ public:
     }
 
     /**
-     * \brief Creates extension by GUID.
+     * \brief Create an extension by ID.
      *
      * \param [in]    guid            GUID of a ui_extension
-     * \param [out]    p_out            Receives a pointer to the window.
+     * \param [out]   p_out           Receives a pointer to the window.
      *
      * \return                        true if the window was found and instantiated.
-     *                                 You may assume that if the method returns true,
-     *                                p_out is a valid pointer.
+     *                                You may assume that if the method returns true,
+     *                                p_out is valid.
      */
     static inline bool create_by_guid(const GUID& guid, window_ptr& p_out)
     {
@@ -249,18 +259,19 @@ public:
     }
 
     /**
-     * \brief Helper function. Activates next or previous window.
+     * \brief Helper function. Handle a press of the Tab key by focusing the next or previous tabbable window.
      *
-     * \param [in]    wnd_focus        Window you want the next or previous window handle respective to.
-     * \return                        The handle to the window that was activated, or NULL if none was.
+     * \param [in]    wnd_focus       Handle to the currently focused window
+     * \return                        The handle to the window that was activated, or `nullptr`
+     *                                if the focus was not changed.
      */
     static HWND g_on_tab(HWND wnd_focus);
 
     /**
-     * \brief    Helper function. Processes keyboard shortcuts using
-     *keyboard_shortcut_manager_v2::process_keydown_simple(). Requires foobar2000 >= 0.9.5.
+     * \brief    Helper function. Process keyboard shortcuts using
+     * keyboard_shortcut_manager_v2::process_keydown_simple(). Requires foobar2000 >= 0.9.5.
      *
-     * \param [in]    wp                Key down message WPARAM value.
+     * \param [in]    wp              Key down message WPARAM value.
      * \return                        If a shortcut was executed.
      */
     static bool g_process_keydown_keyboard_shortcuts(WPARAM wp);
@@ -274,9 +285,11 @@ public:
 class NOVTABLE menu_window : public window {
 public:
     /**
-     * \brief Called by host when a menu accelerator is pressed
+     * \brief Handle menu accelerator key presses (e.g. Alt+F for the File menu).
      *
-     * Called by host in its WM_MENUCHAR handler to notify extension that a menu was requested to be opened.
+     * Called by the host in its WM_MENUCHAR handler to notify extension that a menu
+     * was requested to be opened.
+     *
      * You should check whether the accelerator key pressed is one of yours.
      *
      * \pre May only be called on hosted extensions.
@@ -287,14 +300,14 @@ public:
     virtual bool on_menuchar(unsigned short chr) = 0;
 
     /**
-     * \brief Called by host to indicate you should focus your menu.
+     * \brief Focus the menu window.
      *
      * \pre May only be called on hosted extensions.
      */
     virtual void set_focus() = 0;
 
     /**
-     * \brief Retrieve whether the menu has the keyboard focus..
+     * \brief Retrieve whether the menu has the keyboard focus.
      *
      * \pre May only be called on hosted extensions.
      * \return whether your menu has keyboard focus
@@ -302,16 +315,14 @@ public:
     virtual bool is_menu_focused() const = 0;
 
     /**
-     * \brief    Indicates that you should underline menu access keys in your menu
+     * \brief    Show underlines under characters indicating menu accelerators.
      *
-     * \remark    Applicable only if your menu underlines menu access keys only when
-     *             activated by the keyboard. This is typically determined by the
-     *            SPI_GETKEYBOARDCUES system parameter.
+     * \remark   Relevant when `SystemParametersInfo()` returns `FALSE` for `SPI_GETKEYBOARDCUES`.
      *
-     * \remark    Do not change the state within this function call. Use PostMessage.
+     * \remark   Do not change the state within this function call. Use `PostMessage()`.
      *
-     * \par        Implementation example
-     * \code
+     * \par      Implementation example
+     * \code{.cpp}
      * PostMessage(wnd_menu, WM_UPDATEUISTATE, MAKEWPARAM(UIS_CLEAR , UISF_HIDEACCEL), 0);
      * \endcode
      */
@@ -320,18 +331,20 @@ public:
     /**
      * \brief    Indicates that you should stop underlining menu access keys in your menu
      *
-     * \remark    Applicable only if your menu underlines menu access keys only when
-     *             activated by the keyboard. This is typically determined by the
-     *            SPI_GETKEYBOARDCUES system parameter.
+     * \remark   Applicable only if your menu underlines menu access keys only when
+     *           activated by the keyboard. This is typically determined by the
+     *           `SPI_GETKEYBOARDCUES` system parameter.
      *
-     * \remark    Do not change the state within this function call. Use PostMessage.
+     * \remark   Do not change the state within this function call. Use `PostMessage()`.
      *
-     * \par        Implementation example
-     * \code
-     * BOOL b_showkeyboardcues = TRUE;
-     * SystemParametersInfo(SPI_GETKEYBOARDCUES, 0, &b_showkeyboardcues, 0);
-     * PostMessage(wnd_menu, WM_UPDATEUISTATE, MAKEWPARAM(b_showkeyboardcues ? UIS_CLEAR : UIS_SET , UISF_HIDEACCEL),
-     *0); \endcode
+     * \par      Implementation example
+     * \code{.cpp}     * if (GetFocus() == m_wnd)
+     *     return;
+     *
+     * BOOL show_keyboard_cues{TRUE};
+     * SystemParametersInfo(SPI_GETKEYBOARDCUES, 0, &show_keyboard_cues, 0);
+     * PostMessage(wnd_menu, WM_UPDATEUISTATE, MAKEWPARAM(show_keyboard_cues ? UIS_CLEAR : UIS_SET, UISF_HIDEACCEL), 0);
+     * \endcode
      */
     virtual void hide_accelerators() = 0;
 
@@ -344,15 +357,15 @@ public:
 class NOVTABLE menu_window_v2 : public menu_window {
 public:
     /**
-     * \brief Retrieve handle of the window that was focused before the menu was.
+     * \brief Retrieve the handle of the window that was focused before the menu was.
      *
-     * Implementations should track the previously focused window using the WM_SETFOCUS
-     * and WM_KILLFOCUS window messages.
+     * Implementations should track the previously focused window using the `WM_SETFOCUS`
+     * and `WM_KILLFOCUS` window messages.
      *
      * \pre May only be called on hosted extensions.
      *
      * \return HWND of the previously focused window, or nullptr if
-     *          no such window or the menu bar is not currently focused.
+     *         no such window or the menu bar is not currently focused.
      */
     virtual HWND get_previous_focus_window() const = 0;
 
@@ -365,7 +378,7 @@ public:
 class NOVTABLE playlist_window : public window {
 public:
     /**
-     * \brief Called by host to indicate you should focus your window.
+     * \brief Focus the playlist window.
      *
      * \pre May only be called on hosted extensions.
      */
@@ -420,8 +433,7 @@ namespace uie {
 /**
  * \brief Service factory for multiple instance windows.
  * \par Usage example
- * \code
- * static window_factory< my_uie > foo_extension;
+ * \code{.cpp} * static window_factory<my_uie> foo_extension;
  * \endcode
  */
 template <class T>
@@ -440,9 +452,12 @@ public:
 
 /**
  * \brief Service factory for single instance windows.
+ *
+ * \note Single instance windows are not recommended. Implement a
+ * multi-instance window wherever possible.
+ *
  * \par Usage example
- * \code
- * static window_factory_single< my_window > foo_extension2;
+ * \code{.cpp} * static window_factory_single<my_window> foo_extension2;
  * \endcode
  * The static instance of <code>my_window</code> can be accessed
  * as <code>foo_extension2.get_static_instance()</code>.
@@ -466,9 +481,12 @@ public:
 
 /**
  * \brief Service factory for single instance windows.
+ *
+ * \note Single instance windows are not recommended. Implement a
+ * multi-instance window wherever possible.
+ *
  * \par Usage example
- * \code
- * static window_factory_single_transparent< my_window > foo_extension3;
+ * \code{.cpp} * static window_factory_single_transparent<my_window> foo_extension3;
  * \endcode
  * The static instance of <code>my_window</code> can be accessed
  * as <code>foo_extension3</code>.
