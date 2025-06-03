@@ -77,7 +77,7 @@ public:
         if (force_greyscale_antialiasing())
             return D2D1_TEXT_ANTIALIAS_MODE_GRAYSCALE;
 
-        return D2D1_TEXT_ANTIALIAS_MODE_CLEARTYPE;
+        return D2D1_TEXT_ANTIALIAS_MODE_DEFAULT;
     }
 #endif
 
