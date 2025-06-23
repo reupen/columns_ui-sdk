@@ -1,7 +1,7 @@
 #ifndef _UI_EXTENSION_H_
 #define _UI_EXTENSION_H_
 
-#define UI_EXTENSION_VERSION "8.0.0-beta.1"
+#define UI_EXTENSION_VERSION "8.0.0-rc.1"
 
 #ifndef CUI_SDK_DWRITE_ENABLED
 #define CUI_SDK_DWRITE_ENABLED __has_include(<dwrite_3.h>)
@@ -162,8 +162,8 @@ namespace ui_extension = uie;
 #include "fonts.h"
 
 #if CUI_SDK_DWRITE_ENABLED
-#include "font_manager_v3.h"
 #include "dwrite_utils.h"
+#include "font_manager_v3.h"
 #endif
 
 #include "font_utils.h"

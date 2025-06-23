@@ -98,7 +98,7 @@ options:
         const auto font = cui::fonts::get_font(my_font_id);
 
         if (font) {
-            text_format_wrapper.text_format = font->create_text_format();
+            (void)font->create_text_format(text_format_wrapper.text_format.receive_ptr());
             text_format_wrapper.rendering_options = font->rendering_options();
         }
 
@@ -157,8 +157,7 @@ rendering parameters:
         const auto monitor = cui::dwrite_utils::get_monitor_for_window(wnd);
 
         pfc::com_ptr_t<IDWriteRenderingParams> rendering_params;
-        hr = dwrite_utils::create_custom_rendering_params(factory, monitor, rendering_options->rendering_mode(),
-            rendering_options->force_greyscale_antialiasing(), rendering_params.receive_ptr());
+        hr = rendering_options->create_rendering_params(factory, monitor, rendering_params.receive_ptr());
 
         if (FAILED(hr)) {
             // Handle error

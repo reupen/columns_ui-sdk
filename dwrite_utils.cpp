@@ -5,12 +5,17 @@
 namespace cui::dwrite_utils {
 
 HRESULT create_custom_rendering_params(IDWriteFactory* factory, HMONITOR monitor, DWRITE_RENDERING_MODE rendering_mode,
-    bool force_greyscale_antialiasing, IDWriteRenderingParams** rendering_params)
+    IDWriteRenderingParams** rendering_params)
 {
     HRESULT hr{};
     pfc::com_ptr_t<IDWriteRenderingParams> monitor_rendering_params;
     if (FAILED(hr = factory->CreateMonitorRenderingParams(monitor, monitor_rendering_params.receive_ptr())))
         return hr;
+
+    if (rendering_mode == DWRITE_RENDERING_MODE_DEFAULT) {
+        *rendering_params = monitor_rendering_params.detach();
+        return S_OK;
+    }
 
     pfc::com_ptr_t<IDWriteRenderingParams1> monitor_rendering_params_1;
     (void)monitor_rendering_params->QueryInterface(
@@ -23,8 +28,7 @@ HRESULT create_custom_rendering_params(IDWriteFactory* factory, HMONITOR monitor
     const auto gamma = monitor_rendering_params->GetGamma();
     const auto enhanced_contrast = monitor_rendering_params->GetEnhancedContrast();
     const auto cleartype_level = monitor_rendering_params->GetClearTypeLevel();
-    const auto pixel_geometry
-        = force_greyscale_antialiasing ? DWRITE_PIXEL_GEOMETRY_FLAT : monitor_rendering_params->GetPixelGeometry();
+    const auto pixel_geometry = monitor_rendering_params->GetPixelGeometry();
     const auto greyscale_enhanced_contrast = monitor_rendering_params_1.is_valid()
         ? std::make_optional(monitor_rendering_params_1->GetGrayscaleEnhancedContrast())
         : std::nullopt;
