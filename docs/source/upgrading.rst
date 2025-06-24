@@ -1,6 +1,22 @@
 Upgrading the SDK
 =================
 
+Version 8.0.0-rc.1
+------------------
+
+New in this version
+~~~~~~~~~~~~~~~~~~~
+
+The following services were updated:
+
+- :class:`cui::fonts::manager_v3`
+- :class:`cui::fonts::rendering_options`
+- :class:`cui::fonts::font`
+
+The following functions were updated:
+
+- :func:`cui::dwrite_utils::create_custom_rendering_params()`
+
 Version 8.0.0-beta.1
 --------------------
 
