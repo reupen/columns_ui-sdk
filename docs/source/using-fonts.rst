@@ -1,12 +1,12 @@
 Using fonts
 ===========
 
-Columns UI features centralised configuration of fonts on its Font preferences
+Columns UI features centralised configuration of fonts on its Fonts preferences
 page. This allows fonts for different parts of the UI to be configured in one
 place.
 
-Third-party panel components can add their own entries to the Font preferences
-page and they can query fonts that have configured.
+Third-party panel components can add their own entries to the Fonts preferences
+page and they can query the current configuration.
 
 Adding a new entry
 ------------------
@@ -35,8 +35,8 @@ utility functions for other scenarios in the :cpp:type:`cui::fonts` namespace.
 DirectWrite
 ~~~~~~~~~~~
 
-Panels using DirectWrite can use the experimental :func:`cui::fonts::get_font()`
-function to retrieve a :class:`cui::fonts::font` instance. The
+Panels using DirectWrite can use :func:`cui::fonts::get_font()` to retrieve a
+:class:`cui::fonts::font` instance. The
 :func:`cui::fonts::font::create_text_format()` member function can then be
 called to create an ``IDWriteTextFormat`` object.
 
@@ -44,9 +44,7 @@ You should also apply the rendering options returned by
 :func:`cui::fonts::font::rendering_options()` when rendering text using the text
 format.
 
-Note that :func:`cui::fonts::get_font()` requires Columns UI 3.0.0 beta 1 or
-later, and compatibility may be broken before the final Columns UI 3.0.0
-release.
+Note that :func:`cui::fonts::get_font()` requires Columns UI 3.0.0 or later.
 
 If a compatible version of Columns UI isn’t installed,
 :func:`cui::fonts::get_font()` will return an empty ``std::optional``. Fallback

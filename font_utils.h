@@ -33,7 +33,7 @@ namespace cui::fonts {
 /**
  * Get a font::ptr for a particular font. This is mainly intended for DirectWrite usage.
  *
- * \note Requires Columns UI 3.0.0 alpha 1 or newer. You must check if the returned service pointer
+ * \note Requires Columns UI 3.0.0 or newer. You must check if the returned service pointer
  *       is valid.
  *
  * \param font_id font client or common font GUID
