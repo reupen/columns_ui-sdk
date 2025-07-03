@@ -1,6 +1,12 @@
 Upgrading the SDK
 =================
 
+Version 8.0.0
+-------------
+
+:class:`cui::fonts::manager_v3` and related services are no longer marked
+experimental.
+
 Version 8.0.0-rc.1
 ------------------
 

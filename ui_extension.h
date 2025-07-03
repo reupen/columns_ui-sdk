@@ -1,7 +1,7 @@
 #ifndef _UI_EXTENSION_H_
 #define _UI_EXTENSION_H_
 
-#define UI_EXTENSION_VERSION "8.0.0-rc.1"
+#define UI_EXTENSION_VERSION "8.0.0"
 
 #ifndef CUI_SDK_DWRITE_ENABLED
 #define CUI_SDK_DWRITE_ENABLED __has_include(<dwrite_3.h>)

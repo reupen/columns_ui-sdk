@@ -35,8 +35,7 @@ enum class font_family_model {
 /**
  * Defines text rendering options, as configured in Columns UI Colours and fonts preferences.
  *
- * \note Part of the preliminary DirectWrite-friendly manager_v3 interface.
- *       Subject to change before the final Columns UI 3.0.0 release.
+ * \note Added in Columns UI 3.0.0.
  */
 class NOVTABLE rendering_options : public service_base {
 public:
@@ -200,8 +199,7 @@ private:
 /**
  * Defines a font, as configured in Columns UI Colours and fonts preferences.
  *
- * \note Part of the preliminary DirectWrite-friendly manager_v3 interface.
- *       Subject to change before the final Columns UI 3.0.0 release.
+ * \note Added in Columns UI 3.0.0.
  *
  * The recommended methods to use are create_text_format() and rendering_options().
  * However, access to the underlying data is also provided for less common use cases.
@@ -326,10 +324,9 @@ public:
 };
 
 /**
- * Preliminary DirectWrite-friendly manager_v3 interface.
+ * DirectWrite-friendly manager_v3 interface.
  *
- * \note Part of the preliminary DirectWrite-friendly manager_v3 interface.
- *       Subject to change before the final Columns UI 3.0.0 release.
+ * \note Added in Columns UI 3.0.0.
  */
 class NOVTABLE manager_v3 : public service_base {
 public:
