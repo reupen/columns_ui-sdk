@@ -468,5 +468,29 @@ public:
 
     FB2K_MAKE_SERVICE_INTERFACE(splitter_window_v2, splitter_window);
 };
+
+/**
+ * \brief Extends uie::splitter_window_v2, adding support for reordering panels.
+ *
+ * \note New in Columns UI 3.1.0.
+ */
+class NOVTABLE splitter_window_v3 : public splitter_window_v2 {
+public:
+    /**
+     * \brief Reorder child panels in this splitter.
+     *
+     * \param  [in]     order            A pointer to an array of new positions for each panel.
+     * \param  [in]     count            The number of elements in the array.
+     *
+     * The `count` argument must be equal to the value returned by `get_panel_count()`.
+     *
+     * \note It’s valid to call this method both before and after the panel window has been
+     * created.
+     */
+    virtual void reorder_panels(const size_t* order, size_t count) = 0;
+
+    FB2K_MAKE_SERVICE_INTERFACE(splitter_window_v3, splitter_window_v2);
+};
+
 } // namespace uie
 #endif //_COLUMNS_API_SPLITTER_H_

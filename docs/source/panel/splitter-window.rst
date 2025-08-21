@@ -10,6 +10,8 @@ Splitter
 
 .. doxygenclass:: uie::splitter_window_v2
 
+.. doxygenclass:: uie::splitter_window_v3
+
 Splitter items
 --------------
 
