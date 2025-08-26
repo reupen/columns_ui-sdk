@@ -16,9 +16,10 @@
     panel/base-extension
     panel/window
     panel/splitter-window
-    panel/window-helpers
     panel/context-menu
     panel/window-host
+    panel/implementation-helpers
+    panel/other-utilities
 
 .. toctree::
     :hidden:

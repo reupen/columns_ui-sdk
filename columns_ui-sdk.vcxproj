@@ -170,6 +170,7 @@
     <ClInclude Include="font_manager_v3.h" />
     <ClInclude Include="font_utils.h" />
     <ClInclude Include="menu.h" />
+    <ClInclude Include="panel_utils.h" />
     <ClInclude Include="splitter.h" />
     <ClInclude Include="visualisation.h" />
     <ClInclude Include="window.h" />
@@ -188,6 +189,7 @@
     <ClCompile Include="fonts.cpp" />
     <ClCompile Include="font_manager_v3.cpp" />
     <ClCompile Include="font_utils.cpp" />
+    <ClCompile Include="panel_utils.cpp" />
     <ClCompile Include="win32_helpers.cpp" />
     <ClCompile Include="window_helper.cpp" />
     <ClCompile Include="columns_ui.cpp" />

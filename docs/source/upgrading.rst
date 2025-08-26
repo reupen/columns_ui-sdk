@@ -1,6 +1,14 @@
 Upgrading the SDK
 =================
 
+Development version
+-------------------
+
+The following functions were added:
+
+- :func:`uie::utils::remap_category()`
+- :func:`uie::utils::get_remapped_category()`
+
 Version 8.0.0
 -------------
 

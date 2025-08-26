@@ -87,7 +87,13 @@ public:
      * Pre-defined categories you can use are `"Toolbars"`, `"Panels"`, `"Splitters"`,
      * `"Playlist views"` and `"Visualisations"`.
      *
+     * \note "Splitters" was renamed "Containers" in Columns UI 3.1.0. It’s recommended to
+     * continue to return "Splitters" here to maintain compatibility with older versions of
+     * Columns UI.
+     *
      * \param [out]    out        receives the category of the panel, utf-8 encoded
+     *
+     * \see uie::utils::get_remapped_category()
      */
     virtual void get_category(pfc::string_base& out) const = 0;
 

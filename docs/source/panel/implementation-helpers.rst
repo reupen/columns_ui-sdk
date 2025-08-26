@@ -1,7 +1,7 @@
-Window helpers
-==============
+Implementation helpers
+======================
 
-These classes can be used to make implementing panels easier.
+These classes and functions can be used to make implementing panels easier.
 
 Container window
 ----------------
