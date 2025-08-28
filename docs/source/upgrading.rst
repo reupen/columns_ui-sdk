@@ -4,6 +4,10 @@ Upgrading the SDK
 Development version
 -------------------
 
+The following service was added:
+
+- :class:`uie::splitter_window_v3`
+
 The following functions were added:
 
 - :func:`uie::utils::remap_category()`
