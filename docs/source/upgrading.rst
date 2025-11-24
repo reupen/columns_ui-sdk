@@ -1,8 +1,10 @@
-Upgrading the SDK
-=================
+###################
+ Upgrading the SDK
+###################
 
-Development version
--------------------
+*********************
+ Development version
+*********************
 
 The following service was added:
 
@@ -13,17 +15,19 @@ The following functions were added:
 - :func:`uie::utils::remap_category()`
 - :func:`uie::utils::get_remapped_category()`
 
-Version 8.0.0
--------------
+***************
+ Version 8.0.0
+***************
 
 :class:`cui::fonts::manager_v3` and related services are no longer marked
 experimental.
 
-Version 8.0.0-rc.1
-------------------
+********************
+ Version 8.0.0-rc.1
+********************
 
 New in this version
-~~~~~~~~~~~~~~~~~~~
+===================
 
 The following services were updated:
 
@@ -35,17 +39,18 @@ The following functions were updated:
 
 - :func:`cui::dwrite_utils::create_custom_rendering_params()`
 
-Version 8.0.0-beta.1
---------------------
+**********************
+ Version 8.0.0-beta.1
+**********************
 
 Highlights
-~~~~~~~~~~
+==========
 
 This version adds a new, experimental :class:`cui::fonts::manager_v3` service
 with DirectWrite support.
 
 New in this version
-~~~~~~~~~~~~~~~~~~~
+===================
 
 The following services were added:
 
@@ -80,7 +85,7 @@ The following helpers were added:
 - :func:`cui::dwrite_utils::create_custom_rendering_params()`
 
 Bug fixes
-~~~~~~~~~
+=========
 
 - The project file was updated to remove ``..\columns_ui-sdk`` from referenced
   file paths. This makes it possible for names other than ``columns_ui-sdk`` to
@@ -90,7 +95,7 @@ Bug fixes
   ``service_factory_single_t`` rather than ``service_factory_t``.
 
 Deprecated in this version
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+==========================
 
 The following functions were deprecated:
 
@@ -98,7 +103,7 @@ The following functions were deprecated:
 - :func:`win32_helpers::message_box()`
 
 Removed in this version
-~~~~~~~~~~~~~~~~~~~~~~~
+=======================
 
 The following deprecated named constants were removed:
 
@@ -134,22 +139,24 @@ The following deprecated functions were removed:
 - :func:`win32_helpers::send_message_to_all_children()`
 - :func:`win32_helpers::tooltip_add_tool()`
 
-Version 7.0.0
--------------
+***************
+ Version 7.0.0
+***************
 
 New in this version
-~~~~~~~~~~~~~~~~~~~
+===================
 
 This version fixes a compilation error when the ``<version>`` header had not
 been included, and it also fixes a crash in
 ``container_uie_window_v3_t::destroy_window()`` if it’s called when the window
 has already been destroyed, or was never created.
 
-Version 7.0.0-beta.2
---------------------
+**********************
+ Version 7.0.0-beta.2
+**********************
 
 New in this version
-~~~~~~~~~~~~~~~~~~~
+===================
 
 This version adds an option to :class:`uie::container_window_v3` to disable the
 forwarding of ``WM_SETTINGCHANGE`` messages to direct child windows.
@@ -157,15 +164,16 @@ forwarding of ``WM_SETTINGCHANGE`` messages to direct child windows.
 This is useful when hosting the Win32 toolbar control as it can misbehave when
 handling this message.
 
-Version 7.0.0-beta.1
---------------------
+**********************
+ Version 7.0.0-beta.1
+**********************
 
 This version of the Columns UI SDK requires Visual Studio 2022.
 
 The project file was also renamed ``columns_ui-sdk-public.vcxproj``.
 
 New in this version
-~~~~~~~~~~~~~~~~~~~
+===================
 
 This version adds:
 
@@ -184,7 +192,7 @@ This version adds:
 - :func:`uie::win32::paint_background_using_parent()`
 
 Renamed namespaces
-~~~~~~~~~~~~~~~~~~
+==================
 
 - The ``ui_extension`` namespace was renamed ``uie``
 - The ``columns_ui`` namespace was renamed ``cui``
@@ -192,7 +200,7 @@ Renamed namespaces
 Aliases exist for the old names for backwards compatibility.
 
 Deprecated in this version
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+==========================
 
 The following classes were deprecated:
 
@@ -215,7 +223,7 @@ The following functions were deprecated:
 - :func:`win32_helpers::tooltip_add_tool()`
 
 Removed in this version
-~~~~~~~~~~~~~~~~~~~~~~~
+=======================
 
 Example components are no longer bundled with the SDK. These are now published
 on GitHub:

@@ -1,5 +1,6 @@
-Using fonts
-===========
+#############
+ Using fonts
+#############
 
 Columns UI features centralised configuration of fonts on its Fonts preferences
 page. This allows fonts for different parts of the UI to be configured in one
@@ -8,8 +9,9 @@ place.
 Third-party panel components can add their own entries to the Fonts preferences
 page and they can query the current configuration.
 
-Adding a new entry
-------------------
+********************
+ Adding a new entry
+********************
 
 To add a new element to the Columns UI Fonts preferences page, you need to
 implement a :class:`cui::fonts::client` service and register it using the
@@ -20,11 +22,12 @@ For an example of this, see `the Console panel source`_.
 A single component can add multiple entries by implementing
 :class:`cui::fonts::client` multiple times, each with a different client GUID.
 
-Querying fonts
---------------
+****************
+ Querying fonts
+****************
 
 GDI
-~~~
+===
 
 :func:`cui::fonts::create_hfont_with_fallback()` can be used to create an
 ``HFONT`` for a particular font client, while
@@ -33,7 +36,7 @@ GDI
 utility functions for other scenarios in the :cpp:type:`cui::fonts` namespace.
 
 DirectWrite
-~~~~~~~~~~~
+===========
 
 Panels using DirectWrite can use :func:`cui::fonts::get_font()` to retrieve a
 :class:`cui::fonts::font` instance. The
@@ -51,7 +54,7 @@ If a compatible version of Columns UI isn’t installed,
 logic should be implemented for this scenario.
 
 Common fonts
-~~~~~~~~~~~~
+============
 
 It’s also possible to pass the ID of a common font (i.e.
 :var:`cui::fonts::items_font_id` or :var:`cui::fonts::labels_font_id`) rather
@@ -60,10 +63,10 @@ sections. However, given the ease of implementing a font client to add a custom
 entry, it’s not generally recommended to use the common fonts directly.
 
 Rendering text using DirectWrite
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+================================
 
 Rendering using Direct2D
-++++++++++++++++++++++++
+------------------------
 
 Below is a simplified guide to using the font API with Direct2D. Error handling
 is omitted, as is general Direct2D set-up and rendering code.
@@ -75,7 +78,7 @@ Refer to the Direct2D documentation for more general information on how to use
 Direct2D (for example, the `Create a simple Direct2D application`_ article).
 
 1. Create a text format and query rendering options
-...................................................
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When your panel window is created, and when the
 :func:`cui::fonts::client::on_font_changed()` method of your font client is
@@ -113,7 +116,7 @@ options:
     }
 
 2. Create a text layout
-.......................
+^^^^^^^^^^^^^^^^^^^^^^^
 
 Whenever the text being rendered changes, create a new DirectWrite text layout:
 
@@ -141,7 +144,7 @@ Whenever the text being rendered changes, create a new DirectWrite text layout:
     }
 
 3. Render text using Direct2D
-.............................
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Within your Direct2D rendering logic, render the text layout with the correct
 rendering parameters:
@@ -174,7 +177,7 @@ rendering parameters:
     }
 
 Rendering directly to a GDI device context
-++++++++++++++++++++++++++++++++++++++++++
+------------------------------------------
 
 If you wish to render text using DirectWrite directly to a GDI device context
 (without using Direct2D), you’ll need to implement a custom IDWriteTextRenderer_

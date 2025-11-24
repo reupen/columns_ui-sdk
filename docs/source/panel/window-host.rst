@@ -1,17 +1,20 @@
-Window host
-===========
+#############
+ Window host
+#############
 
 These interfaces are used by components that can host other panels and toolbars.
 
-Window host
------------
+*************
+ Window host
+*************
 
 .. doxygenclass:: uie::window_host
 
 .. doxygenclass:: uie::window_host_with_control
 
-Factories
----------
+***********
+ Factories
+***********
 
 .. doxygenclass:: uie::window_host_factory
 
@@ -19,8 +22,9 @@ Factories
 
 .. doxygenclass:: uie::window_host_factory_transparent_single
 
-Constants
----------
+***********
+ Constants
+***********
 
 .. doxygenenum:: uie::size_limit_flag_t
 

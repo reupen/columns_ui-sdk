@@ -1,5 +1,6 @@
-FCL files
-=========
+###########
+ FCL files
+###########
 
 .. doxygenclass:: cui::fcl::dataset
 

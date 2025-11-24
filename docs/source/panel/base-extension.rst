@@ -1,4 +1,5 @@
-Base extension
-==============
+################
+ Base extension
+################
 
 .. doxygenclass:: uie::extension_base

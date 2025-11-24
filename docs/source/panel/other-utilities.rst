@@ -1,5 +1,6 @@
-Other utilities
-===============
+#################
+ Other utilities
+#################
 
 These functions can help when working with panels.
 

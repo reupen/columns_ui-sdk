@@ -1,17 +1,21 @@
-Window identifiers
-==================
+####################
+ Window identifiers
+####################
 
-Built-in panels
----------------
+*****************
+ Built-in panels
+*****************
 
 .. doxygennamespace:: cui::panels
 
-Built-in toolbars
------------------
+*******************
+ Built-in toolbars
+*******************
 
 .. doxygennamespace:: cui::toolbars
 
-Built-in visualisations
------------------------
+*************************
+ Built-in visualisations
+*************************
 
 .. doxygennamespace:: cui::visualisations

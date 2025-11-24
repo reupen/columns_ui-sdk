@@ -1,10 +1,12 @@
-Implementation helpers
-======================
+########################
+ Implementation helpers
+########################
 
 These classes and functions can be used to make implementing panels easier.
 
-Container window
-----------------
+******************
+ Container window
+******************
 
 .. doxygenstruct:: uie::container_window_v3_config
 
@@ -14,7 +16,8 @@ Container window
 
 .. doxygentypedef:: uie::container_uie_window_v3
 
-Functions
----------
+***********
+ Functions
+***********
 
 .. doxygenfunction:: uie::win32::paint_background_using_parent
