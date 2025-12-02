@@ -1,5 +1,6 @@
-Title formatting
-================
+##################
+ Title formatting
+##################
 
 .. doxygenclass:: cui::titleformat_hook_global_variables
 

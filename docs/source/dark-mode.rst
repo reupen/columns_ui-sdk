@@ -1,5 +1,6 @@
-Dark mode
-=========
+###########
+ Dark mode
+###########
 
 Columns UI 2.0.0 and newer feature an optional dark mode on Windows 10 version
 2004 and newer.
@@ -22,8 +23,9 @@ Some common controls have a native dark mode that can also be activated using
 - ``DarkMode_Explorer``
 - ``DarkMode_CFD``
 
-Handling dynamic dark mode changes
-----------------------------------
+************************************
+ Handling dynamic dark mode changes
+************************************
 
 If you have an existing :class:`cui::colours::client` implementation, you
 should:
@@ -75,8 +77,9 @@ changes. For example:
         m_dark_mode_notifier.reset();
         return 0;
 
-Painting panel backgrounds
---------------------------
+****************************
+ Painting panel backgrounds
+****************************
 
 While many panels will automatically use the background colour configured in
 Columns UI, there are some additional considerations to avoid glitches e.g. when
@@ -106,8 +109,9 @@ colour in both light and dark modes). If this applies, you should be able to
 migrate to :class:`uie::container_uie_window_v3_t` with a transparent background
 to avoid ``COLOR_BTNFACE`` showing through when resizing panels.
 
-Custom button images
---------------------
+**********************
+ Custom button images
+**********************
 
 If you have an implementation of :class:`uie::button_v2`, you should generally
 make :func:`uie::button_v2::get_item_bitmap` vary the image returned according

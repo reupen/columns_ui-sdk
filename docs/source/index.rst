@@ -1,15 +1,17 @@
 .. include:: toc.rst
 
-Getting started
-===============
+#################
+ Getting started
+#################
 
 The Columns UI SDK provides interfaces you can use to:
 
 - create windows controlled by a host and embedded in the host’s window
 - provide information about commands to be used as a toolbar button
 
-Installation
-------------
+**************
+ Installation
+**************
 
 You’ll need:
 
@@ -19,15 +21,17 @@ You’ll need:
 To install, `download the SDK`_ and extract the archive alongside the foobar2000
 subdirectory of your foobar2000 SDK.
 
-Usage
------
+*******
+ Usage
+*******
 
 Insert the columns_ui-sdk project into your solution, and add it as a dependency
 for your project. Then ``#include "columns_ui-sdk/ui_extension.h"`` in your
 project as needed.
 
-Examples
---------
+**********
+ Examples
+**********
 
 Two examples are published on GitHub:
 
@@ -35,11 +39,12 @@ Two examples are published on GitHub:
   context menu item
 - `Console panel`_ – a console viewer
 
-Panel APIs
-----------
+************
+ Panel APIs
+************
 
 APIs
-~~~~
+====
 
 Components wishing to provide a panel or toolbar should implement
 :class:`uie::window`. Specific subclasses exist for:
@@ -52,7 +57,7 @@ Components wishing to host panels and toolbars should implement
 :class:`uie::window_host`.
 
 Helpers
-~~~~~~~
+=======
 
 :type:`uie::container_uie_window_v3` aims to simplify the implementation of a
 panel or toolbar, creating a window for you and partially implementing
@@ -60,11 +65,12 @@ panel or toolbar, creating a window for you and partially implementing
 components, or you wish to also allow your panel to be opened as a pop-up
 window.
 
-Button APIs
------------
+*************
+ Button APIs
+*************
 
 APIs
-~~~~
+====
 
 The base class for buttons is :class:`uie::button`.
 
@@ -73,7 +79,7 @@ items, derive from :class:`uie::menu_button`. If you wish to implement a custom
 button not based upon a menu item, derive from :class:`uie::custom_button`.
 
 Standard windows
-~~~~~~~~~~~~~~~~
+================
 
 The GUIDs for the standard panels may be found in the :type:`cui::panels`
 namespace. The GUIDs for the standard toolbars may be found in the

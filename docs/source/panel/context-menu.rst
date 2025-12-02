@@ -1,11 +1,13 @@
-Context menu
-============
+##############
+ Context menu
+##############
 
 These interfaces are used to implement context menu items for panels and
 toolbars.
 
-Node
-----
+******
+ Node
+******
 
 .. doxygenclass:: uie::menu_node_t
 
@@ -19,8 +21,9 @@ Node
 
 .. doxygenclass:: uie::menu_node_configure
 
-Node receiver
--------------
+***************
+ Node receiver
+***************
 
 .. doxygenclass:: uie::menu_hook_t
 

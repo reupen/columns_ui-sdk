@@ -1,5 +1,6 @@
-Settings
-========
+##########
+ Settings
+##########
 
 .. doxygennamespace:: cui::config_objects
 

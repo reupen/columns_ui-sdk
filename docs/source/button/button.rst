@@ -1,11 +1,13 @@
-Button
-======
+########
+ Button
+########
 
 These interfaces are used to implement custom buttons for the Columns UI buttons
 toolbar.
 
-Constants
----------
+***********
+ Constants
+***********
 
 .. doxygenenum:: uie::t_button_guid
 
@@ -15,8 +17,9 @@ Constants
 
 .. doxygenenum:: uie::t_mask
 
-Interfaces
-----------
+************
+ Interfaces
+************
 
 .. doxygenclass:: uie::button
 
@@ -28,7 +31,8 @@ Interfaces
 
 .. doxygenclass:: uie::button_callback
 
-Factories
----------
+***********
+ Factories
+***********
 
 .. doxygenclass:: uie::button_factory

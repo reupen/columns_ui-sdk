@@ -1,10 +1,12 @@
-Splitter window
-===============
+#################
+ Splitter window
+#################
 
 These interfaces are used to implement panels that can host other panels.
 
-Splitter
---------
+**********
+ Splitter
+**********
 
 .. doxygenclass:: uie::splitter_window
 
@@ -12,8 +14,9 @@ Splitter
 
 .. doxygenclass:: uie::splitter_window_v3
 
-Splitter items
---------------
+****************
+ Splitter items
+****************
 
 .. doxygenclass:: uie::splitter_item_t
 
