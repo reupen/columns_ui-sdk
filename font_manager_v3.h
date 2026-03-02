@@ -72,8 +72,7 @@ public:
      * returned by rendering_mode() and use_greyscale_antialiasing() value.
      */
     [[nodiscard]] virtual HRESULT create_rendering_params(
-        IDWriteFactory* factory, HMONITOR monitor, IDWriteRenderingParams** rendering_params) const noexcept
-        = 0;
+        IDWriteFactory* factory, HMONITOR monitor, IDWriteRenderingParams** rendering_params) const noexcept = 0;
 
 #ifdef __WIL_COM_INCLUDED
     wil::com_ptr<IDWriteRenderingParams> create_wil_rendering_params(IDWriteFactory* factory, HMONITOR monitor) const
@@ -207,8 +206,7 @@ private:
 class NOVTABLE font : public service_base {
 public:
     [[nodiscard]] virtual const wchar_t* family_name(
-        font_family_model font_family_model = font_family_model::automatic) noexcept
-        = 0;
+        font_family_model font_family_model = font_family_model::automatic) noexcept = 0;
     [[nodiscard]] virtual DWRITE_FONT_WEIGHT weight() noexcept = 0;
     [[nodiscard]] virtual DWRITE_FONT_STRETCH stretch() noexcept = 0;
     [[nodiscard]] virtual DWRITE_FONT_STYLE style() noexcept = 0;
@@ -268,8 +266,7 @@ public:
 #else
         IUnknown** font_fallback
 #endif
-        ) noexcept
-        = 0;
+        ) noexcept = 0;
 
     /**
      * Create a DirectWrite text format for this font.
@@ -280,8 +277,7 @@ public:
      * alignment, paragraph alignment, word wrapping and other options according to your needs.
      */
     [[nodiscard]] virtual HRESULT create_text_format(
-        IDWriteTextFormat** text_format, const wchar_t* locale_name = L"") noexcept
-        = 0;
+        IDWriteTextFormat** text_format, const wchar_t* locale_name = L"") noexcept = 0;
 
     /**
      * Retrieves text rendering options.
@@ -363,8 +359,7 @@ public:
 #else
         IUnknown** font_fallback
 #endif
-        ) noexcept
-        = 0;
+        ) noexcept = 0;
 
     /**
      * Set the font size for a client font.
