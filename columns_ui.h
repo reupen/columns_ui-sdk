@@ -294,16 +294,14 @@ public:
      * \param [in]	type	Specifies export mode. See t_fcl_type.
      */
     virtual void get_data(
-        stream_writer* p_writer, t_uint32 type, t_export_feedback& feedback, abort_callback& p_abort) const
-        = 0;
+        stream_writer* p_writer, t_uint32 type, t_export_feedback& feedback, abort_callback& p_abort) const = 0;
     /**
      * Sets your data for an import.
      *
      * \param [in]	type	Specifies export mode. See t_fcl_type.
      */
     virtual void set_data(
-        stream_reader* p_reader, t_size size, t_uint32 type, t_import_feedback& feedback, abort_callback& p_abort)
-        = 0;
+        stream_reader* p_reader, t_size size, t_uint32 type, t_import_feedback& feedback, abort_callback& p_abort) = 0;
 
     /**
      * Helper function. Retrieves your data for an export.

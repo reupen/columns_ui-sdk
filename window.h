@@ -195,8 +195,7 @@ public:
      * \return                        Window handle of the panel or toolbar window
      */
     virtual HWND create_or_transfer_window(HWND wnd_parent, const window_host_ptr& p_host,
-        const ui_helpers::window_position_t& p_position = ui_helpers::window_position_null)
-        = 0;
+        const ui_helpers::window_position_t& p_position = ui_helpers::window_position_null) = 0;
 
     /**
      * \brief Destroy the window.
