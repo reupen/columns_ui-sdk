@@ -61,21 +61,39 @@ constexpr GUID guid_global_variables{0x493d419a, 0xcbb3, 0x4b8a, {0x8f, 0xb8, 0x
  * \see See config_object, config_object_notify and config_object_notify_impl_simple
  */
 namespace config_objects {
+
 constexpr GUID guid_bool_locked_panel_resizing_allowed{
     0x3a0ef00a, 0xd538, 0x4470, {0x9a, 0x18, 0xdc, 0xf8, 0x22, 0xcc, 0x96, 0x73}};
 
+constexpr GUID guid_bool_use_smooth_scrolling{
+    0xcd15cb5d, 0x95f8, 0x4b09, {0xae, 0x3f, 0x0e, 0x3a, 0x50, 0x12, 0x71, 0xf0}};
+
 /**
- * \brief Gets whether resizing of locked panels should be allowed.
+ * \brief Get whether resizing of locked panels should be allowed.
  *
  * \remarks
  * - In Columns UI 0.5.1 and older, this always returns true.
  *
- * \return Current value of 'Allow locked panel resizing' setting.
+ * \return Current value of the ‘Allow resizing of locked panels’ setting.
  */
 inline bool get_locked_panel_resizing_allowed()
 {
     return config_object::g_get_data_bool_simple(guid_bool_locked_panel_resizing_allowed, true);
 }
+
+/**
+ * \brief Get whether smooth scrolling is enabled in Columns UI preferences.
+ *
+ * \remarks
+ * - In Columns UI 3.3.0 and older, this always returns false.
+ *
+ * \return Current value of the ‘Use smooth (animated) scrolling’ setting.
+ */
+inline bool get_use_smooth_scrolling()
+{
+    return config_object::g_get_data_bool_simple(guid_bool_use_smooth_scrolling, false);
+}
+
 } // namespace config_objects
 
 /**
@@ -86,7 +104,7 @@ inline bool get_locked_panel_resizing_allowed()
  */
 class NOVTABLE control : public service_base {
 public:
-    /** \brief Retrieves a string from Columns UI */
+    /** \brief Retrieve a string from Columns UI */
     virtual bool get_string(const GUID& p_guid, pfc::string_base& p_out) const = 0;
 
     FB2K_MAKE_SERVICE_INTERFACE_ENTRYPOINT(control);
