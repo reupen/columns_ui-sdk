@@ -14,6 +14,11 @@ The following functions were added:
 
 - :func:`uie::utils::remap_category()`
 - :func:`uie::utils::get_remapped_category()`
+- :func:`cui::config_objects::get_use_smooth_scrolling()`
+
+The following named constants were added:
+
+- :var:`cui::config_objects::guid_bool_use_smooth_scrolling`
 
 ***************
  Version 8.0.0
