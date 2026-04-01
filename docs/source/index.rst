@@ -78,6 +78,22 @@ If you wish to provide default bitmaps and additional information for your menu
 items, derive from :class:`uie::menu_button`. If you wish to implement a custom
 button not based upon a menu item, derive from :class:`uie::custom_button`.
 
+Exception handling
+==================
+
+Implementations of virtual functions are not expected to throw C++ exceptions
+unless the documentation for the method mentions that exceptions may be thrown.
+It’s recommended that you declare implementations of virtual functions as
+noexcept_ when exceptions are not expected.
+
+Additionally, callback functions that are passed to the Win32 API, such as
+window procedures, are generally not expected to throw C++ exceptions and hence
+declaring them noexcept_ is recommended.
+
+noexcept_ will cause `std::terminate()`_ to be called if the function does throw
+an exception. This will result in an immediate crash, rather than allowing the
+exception to escape and cause messier crashes or other problems.
+
 Standard windows
 ================
 
@@ -97,3 +113,7 @@ not use them as GUIDs for your own windows.
 .. _foobar2000 sdk: http://www.foobar2000.org/SDK
 
 .. _microsoft visual studio 2022: https://visualstudio.microsoft.com/downloads/
+
+.. _noexcept: https://en.cppreference.com/w/cpp/language/noexcept_spec.html
+
+.. _std::terminate(): https://en.cppreference.com/w/cpp/error/terminate.html
