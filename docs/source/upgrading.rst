@@ -2,9 +2,9 @@
  Upgrading the SDK
 ###################
 
-*********************
- Development version
-*********************
+***************
+ Version 8.1.0
+***************
 
 The following service was added:
 

@@ -192,7 +192,7 @@ public:
      * \param [in]    p_host            Pointer to the host that creates the extension.
      *                                This parameter may not be NULL.
      * \param [in]    p_position        Initial position of the window
-     * \return                        Window handle of the panel or toolbar window
+     * \return                        Window handle of the panel or toolbar window, or `nullptr` on failure
      */
     virtual HWND create_or_transfer_window(HWND wnd_parent, const window_host_ptr& p_host,
         const ui_helpers::window_position_t& p_position = ui_helpers::window_position_null) = 0;
