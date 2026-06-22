@@ -18,7 +18,7 @@ repos:
       - id: prettier
         types_or: [json, markdown, yaml]
   - repo: https://github.com/LilSpazJoekp/docstrfmt
-    rev: v2.1.1
+    rev: v2.2.0
     hooks:
       - id: docstrfmt
         types_or: [rst]
