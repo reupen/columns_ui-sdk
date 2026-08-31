@@ -18,14 +18,14 @@ repos:
       - id: prettier
         types_or: [json, markdown, yaml]
   - repo: https://github.com/LilSpazJoekp/docstrfmt
-    rev: v2.2.0
+    rev: v2.2.1
     hooks:
       - id: docstrfmt
         types_or: [rst]
         args:
           - -l 80
   - repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: v22.1.8
+    rev: v23.1.0
     hooks:
       - id: clang-format
         types_or: [c++]
