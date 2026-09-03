@@ -102,8 +102,8 @@ enum size_limit_flag_t {
     /** The maximum height changed. */
     size_limit_maximum_height = (1 << 3),
     /** All size limits changed. */
-    size_limit_all
-        = size_limit_minimum_width | size_limit_maximum_width | size_limit_minimum_height | size_limit_maximum_height,
+    size_limit_all = size_limit_minimum_width | size_limit_maximum_width | size_limit_minimum_height
+        | size_limit_maximum_height,
 };
 
 /**
